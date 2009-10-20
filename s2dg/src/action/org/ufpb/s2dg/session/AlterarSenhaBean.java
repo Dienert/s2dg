@@ -154,7 +154,7 @@ public void botaoPressionado2(){
 	}
 
 	public void setClicou(boolean clicou) {
-		this.clicou = clicou;;
+		this.clicou = clicou;
 	}
 	
 	public void cancelar() {
