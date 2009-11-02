@@ -10,6 +10,7 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.ufpb.s2dg.entity.Global;
 
+
 @AutoCreate
 @Name("globalDAO")
 public class GlobalDAO {
@@ -25,11 +26,13 @@ public class GlobalDAO {
 	
 	public Global getGlobal() {
 		Query query = entityManager.createQuery(
-    		"select global from Global as global");
+    		"select global from Global global");
 		ArrayList<Global> result = (ArrayList<Global>) query.getResultList();
 		if (result.size() > 0)
 			return result.get(0);
 		return null;
+		
+
 	}
 
 }

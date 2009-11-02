@@ -16,7 +16,7 @@ public class AlterarSenhaBean {
 	@In
     Fachada fachada;
 	@In
-	FacesContext facesContext;
+	FacesContext facesContext;;
 	
 	@In
 	MenuAction MenuAction;
