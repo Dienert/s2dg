@@ -1,5 +1,6 @@
 package org.ufpb.s2dg.session;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
@@ -36,8 +37,13 @@ import org.ufpb.s2dg.entity.AlunoTurma.Situacao;
 @Name("matriculaBean")
 @Scope(ScopeType.PAGE)
 @AutoCreate
-public class MatriculaBean {
+public class MatriculaBean implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	
 	List<Turma> turmasAptas = new ArrayList<Turma>();
 	List<Turma> turmasSelecionadas = new ArrayList<Turma>();
 	HashMap<Turma, Oferta> ofertas = new HashMap<Turma, Oferta>();
@@ -399,6 +405,25 @@ public class MatriculaBean {
 				return false;
 		}
 		return false;
+	}
+	
+	public boolean podeFazerTrancamento(){
+		return true;
+		/*
+		if(fachada.getAluno().getSituacaoAcademica() != SituacaoAcademica.REGULAR)
+			return false;
+		Calendario calendario = fachada.getCalendario();
+		if(calendario != null) {
+			Date inicioPeriodo = calendario.getInicioPeriodo();
+			Date fimPeriodoTrancamento = calendario.getUltimoDiaTrancamento();
+			Date hoje = getDataAtual();
+			if((hoje.compareTo(inicioPeriodo) >= 0)&&(hoje.compareTo(fimPeriodoTrancamento) <= 0))
+				return true;
+			else
+				return false;
+		}
+		return false;
+		*/
 	}
 	
 	public Date getDataAtual() {  

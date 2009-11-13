@@ -1,5 +1,7 @@
 package org.ufpb.s2dg.session;
 
+import java.io.Serializable;
+
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.In;
@@ -12,8 +14,13 @@ import org.ufpb.s2dg.entity.Aluno.SituacaoAcademica;
 @Name("alunoBean")
 @Scope(ScopeType.SESSION)
 @AutoCreate
-public class AlunoBean {
+public class AlunoBean implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -5894649877592598337L;
+
 	private Aluno aluno;
 	
 	@In

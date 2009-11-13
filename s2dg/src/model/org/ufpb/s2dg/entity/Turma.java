@@ -18,6 +18,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
+import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @Table(name = "turma")
@@ -36,6 +37,7 @@ public class Turma implements java.io.Serializable {
 	private Set<Oferta> ofertas;
 	private Set<Horario> horarios;
 	private Set<Sala> salas = new HashSet<Sala>(0);
+	private Set<Aula> aulas;
 	
 	public Turma() {
 	}
@@ -181,6 +183,15 @@ public class Turma implements java.io.Serializable {
 
 	public void setHorarios(Set<Horario> horarios) {
 		this.horarios = horarios;
+	}
+
+	public void setAulas(Set<Aula> aulas) {
+		this.aulas = aulas;
+	}
+
+	@OneToMany(fetch=EAGER)
+	public Set<Aula> getAulas() {
+		return aulas;
 	}
 	
 }

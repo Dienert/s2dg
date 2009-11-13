@@ -1,5 +1,6 @@
 package org.ufpb.s2dg.session;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,11 +12,17 @@ import org.jboss.seam.annotations.Scope;
 import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.Disciplina;
 import org.ufpb.s2dg.entity.Turma;
+import org.ufpb.s2dg.entity.AlunoTurma.Situacao;
 
 @Name("alunoTurmaBean")
 @Scope(ScopeType.SESSION)
 @AutoCreate
-public class AlunoTurmaBean {
+public class AlunoTurmaBean implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8355040116692086316L;
 
 	private AlunoTurma alunoTurma;
 	
@@ -51,6 +58,10 @@ public class AlunoTurmaBean {
 			return list;
 		}
 		else return null;
+	}
+	
+	public void trancamentoParcial(){
+		alunoTurma.setSituacao(Situacao.TRANCADO);
 	}
 	
 }

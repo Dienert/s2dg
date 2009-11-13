@@ -22,7 +22,13 @@ import org.hibernate.validator.NotNull;
 public class Professor implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
+	@Id
+	@Column(name = "matricula", unique = true, nullable = false, length = 15)
+	@NotNull
+	@Length(max = 15)
 	private String matricula;
+	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+	@JoinTable(name = "professor_turma", schema = "public", joinColumns = { @JoinColumn(name = "matricula_docente", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "turma_id", nullable = false, updatable = false) })
 	private Set<Turma> turmas = new HashSet<Turma>(0);
 	@OneToOne(mappedBy="professor")
 	private Usuario usuario;
@@ -39,10 +45,7 @@ public class Professor implements java.io.Serializable {
 		this.turmas = turmas;
 	}
 
-	@Id
-	@Column(name = "matricula", unique = true, nullable = false, length = 15)
-	@NotNull
-	@Length(max = 15)
+	
 	public String getMatricula() {
 		return this.matricula;
 	}
@@ -51,8 +54,7 @@ public class Professor implements java.io.Serializable {
 		this.matricula = matricula;
 	}
 
-	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-	@JoinTable(name = "professor_turma", schema = "public", joinColumns = { @JoinColumn(name = "matricula_docente", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "turma_id", nullable = false, updatable = false) })
+	
 	public Set<Turma> getTurmas() {
 		return this.turmas;
 	}

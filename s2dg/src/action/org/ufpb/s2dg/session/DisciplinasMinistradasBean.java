@@ -1,5 +1,6 @@
 package org.ufpb.s2dg.session;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.jboss.seam.ScopeType;
@@ -14,8 +15,12 @@ import org.ufpb.s2dg.entity.Turma;
 @Name("disciplinasMinistradasBean")
 @Scope(ScopeType.SESSION)
 @AutoCreate
-public class DisciplinasMinistradasBean {
+public class DisciplinasMinistradasBean implements Serializable {
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -4558965920293031896L;
 	private List<DisciplinaTurmas> turmasPorDisciplina;
 	@In
 	Fachada fachada;

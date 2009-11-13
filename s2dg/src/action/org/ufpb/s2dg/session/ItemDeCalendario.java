@@ -7,7 +7,10 @@ import org.richfaces.model.CalendarDataModelItem;
 public class ItemDeCalendario implements CalendarDataModelItem, Serializable {
 	private Object data;
 	private int day;
+	private TipoData tipo;
+
 	private static final long serialVersionUID = 1L;
+	public enum TipoData implements Serializable { DIA_LETIVO, DIA_AULA_DISCIPLINA ,  EVENTO_PERIODO, AVALIACAO, FERIADO }
 	
 	public ItemDeCalendario(int dia) {
 		data = "";
@@ -17,6 +20,12 @@ public class ItemDeCalendario implements CalendarDataModelItem, Serializable {
 	public ItemDeCalendario(String eventos, int dia) {
 		data = eventos;
 		day = dia;
+	}
+	
+	public ItemDeCalendario(String eventos, int dia, TipoData tipo) {
+		data = eventos;
+		day = dia;
+		this.tipo = tipo;
 	}
 	
 	public Object getData() {
@@ -38,8 +47,8 @@ public class ItemDeCalendario implements CalendarDataModelItem, Serializable {
 	}
 
 	public String getStyleClass() {
-		// TODO Auto-generated method stub
-		return null;
+		if (tipo == null) return null;
+		return "ic_" + tipo.toString().toLowerCase();
 	}
 
 	public Object getToolTip() {
@@ -55,5 +64,13 @@ public class ItemDeCalendario implements CalendarDataModelItem, Serializable {
 	public boolean isEnabled() {
 		// TODO Auto-generated method stub
 		return false;
+	}
+	
+	public void setTipo(TipoData tipo){
+		this.tipo = tipo;
+	}
+	
+	public TipoData getTipo() {
+		return tipo;
 	}
 }

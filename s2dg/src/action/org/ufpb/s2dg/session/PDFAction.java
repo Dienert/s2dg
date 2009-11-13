@@ -4,6 +4,7 @@ import java.awt.Color;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.MalformedURLException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -42,8 +43,13 @@ import com.lowagie.text.pdf.PdfWriter;
 @Name("pdfAction")
 @AutoCreate
 @Scope(ScopeType.PAGE)
-public class PDFAction {
+public class PDFAction implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	@In(create=true)
 	AlunoTurmaAvaliacoesBean alunoTurmaAvaliacoesBean;
 	

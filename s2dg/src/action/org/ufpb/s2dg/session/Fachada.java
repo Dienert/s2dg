@@ -1,5 +1,6 @@
 package org.ufpb.s2dg.session;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
@@ -45,8 +46,12 @@ import org.ufpb.s2dg.session.persistence.UsuarioDAO;
 @Name("fachada")
 @Scope(ScopeType.SESSION)
 @AutoCreate
-public class Fachada {
+public class Fachada implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8622239731631410022L;
 	@In
 	private UsuarioDAO usuarioDAO;
 	@In

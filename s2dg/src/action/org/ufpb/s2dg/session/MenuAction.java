@@ -1,5 +1,7 @@
 package org.ufpb.s2dg.session;
 
+import java.io.Serializable;
+
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.Name;
@@ -8,8 +10,13 @@ import org.jboss.seam.annotations.Scope;
 @Name("MenuAction")
 @Scope(ScopeType.SESSION)
 @AutoCreate
-public class MenuAction {
-	
+public class MenuAction implements Serializable {
+
+	/**
+	 * 
+	 */											
+	private static final long serialVersionUID = -396395780804966001L;
+
 	//Menu Discente
 	public int Id_Menu = 0;
 

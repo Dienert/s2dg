@@ -17,8 +17,9 @@ import javax.persistence.Table;
 @Table(name = "horario")
 public class Horario implements Serializable {
 
-	public enum Dia {SEG, TER, QUA, QUI, SEX, SAB, DOM}
-	
+	// TODO Se der pau na ordem, alterar de volta para domingo no final
+	//public enum Dia { SEG, TER, QUA, QUI, SEX, SAB, DOM}
+	public enum Dia {DOM, SEG, TER, QUA, QUI, SEX, SAB}
 	private static final long serialVersionUID = 1L;
 	private long id;
 	private Dia dia;
@@ -134,6 +135,48 @@ public class Horario implements Serializable {
 		if(m2.length() == 1)
 			m2 = '0' + m2;
 		return dia+", "+h1+":"+m1+" - "+h2+":"+m2;
+	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((dia == null) ? 0 : dia.hashCode());
+		result = prime * result + horaFim;
+		result = prime * result + horaInicio;
+		result = prime * result + minutoFim;
+		result = prime * result + minutoInicio;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Horario other = (Horario) obj;
+		if (dia == null) {
+			if (other.dia != null)
+				return false;
+		} else if (!dia.equals(other.dia))
+			return false;
+		if (horaFim != other.horaFim)
+			return false;
+		if (horaInicio != other.horaInicio)
+			return false;
+		if (minutoFim != other.minutoFim)
+			return false;
+		if (minutoInicio != other.minutoInicio)
+			return false;
+		return true;
+	}
+	
+	public String horarioFormatado(){
+		return String.format("%d:%d - %d:%d", horaInicio,
+				minutoInicio, horaFim, minutoFim);
 	}
 	
 }

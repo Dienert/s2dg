@@ -1,5 +1,6 @@
 package org.ufpb.s2dg.session;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.jboss.seam.ScopeType;
@@ -15,7 +16,12 @@ import org.ufpb.s2dg.entity.Turma;
 @Name("avaliacoesBean")
 @Scope(ScopeType.SESSION)
 @AutoCreate
-public class AvaliacoesBean {
+public class AvaliacoesBean implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3811567638464304533L;
 
 	private List<Avaliacao> avaliacoes;
 	

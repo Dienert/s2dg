@@ -16,7 +16,10 @@
     </style>
 
     <h:form>
-        
+        <h:outputLink value="#" id="link">
+        Show Modal Panel 
+        <rich:componentControl for="panel" attachTo="link" operation="show" event="onclick"/>
+    </h:outputLink>
         <center>
         <rich:calendar popup="false" showApplyButton="false"
             cellWidth="100px" cellHeight="100px" mode="ajax"
@@ -33,9 +36,26 @@
                 <h:panelGrid columns="1">
                     <h:outputText value="{day}" style="align:center"/>
                     <h:outputText value="{data}"/>
+                    <a href="#" onclick="#{rich:component('panel')}.show()">|<u>Editar dia</u>|</a>
                 </h:panelGrid>
             </a4j:outputPanel>
         </rich:calendar>
         </center>
-    </h:form>
+            <rich:modalPanel id="panel" width="350" height="100">
+        <f:facet name="header">
+            <h:panelGroup>
+                <h:outputText value="Modal Panel"></h:outputText>
+            </h:panelGroup>
+        </f:facet>
+        <f:facet name="controls">
+            <h:panelGroup>
+                <h:graphicImage value="/img/del.png" styleClass="hidelink" id="hidelink"/>
+                <rich:componentControl for="panel" attachTo="hidelink" operation="hide" event="onclick"/>
+            </h:panelGroup>
+        </f:facet>
+        <h:outputText value="Painel Modal"></h:outputText>
+        <br/>
+        <h:outputText value="Inserir um form e talz"></h:outputText>
+    </rich:modalPanel>
+        </h:form>
 </ui:composition>

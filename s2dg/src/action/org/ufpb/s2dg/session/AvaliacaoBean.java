@@ -1,6 +1,8 @@
 package org.ufpb.s2dg.session;
 
 
+import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -16,8 +18,12 @@ import org.ufpb.s2dg.entity.Turma;
 @Name("avaliacaoBean")
 @Scope(ScopeType.PAGE)
 @AutoCreate
-public class AvaliacaoBean {
+public class AvaliacaoBean implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1505454885943337059L;
 	private Avaliacao avaliacao;
 	private boolean criarOuEditar;
 	private boolean avaliacaoVazia;

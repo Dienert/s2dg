@@ -1,5 +1,6 @@
 package org.ufpb.s2dg.session;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.LinkedList;
@@ -22,7 +23,12 @@ import org.ufpb.s2dg.session.persistence.AlunoDAO;
 @Name("turmasMatriculadasBean")
 @Scope(ScopeType.SESSION)
 @AutoCreate
-public class TurmasMatriculadasBean {
+public class TurmasMatriculadasBean implements Serializable{
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 
 	private List<AlunoTurma> alunoTurmas;
 	

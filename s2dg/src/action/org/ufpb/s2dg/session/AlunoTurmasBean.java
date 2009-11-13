@@ -1,5 +1,6 @@
 package org.ufpb.s2dg.session;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -16,11 +17,17 @@ import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.AlunoTurmaAvaliacao;
 import org.ufpb.s2dg.entity.Avaliacao;
 import org.ufpb.s2dg.entity.Turma;
+import org.ufpb.s2dg.entity.AlunoTurma.Situacao;
 
 @Name("alunoTurmasBean")
 @Scope(ScopeType.SESSION)
 @AutoCreate
-public class AlunoTurmasBean {
+public class AlunoTurmasBean implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 5845872799300607390L;
 
 	private List<AlunoTurma> alunoTurmas;
 	
@@ -90,6 +97,11 @@ public class AlunoTurmasBean {
 				alunoTurmas.get(i).setMedia(somaNota/somaPeso);
 			}
 		}
+	}
+	
+	public void trancamentoTotal(){
+		for(AlunoTurma alunoTurma : alunoTurmas)
+			alunoTurma.setSituacao(Situacao.TRANCADO);
 	}
 	
 }

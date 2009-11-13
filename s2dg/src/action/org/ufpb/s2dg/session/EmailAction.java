@@ -2,6 +2,7 @@ package org.ufpb.s2dg.session;
 
 import java.awt.HeadlessException;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
@@ -29,8 +30,12 @@ import org.ufpb.s2dg.entity.Usuario;
 @Name("emailAction")
 @AutoCreate
 @Scope(ScopeType.PAGE)
-public class EmailAction {
+public class EmailAction implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 3475934514143309586L;
 	private static final String SMTP_HOST_NAME = "smtp.gmail.com";
     private static final String SMTP_AUTH_USER = "es.s2dg";
     private static final String SMTP_AUTH_PWD  = "engenharia";

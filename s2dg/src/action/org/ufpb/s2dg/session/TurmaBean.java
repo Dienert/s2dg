@@ -1,5 +1,6 @@
 package org.ufpb.s2dg.session;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -19,8 +20,12 @@ import org.ufpb.s2dg.entity.Turma;
 @Name("turmaBean")
 @Scope(ScopeType.SESSION)
 @AutoCreate
-public class TurmaBean {
+public class TurmaBean implements Serializable{
 
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
 	Turma turma;
 	@In
 	Fachada fachada;

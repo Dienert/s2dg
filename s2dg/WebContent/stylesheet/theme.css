@@ -381,3 +381,35 @@ td.action a {
 	padding-left: 1px;
 	padding-right: 1px;
 }
+
+.bla {
+	background-color: lime;
+}
+
+/* Itens de Calendario: ic_{tipo do evento} 
+ * Indica a coloracao de cada item do calendario */
+ 
+.ic_dia_letivo{
+	background-color: white;
+	color: black;
+}
+
+.ic_avaliacao{
+	background-color: #FF3333;
+	color: white;
+}
+
+.ic_feriado{
+	background-color: #3399FF;
+	color: white;
+}
+
+.ic_evento_periodo{
+	background-color: #FFFFCC;
+	color: black;
+}
+
+.ic_dia_aula_disciplina{
+	background-color: #CCFF99;
+	color: black;
+}

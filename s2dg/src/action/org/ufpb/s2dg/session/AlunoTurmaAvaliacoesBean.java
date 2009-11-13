@@ -1,5 +1,6 @@
 package org.ufpb.s2dg.session;
 
+import java.io.Serializable;
 import java.util.List;
 
 import org.jboss.seam.ScopeType;
@@ -14,7 +15,12 @@ import org.ufpb.s2dg.entity.Avaliacao;
 @Name("alunoTurmaAvaliacoesBean")
 @Scope(ScopeType.PAGE)
 @AutoCreate
-public class AlunoTurmaAvaliacoesBean {
+public class AlunoTurmaAvaliacoesBean implements Serializable {
+
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 236571474233568675L;
 
 	private List<AlunoTurmaAvaliacao> alunoTurmaAvaliacoes;
 	

@@ -1,5 +1,7 @@
 package org.ufpb.s2dg.session;
 
+import java.io.Serializable;
+
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
@@ -11,8 +13,12 @@ import org.ufpb.s2dg.entity.Usuario;
 
 @Name("alterarSenha")
 @Scope(ScopeType.PAGE)
-public class AlterarSenhaBean {
+public class AlterarSenhaBean implements Serializable {
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -3861635988734836504L;
 	@In
     Fachada fachada;
 	@In
