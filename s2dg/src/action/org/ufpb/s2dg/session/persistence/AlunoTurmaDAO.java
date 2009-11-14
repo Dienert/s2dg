@@ -58,6 +58,15 @@ public class AlunoTurmaDAO {
 		return null;
 	}
 	
-	
+	public void atualizaSituacaoTrancamento(AlunoTurma at) {
+		AlunoTurma alunoTurma = entityManager.find(AlunoTurma.class, at.getId());
+		alunoTurma.setSituacao(at.getSituacao());
+		if (alunoTurma != null) {
+			System.out.print("Pegou geral na entrada do PERSIST. Situacao alunoturma ="+alunoTurma.getSituacao()+"sistuacao at = "+at.getSituacao());
+			entityManager.persist(alunoTurma);
+			System.out.print("Pegou geral na saida do persist. SItuacao ="+alunoTurma.getSituacao());
+			System.out.println("Atualizou");
+		}
+}
 	
 }

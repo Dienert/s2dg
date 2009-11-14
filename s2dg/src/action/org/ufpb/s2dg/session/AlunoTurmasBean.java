@@ -102,6 +102,8 @@ public class AlunoTurmasBean implements Serializable {
 	public void trancamentoTotal(){
 		for(AlunoTurma alunoTurma : alunoTurmas)
 			alunoTurma.setSituacao(Situacao.TRANCADO);
+		System.out.print("Pegou geral total.");
+		
 	}
 	
 }

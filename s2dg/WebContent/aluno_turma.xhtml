@@ -1,0 +1,120 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+    xmlns:s="http://jboss.com/products/seam/taglib"
+    xmlns:ui="http://java.sun.com/jsf/facelets"
+    xmlns:f="http://java.sun.com/jsf/core"
+    xmlns:h="http://java.sun.com/jsf/html"
+    xmlns:a4j="http://richfaces.org/a4j"
+    xmlns:rich="http://richfaces.org/rich">
+
+    <rich:panel>
+        <f:facet name="header">Aluno turma Details</f:facet>
+
+        <s:decorate id="matriculaAluno" template="layout/display.xhtml">
+            <ui:define name="label">Matricula aluno</ui:define>
+            <h:outputText value="#{alunoTurmaHome.instance.id.matriculaAluno}"/>
+        </s:decorate>
+        <s:decorate id="idTurma" template="layout/display.xhtml">
+            <ui:define name="label">Id turma</ui:define>
+            <h:outputText value="#{alunoTurmaHome.instance.id.idTurma}"/>
+        </s:decorate>
+
+        <s:decorate id="media" template="layout/display.xhtml">
+            <ui:define name="label">Media</ui:define>
+            <h:outputText value="#{alunoTurmaHome.instance.media}"/>
+        </s:decorate>
+
+        <s:decorate id="frequencia" template="layout/display.xhtml">
+            <ui:define name="label">Frequencia</ui:define>
+            <h:outputText value="#{alunoTurmaHome.instance.frequencia}"/>
+        </s:decorate>
+
+        <div style="clear:both"/>
+
+    </rich:panel>
+
+
+    <rich:tabPanel switchType="ajax">
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Turma</h:panelGroup>
+        </f:facet>
+    <div class="association" id="turmaParent">
+
+        <h:outputText value="There is no turma associated with this alunoTurma."
+                   rendered="#{alunoTurmaHome.instance.turma == null}"/>
+
+        <rich:dataTable var="_turma"
+                   value="#{alunoTurmaHome.instance.turma}"
+                rendered="#{alunoTurmaHome.instance.turma != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="turmaTable">
+            <h:column>
+                <f:facet name="header">Id</f:facet>
+                <h:outputText value="#{_turma.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Professor matricula</f:facet>
+                <h:outputText value="#{_turma.professor.matricula}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Periodo id</f:facet>
+                <h:outputText value="#{_turma.periodo.id}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Disciplina codigo</f:facet>
+                <h:outputText value="#{_turma.disciplina.codigo}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">Numero</f:facet>
+                <h:outputText value="#{_turma.numero}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewturma"
+                     value="View"
+                      view="/Turma.xhtml">
+                    <f:param name="turmaId"
+                           value="#{_turma.id}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+
+    <rich:tab>
+        <f:facet name="label">
+            <h:panelGroup><h:graphicImage value="/img/manytoone.gif" style="vertical-align: middle; padding-right: 4px;"/>Aluno</h:panelGroup>
+        </f:facet>
+    <div class="association" id="alunoParent">
+
+        <h:outputText value="There is no aluno associated with this alunoTurma."
+                   rendered="#{alunoTurmaHome.instance.aluno == null}"/>
+
+        <rich:dataTable var="_aluno"
+                   value="#{alunoTurmaHome.instance.aluno}"
+                rendered="#{alunoTurmaHome.instance.aluno != null}"
+              rowClasses="rvgRowOne,rvgRowTwo"
+                      id="alunoTable">
+            <h:column>
+                <f:facet name="header">Matricula</f:facet>
+                <h:outputText value="#{_aluno.matricula}"/>
+            </h:column>
+            <h:column styleClass="action">
+                <f:facet name="header">Action</f:facet>
+                <s:link id="viewaluno"
+                     value="View"
+                      view="/Aluno.xhtml">
+                    <f:param name="alunoMatricula"
+                           value="#{_aluno.matricula}"/>
+                </s:link>
+            </h:column>
+        </rich:dataTable>
+
+    </div>
+    </rich:tab>
+</rich:tabPanel>
+
+
+</ui:composition>

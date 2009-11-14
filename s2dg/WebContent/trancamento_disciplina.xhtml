@@ -9,7 +9,7 @@
 	xmlns:s="http://jboss.com/products/seam/taglib">
 
 	<rich:panel styleClass="border_zero">
-		
+	<h:form>	
 	    <f:facet name="header">
 								Trancamento da Disciplina
     	</f:facet>	
@@ -28,6 +28,11 @@
 			<br />
 			<br />
 			<br />
+			
+		<a4j:commandLink styleClass="opcao_menu" 
+					value="Trancar" action="#{alunoTurmaBean.trancamentoParcial()}" reRender="corpo" />
+			<br />
+			<br />			
 		<div class="actionButtons">
 			<a4j:commandButton id="botaochamatranca" value="Trancar Disciplina">
 			<rich:componentControl for="panel" attachTo="botaochamatranca" operation="show" event="onclick"/>
@@ -60,5 +65,6 @@
 			</a4j:commandButton>						
 		</div>
     </rich:modalPanel>
+    </h:form>
 	</rich:panel>
 </ui:composition>

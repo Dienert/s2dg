@@ -29,7 +29,7 @@ public class AlunoTurma implements Serializable {
 	private Situacao situacao;
 
 	public AlunoTurma() {
-		situacao = Situacao.EM_CURSO;
+		//situacao = Situacao.EM_CURSO;
 	}
 
 	public AlunoTurma(long id, Turma turma, Aluno aluno, Situacao situacao) {
