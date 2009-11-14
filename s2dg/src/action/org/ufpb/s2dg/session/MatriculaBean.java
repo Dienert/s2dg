@@ -407,7 +407,7 @@ public class MatriculaBean implements Serializable{
 		return false;
 	}
 	
-	public boolean podeFazerTrancamento(){
+	public boolean podeFazerTrancamentoParcial(){
 		return true;
 		/*
 		if(fachada.getAluno().getSituacaoAcademica() != SituacaoAcademica.REGULAR)
@@ -425,6 +425,27 @@ public class MatriculaBean implements Serializable{
 		return false;
 		*/
 	}
+	
+	
+	public boolean podeFazerTrancamentoTotal(){
+		return true;
+		/*
+		if(fachada.getAluno().getSituacaoAcademica() != SituacaoAcademica.REGULAR)
+			return false;
+		Calendario calendario = fachada.getCalendario();
+		if(calendario != null) {
+			Date inicioPeriodo = calendario.getInicioPeriodo();
+			Date fimPeriodoTrancamento = calendario.getUltimoDiaTrancamento();
+			Date hoje = getDataAtual();
+			if((hoje.compareTo(inicioPeriodo) >= 0)&&(hoje.compareTo(fimPeriodoTrancamento) <= 0))
+				return true;
+			else
+				return false;
+		}
+		return false;
+		*/
+	}
+	
 	
 	public Date getDataAtual() {  
 		Calendar calendar = new GregorianCalendar();  

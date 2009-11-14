@@ -47,7 +47,7 @@
 					value="Horário" action="#{MenuAction.setId_Menu(4)}" reRender="corpo" />
 					
 				<br />
-				<a4j:commandLink styleClass="opcao_menu" rendered="#{matriculaBean.podeFazerTrancamento()}"
+				<a4j:commandLink styleClass="opcao_menu" rendered="#{matriculaBean.podeFazerTrancamentoTotal()}"
 					value="Trancamento Total" action="#{alunoTurmasBean.trancamentoTotal}" reRender="corpo" id="botaochamatranca" />
 					<rich:componentControl for="panel" attachTo="botaochamatranca" operation="show" event="onclick"/>
 					<!-- faltando criar a ação do menu e o bean para liberar o trancamento ou nao. -->
