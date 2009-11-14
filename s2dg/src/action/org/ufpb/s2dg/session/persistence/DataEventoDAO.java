@@ -10,7 +10,7 @@ import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.ufpb.s2dg.entity.Avaliacao;
-import org.ufpb.s2dg.entity.DataEvento;
+import org.ufpb.s2dg.entity.EventoCalendarioTurma;
 import org.ufpb.s2dg.entity.Turma;
 
 @AutoCreate
@@ -21,9 +21,9 @@ public class DataEventoDAO {
 	@In//(create = true)
 	EntityManager entityManager;
 	
-	public ArrayList<DataEvento> getDataEvento(int mes, int ano) {
+	public ArrayList<EventoCalendarioTurma> getDataEvento(int mes, int ano) {
 		try {
-			return (ArrayList<DataEvento>) entityManager.createQuery(
+			return (ArrayList<EventoCalendarioTurma>) entityManager.createQuery(
 					"select de from DataEvento as de where EXTRACT(MONTH FROM de.data) = :mes and " +
 					"EXTRACT(YEAR FROM de.data) = :ano")
 					.setParameter("mes", mes).setParameter("ano", ano).
@@ -31,39 +31,39 @@ public class DataEventoDAO {
 		}
 		catch(NullPointerException npe) {
 			npe.printStackTrace();
-			return new ArrayList<DataEvento>();
+			return new ArrayList<EventoCalendarioTurma>();
 		}
 		
 	}
 
-	public List<DataEvento> getDataEvento(Turma turma) {
+	public List<EventoCalendarioTurma> getDataEvento(Turma turma) {
 		Query query = entityManager.createQuery("select de from DataEvento as de where de.turma = :turma")
 			.setParameter("turma", turma);
-		List<DataEvento> list = (List<DataEvento>)query.getResultList();
+		List<EventoCalendarioTurma> list = (List<EventoCalendarioTurma>)query.getResultList();
 		if(list.size() > 0)
 			return list;
 		return null;
 	}
 
-	public void cria(DataEvento dataEvento) {
+	public void cria(EventoCalendarioTurma dataEvento) {
 		entityManager.persist(dataEvento);
 	}
 
-	public DataEvento getDataEvento(Avaliacao avaliacao) {
+	public EventoCalendarioTurma getDataEvento(Avaliacao avaliacao) {
 		Query query = entityManager.createQuery("select de from DataEvento as de where de.avaliacao = :avaliacao")
 			.setParameter("avaliacao", avaliacao);
-		List<DataEvento> list = (List<DataEvento>)query.getResultList();
+		List<EventoCalendarioTurma> list = (List<EventoCalendarioTurma>)query.getResultList();
 		if(list.size() > 0)
 			return list.get(0);
 		return null;
 	}
 
-	public void atualiza(DataEvento dataEvento) {
+	public void atualiza(EventoCalendarioTurma dataEvento) {
 		entityManager.merge(dataEvento);
 	}
 
-	public void exclui(DataEvento dataEvento) {
-		dataEvento = entityManager.find(DataEvento.class, dataEvento.getId());
+	public void exclui(EventoCalendarioTurma dataEvento) {
+		dataEvento = entityManager.find(EventoCalendarioTurma.class, dataEvento.getId());
 		entityManager.remove(dataEvento);
 	}
 }

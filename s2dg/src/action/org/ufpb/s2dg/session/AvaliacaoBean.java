@@ -12,7 +12,7 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.ufpb.s2dg.entity.Avaliacao;
-import org.ufpb.s2dg.entity.DataEvento;
+import org.ufpb.s2dg.entity.EventoCalendarioTurma;
 import org.ufpb.s2dg.entity.Turma;
 
 @Name("avaliacaoBean")
@@ -36,7 +36,7 @@ public class AvaliacaoBean implements Serializable {
 
 	public AvaliacaoBean() {
 		avaliacao = new Avaliacao();
-		avaliacao.setDataEvento(new DataEvento());
+		avaliacao.setDataEvento(new EventoCalendarioTurma());
 		criarOuEditar = true;
 		setAvaliacaoVazia(false);
 	}
@@ -70,12 +70,12 @@ public class AvaliacaoBean implements Serializable {
 		this.avaliacao = avaliacao;
 		criarOuEditar = false;
 		if(avaliacao.getDataEvento() == null)
-			avaliacao.setDataEvento(new DataEvento());
+			avaliacao.setDataEvento(new EventoCalendarioTurma());
 	}
 	
 	public void cancelarEdicao() {
 		this.avaliacao = new Avaliacao();
-		avaliacao.setDataEvento(new DataEvento());
+		avaliacao.setDataEvento(new EventoCalendarioTurma());
 		criarOuEditar = true;
 	}
 	
@@ -97,7 +97,7 @@ public class AvaliacaoBean implements Serializable {
 			fachada.atualizaAlunoTurmas();
 		}
 		this.avaliacao = new Avaliacao();
-		avaliacao.setDataEvento(new DataEvento());
+		avaliacao.setDataEvento(new EventoCalendarioTurma());
 		criarOuEditar = true;
 //		setAvaliacaoVazia(false);
 		fachada.initAvaliacoes();
@@ -105,7 +105,7 @@ public class AvaliacaoBean implements Serializable {
 	
 	public void cancelaExclusao() {
 		this.avaliacao = new Avaliacao();
-		avaliacao.setDataEvento(new DataEvento());
+		avaliacao.setDataEvento(new EventoCalendarioTurma());
 	}
 	
 	public void excluiAvaliacao() {
@@ -114,7 +114,7 @@ public class AvaliacaoBean implements Serializable {
 			fachada.excluiAvaliacao(avaliacaoParaExclusao);
 			if(avaliacao.getId() == avaliacaoParaExclusao.getId()) {
 				avaliacao = new Avaliacao();
-				avaliacao.setDataEvento(new DataEvento());
+				avaliacao.setDataEvento(new EventoCalendarioTurma());
 				criarOuEditar = true;
 			}
 			avaliacaoParaExclusao = null;
@@ -147,7 +147,7 @@ public class AvaliacaoBean implements Serializable {
 				fachada.fazLog(log);
 				fachada.atualizaAlunoTurmas();
 				avaliacao = new Avaliacao();
-				avaliacao.setDataEvento(new DataEvento());
+				avaliacao.setDataEvento(new EventoCalendarioTurma());
 				turmaAtual.setCalcularMediaAutomaticamente(true);
 				setAvaliacaoVazia(false);
 			}

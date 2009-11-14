@@ -15,7 +15,7 @@ import org.richfaces.model.CalendarDataModel;
 import org.richfaces.model.CalendarDataModelItem;
 import org.ufpb.s2dg.entity.Avaliacao;
 import org.ufpb.s2dg.entity.Calendario;
-import org.ufpb.s2dg.entity.DataEvento;
+import org.ufpb.s2dg.entity.EventoCalendarioTurma;
 import org.ufpb.s2dg.entity.Horario;
 import org.ufpb.s2dg.entity.Horario.Dia;
 import org.ufpb.s2dg.session.ItemDeCalendario.TipoData;
@@ -43,12 +43,12 @@ public class ModeloCalendario implements CalendarDataModel, Serializable {
 		// datasComAula(datas);
 		
 		
-		List<DataEvento> datasEEventos = new ArrayList<DataEvento>();
+		List<EventoCalendarioTurma> datasEEventos = new ArrayList<EventoCalendarioTurma>();
 		List<Avaliacao> avaliacoes = fachada.getAvaliacoes();
 		
 		if(avaliacoes != null) {
 			for(Avaliacao a : avaliacoes) {
-				DataEvento de = a.getDataEvento(); 
+				EventoCalendarioTurma de = a.getDataEvento(); 
 				if(de != null)
 					datasEEventos.add(de);
 			}

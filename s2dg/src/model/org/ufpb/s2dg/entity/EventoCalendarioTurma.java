@@ -17,20 +17,35 @@ import javax.persistence.TemporalType;
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
 
+
+/**
+ * EventoCalendarioTurma.java DEVERIA herdar de EventoCalendario
+ * 
+ * Representa um evento de calendário de uma turma. Foi mal ae, eu tentei usar heranca, mas o Seam nao deixou!
+ */
 @Entity
-@Table(name = "dataevento")
-public class DataEvento implements Serializable {
+@Table(name = "eventocalendarioturma")
+public class EventoCalendarioTurma /*extends EventoCalendario */implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private long id;
 	private Date data;
 	private String evento;
 	private Set<Avaliacao> avaliacoes;
 	
-	public DataEvento() {}
+	public EventoCalendarioTurma() {}
 	
-	public DataEvento(Date date, String event) {
-		data = date;
-		evento = event;
+	public EventoCalendarioTurma(Date date, String event) {
+		setData(data);
+		setEvento(evento);
+	}
+
+	@OneToMany(mappedBy="dataEvento")
+	public Set<Avaliacao> getAvaliacoes() {
+		return avaliacoes;
+	}
+
+	public void setAvaliacoes(Set<Avaliacao> avaliacoes) {
+		this.avaliacoes = avaliacoes;
 	}
 	
 	@Id
@@ -39,7 +54,7 @@ public class DataEvento implements Serializable {
 	public long getId() {
 		return id;
 	}
-
+	
 	public void setId(long id) {
 		this.id = id;
 	}
@@ -63,14 +78,4 @@ public class DataEvento implements Serializable {
 	public void setEvento(String evento) {
 		this.evento = evento;
 	}
-
-	@OneToMany(mappedBy="dataEvento")
-	public Set<Avaliacao> getAvaliacoes() {
-		return avaliacoes;
-	}
-
-	public void setAvaliacoes(Set<Avaliacao> avaliacoes) {
-		this.avaliacoes = avaliacoes;
-	}
-	
 }

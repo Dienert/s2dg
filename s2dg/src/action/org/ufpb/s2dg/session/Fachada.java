@@ -18,7 +18,7 @@ import org.ufpb.s2dg.entity.Avaliacao;
 import org.ufpb.s2dg.entity.Calendario;
 import org.ufpb.s2dg.entity.Curriculo;
 import org.ufpb.s2dg.entity.Curso;
-import org.ufpb.s2dg.entity.DataEvento;
+import org.ufpb.s2dg.entity.EventoCalendarioTurma;
 import org.ufpb.s2dg.entity.Disciplina;
 import org.ufpb.s2dg.entity.Global;
 import org.ufpb.s2dg.entity.Oferta;
@@ -314,27 +314,27 @@ public class Fachada implements Serializable {
 		return emailAction.getCPF();
 	}
 
-	public ArrayList<DataEvento> getDataEvento(int i, int j) {
+	public ArrayList<EventoCalendarioTurma> getDataEvento(int i, int j) {
 		return dataEventoDAO.getDataEvento(i, j);
 	}
 
-	public List<DataEvento> getDataEvento(Turma turma) {
+	public List<EventoCalendarioTurma> getDataEvento(Turma turma) {
 		return dataEventoDAO.getDataEvento(turma);
 	}
 
-	public void criaDataEvento(DataEvento dataEvento) {
+	public void criaDataEvento(EventoCalendarioTurma dataEvento) {
 		dataEventoDAO.cria(dataEvento);
 	}
 
-	public DataEvento getDataEvento(Avaliacao avaliacao) {
+	public EventoCalendarioTurma getDataEvento(Avaliacao avaliacao) {
 		return dataEventoDAO.getDataEvento(avaliacao);
 	}
 
-	public void atualizaDataEvento(DataEvento dataEvento) {
+	public void atualizaDataEvento(EventoCalendarioTurma dataEvento) {
 		dataEventoDAO.atualiza(dataEvento);
 	}
 
-	public void excluiDataEvento(DataEvento dataEvento) {
+	public void excluiDataEvento(EventoCalendarioTurma dataEvento) {
 		dataEventoDAO.exclui(dataEvento);
 	}
 

@@ -392,19 +392,20 @@ public class MatriculaBean implements Serializable{
 	}
 
 	public boolean podeFazerMatricula() {
-		if(fachada.getAluno().getSituacaoAcademica() != SituacaoAcademica.REGULAR)
-			return false;
-		Calendario calendario = fachada.getCalendario();
-		if(calendario != null) {
-			Date inicioMatricula = calendario.getInicioMatricula();
-			Date fimMatricula = calendario.getFimMatricula();
-			Date hoje = getDataAtual();
-			if((hoje.compareTo(inicioMatricula) >= 0)&&(hoje.compareTo(fimMatricula) <= 0))
-				return true;
-			else
-				return false;
-		}
-		return false;
+		return true;
+//		if(fachada.getAluno().getSituacaoAcademica() != SituacaoAcademica.REGULAR)
+//			return false;
+//		Calendario calendario = fachada.getCalendario();
+//		if(calendario != null) {
+//			Date inicioMatricula = calendario.getInicioMatricula();
+//			Date fimMatricula = calendario.getFimMatricula();
+//			Date hoje = getDataAtual();
+//			if((hoje.compareTo(inicioMatricula) >= 0)&&(hoje.compareTo(fimMatricula) <= 0))
+//				return true;
+//			else
+//				return false;
+//		}
+//		return false;
 	}
 	
 	public boolean podeFazerTrancamentoParcial(){

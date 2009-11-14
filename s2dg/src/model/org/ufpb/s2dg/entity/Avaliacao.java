@@ -27,7 +27,7 @@ public class Avaliacao implements Serializable {
 	private int peso;
 	private Turma turma;
 	private Set<AlunoTurmaAvaliacao> alunoTurmaAvaliacoes;
-	private DataEvento dataEvento;
+	private EventoCalendarioTurma dataEvento;
 	
 	public Avaliacao(){
 		this.peso = 1;
@@ -104,11 +104,11 @@ public class Avaliacao implements Serializable {
 
 	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinColumn(name="id_dataevento", nullable=true, updatable=true, insertable=true)
-	public DataEvento getDataEvento() {
+	public EventoCalendarioTurma getDataEvento() {
 		return dataEvento;
 	}
 
-	public void setDataEvento(DataEvento dataEvento) {
+	public void setDataEvento(EventoCalendarioTurma dataEvento) {
 		this.dataEvento = dataEvento;
 	}
 	
