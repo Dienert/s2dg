@@ -389,5 +389,11 @@ public class Fachada implements Serializable {
 	public void fazLog(String log) {
 		logDAO.cria(log, usuarioBean.getUsuario());
 	}
+
+	public void trancamentoParcial(AlunoTurma alunoTurma) {
+		System.out.print("Pegou geral na entrada da fachada. SItuacao ="+alunoTurma.getSituacao());
+		alunoTurmaDAO.atualizaSituacaoTrancamento(alunoTurma);
+		
+	}
 	
 }
