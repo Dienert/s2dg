@@ -99,8 +99,12 @@ public class AlunoTurmasBean implements Serializable {
 		}
 	}
 	
+	public int numeroDeDisciplinasAtivas(){
+		return ((alunoTurmas == null) ? 0 : alunoTurmas.size());
+	}
+	
 	public void trancamentoTotal(){
-		for(AlunoTurma alunoTurma : alunoTurmas)
+		for(AlunoTurma alunoTurma : alunoTurmas) // TODO ajeitar essa cagada de trancamento
 			alunoTurma.setSituacao(Situacao.TRANCADO);
 		System.out.print("Pegou geral total.");
 		

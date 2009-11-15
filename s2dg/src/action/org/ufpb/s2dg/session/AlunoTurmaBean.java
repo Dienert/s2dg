@@ -32,6 +32,10 @@ public class AlunoTurmaBean implements Serializable{
 	@In
 	MenuAction MenuAction;
 	
+	//TODO Clodoaldo: isso pode ser perigoso, caso der pau, checar!
+	@In
+	MatriculaBean matriculaBean;
+	
 	public AlunoTurma getAlunoTurma() {
 		return alunoTurma;
 	}
@@ -65,6 +69,35 @@ public class AlunoTurmaBean implements Serializable{
 		alunoTurma.setSituacao(Situacao.TRANCADO);
 		fachada.trancamentoParcial(alunoTurma);
 		System.out.print("Pegou geral na saida. SItuacao ="+alunoTurma.getSituacao());
+	}
+	
+	public boolean checaCondicoesTrancamentoParcial(){
+		boolean condicao1 = periodoTrancamentoParcialAberto(); 
+		boolean condicao2 = !maximoTrancamentoParciaisPermitido();
+		boolean condicao3 = !minimoDisciplinasCursando();
+		return condicao1 && condicao2 && condicao3;
+	}
+	
+	private boolean periodoTrancamentoParcialAberto() {
+		return matriculaBean.podeFazerTrancamentoParcial();
+	}
+
+	private boolean maximoTrancamentoParciaisPermitido() {
+		// TODO falta testar casos de sucesso
+		/* TODO falta corrigir problemas na tabela de aluno_turma, pois nao se pode
+		 * matricular duas vezes na mesma cadeira, problema de PK!
+		 */
+		if (fachada.getNumeroDeVezesAlunoTurmaCursadasAnteriormente() < 2)
+			return true;
+		return false;
+	}
+
+	private boolean minimoDisciplinasCursando() {
+		// TODO casos de sucesso testados, faltam testes minuciosos
+		if (fachada.numeroDeDisciplinasAtivas() > 1)
+			return true;
+		else
+			return false;
 	}
 	
 }

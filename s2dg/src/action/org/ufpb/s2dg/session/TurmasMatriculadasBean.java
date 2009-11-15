@@ -64,14 +64,16 @@ public class TurmasMatriculadasBean implements Serializable{
 				this.alunoTurmas = ats;
 				
 				for(AlunoTurma alunoTurma : alunoTurmas) {
-					Turma t = alunoTurma.getTurma();
-					if(t == null)
-						t = fachada.getTurmaDoBanco(alunoTurma);
-					Disciplina d = t.getDisciplina();
-					if(d == null)
-						d = fachada.getDisciplinaDoBanco(t);
-					t.setDisciplina(d);
-					alunoTurma.setTurma(t);
+					if (alunoTurma != null) {
+						Turma t = alunoTurma.getTurma();
+						if (t == null)
+							t = fachada.getTurmaDoBanco(alunoTurma);
+						Disciplina d = t.getDisciplina();
+						if (d == null)
+							d = fachada.getDisciplinaDoBanco(t);
+						t.setDisciplina(d);
+						alunoTurma.setTurma(t);
+					}
 				}
 				
 			}
@@ -90,8 +92,10 @@ public class TurmasMatriculadasBean implements Serializable{
 		List<AlunoTurma> alunos = new LinkedList<AlunoTurma>();
 		
 		for(int i = 0; i < alunoTurmas.size(); i++){
-			if(alunoTurmas.get(i).getSituacao() == Situacao.EM_CURSO){
-				alunos.add(alunoTurmas.get(i));
+			if (alunoTurmas.get(i) != null) {
+				if (alunoTurmas.get(i).getSituacao() == Situacao.EM_CURSO) {
+					alunos.add(alunoTurmas.get(i));
+				}
 			}
 		}
 		return alunos;

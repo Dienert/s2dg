@@ -1,5 +1,6 @@
 package org.ufpb.s2dg.session.persistence;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -10,6 +11,7 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.ufpb.s2dg.entity.Aluno;
 import org.ufpb.s2dg.entity.AlunoTurma;
+import org.ufpb.s2dg.entity.Disciplina;
 import org.ufpb.s2dg.entity.Periodo;
 import org.ufpb.s2dg.entity.Turma;
 
@@ -49,6 +51,7 @@ public class AlunoTurmaDAO {
 			entityManager.persist(alunoTurma);
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<AlunoTurma> getAlunoTurmas(Aluno aluno) {
 		Query q = entityManager.createQuery("Select at from AlunoTurma as at where at.aluno = :aluno")
 		.setParameter("aluno", aluno);
@@ -67,6 +70,23 @@ public class AlunoTurmaDAO {
 			System.out.print("Pegou geral na saida do persist. SItuacao ="+alunoTurma.getSituacao());
 			System.out.println("Atualizou");
 		}
-}
+	}
+	
+	@SuppressWarnings("unchecked")
+	public List<AlunoTurma> getAlunoTurmas(Aluno aluno, Disciplina disciplina) {
+		List<AlunoTurma> relacaoDeDisciplinaPorAluno = new ArrayList<AlunoTurma>();
+		if(aluno != null && disciplina != null){
+			List<AlunoTurma> turmasDoAluno = (List<AlunoTurma>)entityManager.createQuery("from AlunoTurma as at where at.aluno = :aluno").setParameter("aluno", aluno).getResultList();
+			if (turmasDoAluno != null){
+				for(AlunoTurma at: turmasDoAluno){
+					if(at.getTurma().getDisciplina() == disciplina)
+						relacaoDeDisciplinaPorAluno.add(at);
+				}
+				System.out.println("Relacao de alunos: "+relacaoDeDisciplinaPorAluno);
+				return relacaoDeDisciplinaPorAluno;
+			}
+		}
+		return null;
+	}
 	
 }

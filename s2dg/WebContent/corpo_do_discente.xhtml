@@ -23,7 +23,7 @@
 						<s:formattedText value="#{alunoTurmaBean.alunoTurma.turma.planoDeCurso}"/>
 					</a4j:outputPanel>
 				</rich:tab>
-				<rich:tab label="Trancar Disciplina" rendered="#{matriculaBean.podeFazerTrancamentoParcial()}">
+				<rich:tab label="Trancar Disciplina" rendered="#{alunoTurmaBean.checaCondicoesTrancamentoParcial()}">
 					<ui:include src="/trancamento_disciplina.xhtml" />
 				</rich:tab>
 			</rich:tabPanel></div>

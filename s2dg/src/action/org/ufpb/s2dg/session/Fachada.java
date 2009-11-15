@@ -396,4 +396,17 @@ public class Fachada implements Serializable {
 		
 	}
 	
+	public List<AlunoTurma> getAlunoTurmaCursadasAnteriormente() {
+		
+		return alunoTurmaDAO.getAlunoTurmas(usuarioBean.getUsuario().getAluno(), alunoTurmaBean.getAlunoTurma().getTurma().getDisciplina());
+	}
+	
+	public int getNumeroDeVezesAlunoTurmaCursadasAnteriormente() {
+		return alunoTurmaDAO.getAlunoTurmas(usuarioBean.getUsuario().getAluno(), alunoTurmaBean.getAlunoTurma().getTurma().getDisciplina()).size();
+	}
+
+	public int numeroDeDisciplinasAtivas() {
+		return alunoTurmasBean.numeroDeDisciplinasAtivas();
+	}
+	
 }

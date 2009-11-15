@@ -22,7 +22,6 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.Transactional;
 import org.ufpb.s2dg.entity.Aluno;
 import org.ufpb.s2dg.entity.AlunoTurma;
-import org.ufpb.s2dg.entity.Calendario;
 import org.ufpb.s2dg.entity.Curriculo;
 import org.ufpb.s2dg.entity.Curso;
 import org.ufpb.s2dg.entity.Disciplina;
@@ -31,7 +30,6 @@ import org.ufpb.s2dg.entity.Horario;
 import org.ufpb.s2dg.entity.Oferta;
 import org.ufpb.s2dg.entity.Professor;
 import org.ufpb.s2dg.entity.Turma;
-import org.ufpb.s2dg.entity.Aluno.SituacaoAcademica;
 import org.ufpb.s2dg.entity.AlunoTurma.Situacao;
 
 @Name("matriculaBean")
@@ -88,26 +86,29 @@ public class MatriculaBean implements Serializable{
 	private void removerDisciplinasJaMatriculadas( List<Disciplina> disciplinasDoCurriculo, List<AlunoTurma> alunoTurmas) {
 		if(alunoTurmas != null) {
 			for(AlunoTurma at : alunoTurmas) {
-				Turma t = at.getTurma();
-				if(t == null) {
-					t = fachada.getTurmaDoBanco(at);
-					at.setTurma(t);
-				}
-				Disciplina d = t.getDisciplina();
-				if(d == null) {
-					d = fachada.getDisciplinaDoBanco(t);
-					t.setDisciplina(d);
-				}
-				if(at.getSituacao() == Situacao.EM_CURSO) {
-					if (disciplinasDoCurriculo != null) {
-						for(Disciplina disc : disciplinasDoCurriculo) {
-							if(disc.getCodigo().equals(d.getCodigo())) {
-								int i = disciplinasDoCurriculo.indexOf(disc);
-								disciplinasDoCurriculo.remove(i);
-								break;
+				if (at != null) {
+					Turma t = at.getTurma();
+					if (t == null) {
+						t = fachada.getTurmaDoBanco(at);
+						at.setTurma(t);
+					}
+					Disciplina d = t.getDisciplina();
+					if (d == null) {
+						d = fachada.getDisciplinaDoBanco(t);
+						t.setDisciplina(d);
+					}
+					if (at.getSituacao() == Situacao.EM_CURSO) {
+						if (disciplinasDoCurriculo != null) {
+							for (Disciplina disc : disciplinasDoCurriculo) {
+								if (disc.getCodigo().equals(d.getCodigo())) {
+									int i = disciplinasDoCurriculo
+											.indexOf(disc);
+									disciplinasDoCurriculo.remove(i);
+									break;
+								}
 							}
 						}
-					}					
+					}
 				}
 			}
 		}
@@ -193,19 +194,22 @@ public class MatriculaBean implements Serializable{
 			List<AlunoTurma> alunoTurmas) {
 		if(alunoTurmas != null) {
 			for(AlunoTurma at : alunoTurmas) {
-				Turma t = at.getTurma();
-				if(t == null) {
-					t = fachada.getTurmaDoBanco(at);
-					at.setTurma(t);
-				}
-				Disciplina d = t.getDisciplina();
-				if(d == null) {
-					d = fachada.getDisciplinaDoBanco(t);
-					t.setDisciplina(d);
-				}
-				if((at.getSituacao() == Situacao.APROVADO)||(at.getSituacao() == Situacao.DISPENSADO)) {
-					int i = disciplinasDoCurriculo.indexOf(d);
-					disciplinasDoCurriculo.remove(i);
+				if (at != null) {
+					Turma t = at.getTurma();
+					if (t == null) {
+						t = fachada.getTurmaDoBanco(at);
+						at.setTurma(t);
+					}
+					Disciplina d = t.getDisciplina();
+					if (d == null) {
+						d = fachada.getDisciplinaDoBanco(t);
+						t.setDisciplina(d);
+					}
+					if ((at.getSituacao() == Situacao.APROVADO)
+							|| (at.getSituacao() == Situacao.DISPENSADO)) {
+						int i = disciplinasDoCurriculo.indexOf(d);
+						disciplinasDoCurriculo.remove(i);
+					}
 				}
 			}
 		}
@@ -409,6 +413,8 @@ public class MatriculaBean implements Serializable{
 	}
 	
 	public boolean podeFazerTrancamentoParcial(){
+		// TODO Adicionar a logica de periodo de trancamento total
+		// TODO Terminar primeiro a nova estrutura de calendario
 		return true;
 		/*
 		if(fachada.getAluno().getSituacaoAcademica() != SituacaoAcademica.REGULAR)
