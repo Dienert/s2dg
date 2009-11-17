@@ -1,6 +1,6 @@
 package org.ufpb.s2dg.session.persistence;
 
-import java.util.ArrayList;
+import java.util.List;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
@@ -18,11 +18,12 @@ public class CursoDAO {
 	@In
 	EntityManager entityManager;
 	
+	@SuppressWarnings("unchecked")
 	public Curso getCurso(Curriculo curriculo) {
 		Query query = entityManager.createQuery(
     		"select curso from Curso as curso where :curriculo member of curso.curriculos")
     		.setParameter("curriculo", curriculo);
-		ArrayList<Curso> result = (ArrayList<Curso>) query.getResultList();
+		List<Curso> result = query.getResultList();
 		if (result.size() > 0)
 			return result.get(0);
 		return null;

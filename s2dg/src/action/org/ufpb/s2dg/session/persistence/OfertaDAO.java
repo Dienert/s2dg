@@ -19,6 +19,7 @@ public class OfertaDAO {
 	@In
 	EntityManager entityManager;
 
+	@SuppressWarnings("unchecked")
 	public Oferta getOferta(Curso curso, Turma turma) {
 		Query query = entityManager.createQuery(
 		"select oferta from Oferta as oferta where oferta.curso = :curso and oferta.turma = :turma")

@@ -34,6 +34,7 @@ public class AlunoTurmaAvaliacaoDAO {
 		}
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<AlunoTurmaAvaliacao> getAlunoTurmaAvaliacao(Avaliacao avaliacao) {
 		try {
 			if (avaliacao != null) {

@@ -18,6 +18,7 @@ public class CurriculoDAO {
 	@In
 	EntityManager entityManager;
 
+	@SuppressWarnings("unchecked")
 	public Curriculo getCurriculo(Aluno aluno) {
 		Query query = entityManager.createQuery(
 			"select curriculo from Curriculo as curriculo where :aluno member of curriculo.alunos")

@@ -7,8 +7,10 @@ import java.util.List;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.log.Log;
 import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.Disciplina;
 import org.ufpb.s2dg.entity.Turma;
@@ -25,6 +27,9 @@ public class AlunoTurmaBean implements Serializable{
 	private static final long serialVersionUID = -8355040116692086316L;
 
 	private AlunoTurma alunoTurma;
+	
+	@Logger
+	private Log log;
 	
 	@In
 	private Fachada fachada;
@@ -72,9 +77,12 @@ public class AlunoTurmaBean implements Serializable{
 	}
 	
 	public boolean checaCondicoesTrancamentoParcial(){
-		boolean condicao1 = periodoTrancamentoParcialAberto(); 
+		boolean condicao1 = periodoTrancamentoParcialAberto();
+		log.info(" periodoTrancamentoParcialAberto() - {0}", condicao1);
 		boolean condicao2 = !maximoTrancamentoParciaisPermitido();
+		log.info(" !maximoTrancamentoParciaisPermitido() - {0}", condicao2);
 		boolean condicao3 = !minimoDisciplinasCursando();
+		log.info(" !minimoDisciplinasCursando() - {0}", condicao3);
 		return condicao1 && condicao2 && condicao3;
 	}
 	
@@ -83,21 +91,17 @@ public class AlunoTurmaBean implements Serializable{
 	}
 
 	private boolean maximoTrancamentoParciaisPermitido() {
-		// TODO falta testar casos de sucesso
-		/* TODO falta corrigir problemas na tabela de aluno_turma, pois nao se pode
-		 * matricular duas vezes na mesma cadeira, problema de PK!
-		 */
 		if (fachada.getNumeroDeVezesAlunoTurmaCursadasAnteriormente() < 2)
-			return true;
-		return false;
+			return false;
+		return true;
 	}
 
 	private boolean minimoDisciplinasCursando() {
-		// TODO casos de sucesso testados, faltam testes minuciosos
+		log.info("fachada.numeroDeDisciplinasAtivas() - {0}", fachada.numeroDeDisciplinasAtivas());
 		if (fachada.numeroDeDisciplinasAtivas() > 1)
-			return true;
-		else
 			return false;
+		else
+			return true;
 	}
 	
 }

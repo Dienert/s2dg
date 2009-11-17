@@ -17,6 +17,7 @@ public class ContextListener {
 	@In(value="entityManager")
 	EntityManager em;
 	
+	@SuppressWarnings("unchecked")
 	public boolean updateDB() {
 		Query query = em.createNativeQuery("select udt_name " +
 										   "from information_schema.column_udt_usage " +

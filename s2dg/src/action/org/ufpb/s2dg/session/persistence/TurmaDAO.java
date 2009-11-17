@@ -34,6 +34,7 @@ public class TurmaDAO {
 	public void atualiza(Turma turmaAtual) {
 		entityManager.merge(turmaAtual);
 	}
+	@SuppressWarnings("unchecked")
 	public Turma getTurma(AlunoTurma at) {
 		Query q = entityManager.createQuery("select t from Turma as t where :at member of t.alunoTurmas")
 		.setParameter("at", at);
@@ -42,6 +43,7 @@ public class TurmaDAO {
 			return list.get(0);
 		return null;
 	}
+	@SuppressWarnings("unchecked")
 	public List<Turma> getTurmas(Disciplina d, Periodo p) {
 		Query q = entityManager.createQuery("select t from Turma as t where t.disciplina = :disciplina and t.periodo = :periodo")
 		.setParameter("disciplina", d)

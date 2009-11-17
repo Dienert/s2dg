@@ -26,6 +26,7 @@ public class UsuarioDAO {
 	}
 	
 	//Criado por Julio e Rennan
+	@SuppressWarnings("unchecked")
 	public Usuario getUsuario(String username){
 		Query query = entityManager.createQuery("select u from Usuario as u where u.cpf = :cpf")
 			.setParameter("cpf", username);

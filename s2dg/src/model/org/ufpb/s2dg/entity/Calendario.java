@@ -16,8 +16,14 @@ import javax.persistence.TemporalType;
 
 import org.hibernate.validator.NotNull;
 
+/**
+ * 
+ * @deprecated Esta classe está sendo substituida por {@link org.ufpb.s2dg.entity.Evento}
+ *
+ */
 @Entity
 @Table(name = "calendario")
+@Deprecated
 public class Calendario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	

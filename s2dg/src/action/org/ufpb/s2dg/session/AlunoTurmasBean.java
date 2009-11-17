@@ -104,10 +104,11 @@ public class AlunoTurmasBean implements Serializable {
 	}
 	
 	public void trancamentoTotal(){
-		for(AlunoTurma alunoTurma : alunoTurmas) // TODO ajeitar essa cagada de trancamento
-			alunoTurma.setSituacao(Situacao.TRANCADO);
+		for(AlunoTurma alunoTurma : alunoTurmas){
+			if(alunoTurma.getSituacao() == Situacao.EM_CURSO)
+				alunoTurma.setSituacao(Situacao.TRANCADO);
+		}
 		System.out.print("Pegou geral total.");
-		
 	}
 	
 }

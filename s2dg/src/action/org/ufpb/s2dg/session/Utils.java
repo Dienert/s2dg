@@ -4,12 +4,8 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.io.OutputStream;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-
-import javax.faces.context.FacesContext;
-import javax.servlet.http.HttpServletResponse;
 
 import org.ufpb.s2dg.entity.Usuario;
 

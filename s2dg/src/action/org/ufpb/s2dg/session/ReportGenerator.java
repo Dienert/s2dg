@@ -8,7 +8,6 @@ import javax.faces.context.FacesContext;
 
 import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.core.Manager;
 import org.jboss.seam.document.ByteArrayDocumentData;
@@ -16,14 +15,11 @@ import org.jboss.seam.document.DocumentData;
 import org.jboss.seam.document.DocumentStore;
 import org.jboss.seam.faces.RedirectException;
 import org.jboss.seam.international.StatusMessages;
-import org.jboss.seam.log.Log;
 
 @Name("reportGenerator")
 @AutoCreate
 public class ReportGenerator
 {
-    @Logger private Log log;
-
     @In StatusMessages statusMessages;
     
     @In Manager manager;
@@ -51,6 +47,7 @@ public class ReportGenerator
 	    redirect(documentUrl);
 	}
 	
+	@SuppressWarnings("deprecation")
 	protected void redirect(String url) {
 	      FacesContext context = FacesContext.getCurrentInstance();
 	      ExternalContext externalContext = context.getExternalContext();

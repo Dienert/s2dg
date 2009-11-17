@@ -10,7 +10,6 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -25,7 +24,6 @@ import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.Avaliacao;
-import org.ufpb.s2dg.entity.Professor;
 import org.ufpb.s2dg.session.persistence.AlunoDAO;
 
 import com.lowagie.text.BadElementException;
@@ -111,7 +109,6 @@ public class PDFAction implements Serializable{
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Diário de Notas impresso com sucesso!",null));
 		} catch (IOException e) {
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Não foi possível imprimir o documento!",null));
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
@@ -145,7 +142,6 @@ public class PDFAction implements Serializable{
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Horário Individual impresso com sucesso!",null));
 		} catch (IOException e) {
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Não foi possível imprimir o documento!",null));
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}        
         
@@ -185,7 +181,6 @@ public class PDFAction implements Serializable{
         	facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Horário Individual impresso com sucesso!",null));
 		} catch (IOException e) {
 			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Não foi possível imprimir o documento!",null));
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}   
 	}

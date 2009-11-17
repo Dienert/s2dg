@@ -17,6 +17,7 @@ public class CalendarioDAO {
 	@In
 	EntityManager entityManager;
 	
+	@SuppressWarnings("unchecked")
 	public Calendario getCalendario(Periodo periodo) {
 		ArrayList<Calendario> result = 
 			(ArrayList<Calendario>) entityManager.createQuery(

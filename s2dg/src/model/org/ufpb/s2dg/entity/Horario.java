@@ -17,7 +17,6 @@ import javax.persistence.Table;
 @Table(name = "horario")
 public class Horario implements Serializable {
 
-	// TODO Se der pau na ordem, alterar de volta para domingo no final
 	//public enum Dia { SEG, TER, QUA, QUI, SEX, SAB, DOM}
 	public enum Dia {DOM, SEG, TER, QUA, QUI, SEX, SAB}
 	private static final long serialVersionUID = 1L;

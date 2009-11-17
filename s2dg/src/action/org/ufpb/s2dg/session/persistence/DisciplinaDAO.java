@@ -1,6 +1,5 @@
 package org.ufpb.s2dg.session.persistence;
 
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -22,6 +21,7 @@ public class DisciplinaDAO {
 	@In
 	EntityManager entityManager;
 
+	@SuppressWarnings("unchecked")
 	public List<Disciplina> getDisciplinas(Curriculo curriculo) {
 		if(curriculo != null) {
 			Query q = entityManager.createQuery("select d from Disciplina as d where :curriculo member of d.curriculos order by d.nome")
@@ -33,6 +33,7 @@ public class DisciplinaDAO {
 		return null;
 	}
 
+	@SuppressWarnings("unchecked")
 	public Disciplina getDisciplinas(Turma t) {
 		Query q = entityManager.createQuery("select d from Disciplina as d where :turma member of d.turmas")
 		.setParameter("turma", t);
@@ -54,6 +55,7 @@ public class DisciplinaDAO {
 		return null;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public List<Disciplina> getCoRequisitos(Curriculo c, Disciplina d) {
 		Query q = entityManager.createQuery("select co.disciplina2 from CoRequesito as co where co.curriculo = :curriculo and co.disciplina1 = :disciplina")
 		.setParameter("curriculo", c)

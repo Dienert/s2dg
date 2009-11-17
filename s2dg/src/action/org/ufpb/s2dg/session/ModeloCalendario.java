@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -17,7 +16,6 @@ import org.ufpb.s2dg.entity.Avaliacao;
 import org.ufpb.s2dg.entity.Calendario;
 import org.ufpb.s2dg.entity.EventoCalendarioTurma;
 import org.ufpb.s2dg.entity.Horario;
-import org.ufpb.s2dg.entity.Horario.Dia;
 import org.ufpb.s2dg.session.ItemDeCalendario.TipoData;
 
 @Name("modeloCalendario")

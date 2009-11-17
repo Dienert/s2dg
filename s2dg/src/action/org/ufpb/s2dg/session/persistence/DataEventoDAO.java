@@ -21,6 +21,7 @@ public class DataEventoDAO {
 	@In//(create = true)
 	EntityManager entityManager;
 	
+	@SuppressWarnings("unchecked")
 	public ArrayList<EventoCalendarioTurma> getDataEvento(int mes, int ano) {
 		try {
 			return (ArrayList<EventoCalendarioTurma>) entityManager.createQuery(
@@ -36,10 +37,11 @@ public class DataEventoDAO {
 		
 	}
 
+	@SuppressWarnings("unchecked")
 	public List<EventoCalendarioTurma> getDataEvento(Turma turma) {
 		Query query = entityManager.createQuery("select de from DataEvento as de where de.turma = :turma")
 			.setParameter("turma", turma);
-		List<EventoCalendarioTurma> list = (List<EventoCalendarioTurma>)query.getResultList();
+		List<EventoCalendarioTurma> list = query.getResultList();
 		if(list.size() > 0)
 			return list;
 		return null;
@@ -49,10 +51,11 @@ public class DataEventoDAO {
 		entityManager.persist(dataEvento);
 	}
 
+	@SuppressWarnings("unchecked")
 	public EventoCalendarioTurma getDataEvento(Avaliacao avaliacao) {
 		Query query = entityManager.createQuery("select de from DataEvento as de where de.avaliacao = :avaliacao")
 			.setParameter("avaliacao", avaliacao);
-		List<EventoCalendarioTurma> list = (List<EventoCalendarioTurma>)query.getResultList();
+		List<EventoCalendarioTurma> list = query.getResultList();
 		if(list.size() > 0)
 			return list.get(0);
 		return null;

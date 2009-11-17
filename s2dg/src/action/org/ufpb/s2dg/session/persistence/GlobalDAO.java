@@ -24,6 +24,7 @@ public class GlobalDAO {
 		entityManager = em;
 	}
 	
+	@SuppressWarnings("unchecked")
 	public Global getGlobal() {
 		Query query = entityManager.createQuery(
     		"select global from Global global");
