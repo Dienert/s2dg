@@ -11,7 +11,7 @@
 	<ui:include src="/titulo_turma_discente.xhtml" />
 				<br />
 				<br />
-			<div><rich:tabPanel switchType="client">
+			<div id="corpo_do_discente_div"><rich:tabPanel switchType="client">
 				<rich:tab label="Cronograma de Aulas">
 					<ui:include src="/calendario2.xhtml"/>
 				</rich:tab>
@@ -23,7 +23,7 @@
 						<s:formattedText value="#{alunoTurmaBean.alunoTurma.turma.planoDeCurso}"/>
 					</a4j:outputPanel>
 				</rich:tab>
-				<rich:tab label="Trancar Disciplina" rendered="#{alunoTurmaBean.checaCondicoesTrancamentoParcial()}">
+				<rich:tab label="Trancar Disciplina" rendered="true">
 					<ui:include src="/trancamento_disciplina.xhtml" />
 				</rich:tab>
 			</rich:tabPanel></div>
