@@ -18,8 +18,8 @@ import org.ufpb.s2dg.entity.Avaliacao;
 import org.ufpb.s2dg.entity.Calendario;
 import org.ufpb.s2dg.entity.Curriculo;
 import org.ufpb.s2dg.entity.Curso;
-import org.ufpb.s2dg.entity.EventoCalendarioTurma;
 import org.ufpb.s2dg.entity.Disciplina;
+import org.ufpb.s2dg.entity.EventoCalendarioTurma;
 import org.ufpb.s2dg.entity.Global;
 import org.ufpb.s2dg.entity.Oferta;
 import org.ufpb.s2dg.entity.Periodo;
@@ -27,6 +27,15 @@ import org.ufpb.s2dg.entity.Professor;
 import org.ufpb.s2dg.entity.Sala;
 import org.ufpb.s2dg.entity.Turma;
 import org.ufpb.s2dg.entity.Usuario;
+import org.ufpb.s2dg.session.beans.AlunoTurmaAvaliacoesBean;
+import org.ufpb.s2dg.session.beans.AlunoTurmaBean;
+import org.ufpb.s2dg.session.beans.AlunoTurmasBean;
+import org.ufpb.s2dg.session.beans.AvaliacaoBean;
+import org.ufpb.s2dg.session.beans.AvaliacoesBean;
+import org.ufpb.s2dg.session.beans.CalendarioBean;
+import org.ufpb.s2dg.session.beans.GlobalBean;
+import org.ufpb.s2dg.session.beans.TurmaBean;
+import org.ufpb.s2dg.session.beans.UsuarioBean;
 import org.ufpb.s2dg.session.persistence.AlunoTurmaAvaliacaoDAO;
 import org.ufpb.s2dg.session.persistence.AlunoTurmaDAO;
 import org.ufpb.s2dg.session.persistence.AvaliacaoDAO;
@@ -42,6 +51,8 @@ import org.ufpb.s2dg.session.persistence.ProfessorDAO;
 import org.ufpb.s2dg.session.persistence.SalaDAO;
 import org.ufpb.s2dg.session.persistence.TurmaDAO;
 import org.ufpb.s2dg.session.persistence.UsuarioDAO;
+import org.ufpb.s2dg.session.util.EmailAction;
+import org.ufpb.s2dg.session.util.TurmasMatriculadasBean;
 
 @Name("fachada")
 @Scope(ScopeType.SESSION)
