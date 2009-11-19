@@ -1,6 +1,7 @@
 package org.ufpb.s2dg.session.util;
 
 import java.awt.Color;
+import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -289,7 +290,12 @@ public class PDFAction implements Serializable{
 		Image image = null;
 		PdfPTable table = null;
 		try {
-			image = Image.getInstance("C:\\ambiente\\workspace\\s2dg\\WebContent\\img\\logo_ufpb2.png");
+			
+			//image = Image.getInstance("C:\\ambiente\\workspace\\s2dg\\WebContent\\img\\logo_ufpb2.png");
+			
+			String caminhoImagem =  ".." + File.separator + ".." + File.separator + "workspace" + File.separator + "s2dg" + File.separator + "WebContent" + File.separator + "img" + File.separator + "logo_ufpb2.png"; 
+			
+			image = Image.getInstance(caminhoImagem);
 			
 			image.scaleAbsolute(31, 45);
 			table = new PdfPTable(2);
@@ -521,8 +527,8 @@ public class PDFAction implements Serializable{
         catch (DocumentException ex) {ex.printStackTrace();}
         
         
-    	String s2 = "\n\n Data: xx/xx/xxxx \t Hora: hh:mm:ss"; 
-    	addParagrafo(new Paragraph(s2.replaceAll("&nbsp;", " "), f2));
+    	//String s2 = "\n\n Data: xx/xx/xxxx \t Hora: hh:mm:ss"; 
+    	//addParagrafo(new Paragraph(s2.replaceAll("&nbsp;", " "), f2));
     	
 	}
 	
