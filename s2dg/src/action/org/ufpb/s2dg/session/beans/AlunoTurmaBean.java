@@ -2,6 +2,7 @@ package org.ufpb.s2dg.session.beans;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.jboss.seam.ScopeType;
@@ -13,10 +14,13 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.log.Log;
 import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.Disciplina;
+import org.ufpb.s2dg.entity.Horario;
 import org.ufpb.s2dg.entity.Turma;
 import org.ufpb.s2dg.entity.AlunoTurma.Situacao;
 import org.ufpb.s2dg.session.Fachada;
 import org.ufpb.s2dg.session.util.MenuAction;
+import org.ufpb.s2dg.session.util.PDFAction;
+import org.ufpb.s2dg.session.beans.MatriculaBean;
 
 @Name("alunoTurmaBean")
 @Scope(ScopeType.SESSION)
@@ -42,6 +46,9 @@ public class AlunoTurmaBean implements Serializable{
 	//TODO Clodoaldo: isso pode ser perigoso, caso der pau, checar!
 	@In
 	MatriculaBean matriculaBean;
+	
+	@In
+	PDFAction pdfAction;
 	
 	public AlunoTurma getAlunoTurma() {
 		return alunoTurma;
@@ -75,6 +82,7 @@ public class AlunoTurmaBean implements Serializable{
 		System.out.print("Pegou geral entrando no metodo. Id="+alunoTurma.getId() +"Id_turma ="+alunoTurma.getTurma() +"id aluno="+ alunoTurma.getAluno()+ "SItuacao ="+alunoTurma.getSituacao());
 		alunoTurma.setSituacao(Situacao.TRANCADO);
 		fachada.trancamentoParcial(alunoTurma);
+		gerarPDFTrancamento();
 		System.out.print("Pegou geral na saida. SItuacao ="+alunoTurma.getSituacao());
 	}
 	
@@ -104,6 +112,32 @@ public class AlunoTurmaBean implements Serializable{
 			return false;
 		else
 			return true;
+	}
+
+	public void gerarPDFTrancamento() {
+		ArrayList<HashMap<String, String>> mapas = new ArrayList<HashMap<String, String>>();
+		//Numero - Codigo - Nome da disciplina - Creditos - CargaHoraria - Horarios - Sala
+		AlunoTurma at = alunoTurma;
+			HashMap<String, String> mapa = new HashMap<String, String>();
+			mapa.put("Aviso","A disciplina foi trancada.");
+			mapa.put("Numero", at.getTurma().getNumero());
+			mapa.put("Codigo", at.getTurma().getDisciplina().getCodigo());
+			mapa.put("Nome", at.getTurma().getDisciplina().getNome());
+			String horarios = "";
+			for (Horario h : matriculaBean.getHorariosOrdenados(at.getTurma().getHorarios())) {
+				horarios += h.toString()+ "\n";
+			}
+			mapa.put("Horarios", horarios);
+			String salas = "";
+			mapa.put("Turma", at.getTurma().getNumero());
+			int creditos = at.getTurma().getDisciplina().getCreditos();
+			mapa.put("Creditos", String.valueOf(creditos));
+			System.out.println(at.getTurma().getNumero());
+			mapa.put("Carga Horaria", String.valueOf(creditos*15));
+			System.out.println(at.getTurma().getNumero());
+			mapas.add(mapa);
+		
+		pdfAction.geraPdfTranca("Comprovante_Trancamento.pdf", mapas);
 	}
 	
 }

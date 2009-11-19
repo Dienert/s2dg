@@ -151,6 +151,39 @@ public class PDFAction implements Serializable{
         
 	}
 	
+	public void geraPdfTranca(String nome, ArrayList<HashMap<String, String>> informacoes){
+		Rectangle pageSize = new Rectangle(PageSize.A4);
+		 
+		pageSize.setBackgroundColor(Color.WHITE);
+		
+		doc = new Document(pageSize);
+		
+		try {
+			PdfWriter.getInstance(doc, new FileOutputStream(nome));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+		
+		this.doc.open();
+		
+		geraTabelaTranca(informacoes);
+        
+		//geraCabecalho();
+
+        this.doc.close(); 
+
+        try {
+        	reportGenerator.generate(nome);
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Horário Individual impresso com sucesso!",null));
+		} catch (IOException e) {
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Não foi possível imprimir o documento!",null));
+			e.printStackTrace();
+		}        
+        
+	}
+	
 	public void geraPdfHistorico(){
 		
 		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy_hh:mm:ss");
@@ -389,6 +422,111 @@ public class PDFAction implements Serializable{
         } 
         catch (DocumentException ex) {ex.printStackTrace();}
 	}
+	
+	public void geraTabelaTranca(ArrayList<HashMap<String, String>> informacoes){				
+		geraCabecalho("TRANCAMENTO DE DISCIPLINA");
+		
+		Font f1 = new Font(); f1.setStyle(Font.BOLD); f1.setSize(12);
+        Font f2 = new Font(); f2.setStyle(Font.ITALIC); f2.setSize(8);
+		
+        String s = "A partir do presente momento, está trancada a seguinte disciplina:\n\n";
+        addParagrafo(new Paragraph(s.replaceAll("&nbsp;", " "), f2));
+        
+        PdfPTable table = new PdfPTable(7);
+        PdfPCell cell0 = new PdfPCell(new Paragraph("Trancamento", f2));
+        PdfPCell cell1 = new PdfPCell(new Paragraph("Código", f2));
+        PdfPCell cell2 = new PdfPCell(new Paragraph("Nome", f2));
+        PdfPCell cell3 = new PdfPCell(new Paragraph("Turma", f2));
+        PdfPCell cell4 = new PdfPCell(new Paragraph("CR", f2));
+        PdfPCell cell5 = new PdfPCell(new Paragraph("CH", f2));
+        PdfPCell cell6 = new PdfPCell(new Paragraph("Horário", f2));
+        PdfPCell cell7 = new PdfPCell(new Paragraph("Sala", f2));
+        
+        cell0.setBackgroundColor(Color.BLUE);
+        cell0.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+        cell0.setColspan(7);
+        cell0.setBorderWidthBottom(1);
+        cell0.setBorderWidthTop(1);
+        
+        cell1.setBackgroundColor(Color.LIGHT_GRAY);
+        cell1.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+
+        cell2.setBackgroundColor(Color.LIGHT_GRAY);
+        cell2.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+        
+        cell3.setBackgroundColor(Color.LIGHT_GRAY);
+        cell3.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+        
+        cell4.setBackgroundColor(Color.LIGHT_GRAY);
+        cell4.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+        
+        cell5.setBackgroundColor(Color.LIGHT_GRAY);
+        cell5.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+        
+        cell6.setBackgroundColor(Color.LIGHT_GRAY);
+        cell6.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+        
+        cell7.setBackgroundColor(Color.LIGHT_GRAY);
+        cell7.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+        
+        //table.addCell(cell0);
+        table.addCell(cell1);
+        table.addCell(cell2);
+        table.addCell(cell3);
+        table.addCell(cell4);
+        table.addCell(cell5);
+        table.addCell(cell6);
+        table.addCell(cell7);
+        
+        for(HashMap<String, String> hash : informacoes){
+        	
+        	cell1 = new PdfPCell(new Paragraph(hash.get("Codigo"), f2));
+        	cell2 = new PdfPCell(new Paragraph(hash.get("Nome"), f2));
+        	cell3 = new PdfPCell(new Paragraph(hash.get("Turma"), f2));
+            cell4 = new PdfPCell(new Paragraph(hash.get("Creditos"), f2));
+            cell5 = new PdfPCell(new Paragraph(hash.get("Carga Horaria"), f2));
+            cell6 = new PdfPCell(new Paragraph(hash.get("Horarios"), f2));
+            cell7 = new PdfPCell(new Paragraph(hash.get("Sala"), f2));
+            
+            cell1.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+
+            cell2.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+            
+            cell3.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+            
+            cell4.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+            
+            cell5.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+            
+            cell6.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+            
+            cell7.setHorizontalAlignment(PdfPCell.ALIGN_CENTER);
+            
+        	table.addCell(cell1);
+        	table.addCell(cell2);
+        	table.addCell(cell3);
+        	table.addCell(cell4);
+        	table.addCell(cell5);
+        	table.addCell(cell6);
+        	table.addCell(cell7);
+        	
+        }
+        
+
+    	
+        try 
+        {
+            this.doc.add(table);
+        } 
+        catch (DocumentException ex) {ex.printStackTrace();}
+        
+        
+    	String s2 = "\n\n Data: xx/xx/xxxx \t Hora: hh:mm:ss"; 
+    	addParagrafo(new Paragraph(s2.replaceAll("&nbsp;", " "), f2));
+    	
+	}
+	
+	
 	
 	public void geraTabelaRelatorioDeNotas(List<AlunoTurma> list, List<Avaliacao> avaliacoes){
 		geraCabecalho("DIÁRIO DE CLASSE");
