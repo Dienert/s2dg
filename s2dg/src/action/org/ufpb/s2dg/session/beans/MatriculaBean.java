@@ -231,6 +231,7 @@ public class MatriculaBean implements Serializable{
 							novoAlunoTurma.setAluno(aluno);
 							novoAlunoTurma.setTurma(turma);
 							novoAlunoTurma.setFaltas(0);
+							novoAlunoTurma.setSituacao(novoAlunoTurma.getSituacao().EM_CURSO);
 							fachada.criaAlunoTurma(novoAlunoTurma);
 							String log = "Matrícula realizada com sucesso na disciplina "+turma.getDisciplina().getNome()
 								+" (código:"+turma.getDisciplina().getCodigo()

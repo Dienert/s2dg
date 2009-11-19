@@ -50,12 +50,11 @@
         <h:outputText value="Tem certeza que deseja trancar a disciplina?"></h:outputText>
         <br/>
      	<div class="actionButtons">
-     	<h:commandButton  id="botaotranca1" value="Trancar" action="#{alunoTurmaBean.trancamentoParcial()}" >	
-     	</h:commandButton>
-			
-				<rich:componentControl for="panel"  attachTo="botaotranca1"
-					operation="hide" event="onclick" />
-			
+     	
+     	<a4j:commandButton id="botaotranca1" value="Trancar" action="#{alunoTurmaBean.trancamentoParcial()}" operation="hide" event="onclick" ajaxSingle="true" reRender="corpo" />
+     	<rich:componentControl for="panel"  attachTo="botaotranca1"
+					operation="hide" event="onclick" ajaxSingle="true" reRender="corpo"/>
+     	
 			<a4j:commandButton id="voltar" value="Voltar">
 				<rich:componentControl for="panel" attachTo="voltar"
 					operation="hide" event="onclick" />

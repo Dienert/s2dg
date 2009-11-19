@@ -92,12 +92,13 @@ public class TurmasMatriculadasBean implements Serializable{
 		
 		if(alunoTurmas == null || alunoTurmas.size() == 0)
 			return alunoTurmas;
-		
+						
 		List<AlunoTurma> alunos = new LinkedList<AlunoTurma>();
 		
 		for(int i = 0; i < alunoTurmas.size(); i++){
 			if (alunoTurmas.get(i) != null) {
-				if (alunoTurmas.get(i).getSituacao() == Situacao.EM_CURSO) {
+				//if (alunoTurmas.get(i).getSituacao() == Situacao.EM_CURSO) {
+				if (alunoTurmas.get(i).getSituacao().compareTo(Situacao.EM_CURSO)==0) {
 					alunos.add(alunoTurmas.get(i));
 				}
 			}

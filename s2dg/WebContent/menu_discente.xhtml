@@ -16,7 +16,7 @@
 		</center>
 		<rich:panel rendered="#{turmasMatriculadasBean.naoVazio(turmasMatriculadasBean.alunoTurmasEmCurso)}" reRender="corpo">
 			<h:form>
-				<ui:repeat value="#{turmasMatriculadasBean.alunoTurmas}" var="alunoTurma">
+				<ui:repeat value="#{turmasMatriculadasBean.alunoTurmasEmCurso}" var="alunoTurma">
 					<a4j:commandLink
 						action="#{alunoTurmaBean.setAlunoTurma(alunoTurma)}"
 						value=":: #{alunoTurma.turma.disciplina.nome}"
