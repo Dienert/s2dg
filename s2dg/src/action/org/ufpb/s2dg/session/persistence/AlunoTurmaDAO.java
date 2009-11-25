@@ -14,11 +14,14 @@ import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.Disciplina;
 import org.ufpb.s2dg.entity.Periodo;
 import org.ufpb.s2dg.entity.Turma;
+import org.ufpb.s2dg.session.Fachada;
 
 @AutoCreate
 @Name("alunoTurmaDAO")
 public class AlunoTurmaDAO {
 
+	@In
+	Fachada fachada;
 	@In
 	EntityManager entityManager;
 
@@ -39,8 +42,16 @@ public class AlunoTurmaDAO {
     	.getResultList();
 	}
 
+
+	
 	public void atualiza(AlunoTurma alunoTurma) {
+		
+		Integer maxFaltas = Math.round(((fachada.getTurma().getDisciplina().getCreditos())*10/8)+new Float(0.4));
+		if (alunoTurma.getFaltas() > maxFaltas){
+			alunoTurma.setMedia(new Float(0));
+		}
 		entityManager.merge(alunoTurma);
+		
 	}
 
 	public void cria(AlunoTurma alunoTurma) {
