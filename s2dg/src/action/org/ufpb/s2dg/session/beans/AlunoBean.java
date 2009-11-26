@@ -8,7 +8,7 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.ufpb.s2dg.entity.Aluno;
-import org.ufpb.s2dg.entity.Aluno.FormaIngresso;
+import org.ufpb.s2dg.entity.FormaIngresso;
 import org.ufpb.s2dg.entity.Aluno.SituacaoAcademica;
 import org.ufpb.s2dg.session.Fachada;
 
@@ -42,7 +42,7 @@ public class AlunoBean implements Serializable{
 	
 	public Boolean formaIngresso(){
 		
-		if(fachada.getAluno().getFormaIngresso()==FormaIngresso.VESTIBULAR){
+		if(fachada.getAluno().getFormaIngresso().getTipo()==FormaIngresso.Tipo.VESTIBULAR){
 			return true;
 		}
 		else

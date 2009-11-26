@@ -182,13 +182,14 @@ public int geraCreditosIntegralizadosComplementares(List<AlunoTurma> ats){
         int semestreAtual = (int)(fachada.getGlobalDoBanco().getPeriodoAtual().getSemestre());
 		int creditosPeriodoAtual = 0;
 		for(int i=0; i < alunoTurmas.size(); i++){
-			int anoLista = Integer.parseInt(alunoTurmas.get(i).getTurma().getPeriodo().getAno());
-			int semestreLista = (int)alunoTurmas.get(i).getTurma().getPeriodo().getSemestre();
-			System.out.println("--------------------"+ anoLista+"." +semestreLista +"  "+ alunoTurmas.get(i).getSituacao() +"   " + alunoTurmas.get(i).getTurma().getDisciplina().getCreditos());
-			if((((anoLista == anoAtual)&&(semestreLista == semestreAtual))&&((alunoTurmas.get(i).getSituacao()==Situacao.EM_CURSO))) ){
-				creditosPeriodoAtual += alunoTurmas.get(i).getTurma().getDisciplina().getCreditos();
+			if (alunoTurmas.get(i).getAluno().getMatricula().equals(fachada.getAluno().getMatricula())) {
+				int anoLista = Integer.parseInt(alunoTurmas.get(i).getTurma().getPeriodo().getAno());
+				int semestreLista = (int)alunoTurmas.get(i).getTurma().getPeriodo().getSemestre();
+				System.out.println("--------------------"+ anoLista+"." +semestreLista +"  "+ alunoTurmas.get(i).getSituacao() +"   " + alunoTurmas.get(i).getTurma().getDisciplina().getCreditos());
+				if((((anoLista == anoAtual)&&(semestreLista == semestreAtual))&&((alunoTurmas.get(i).getSituacao()==Situacao.EM_CURSO))) ){
+					creditosPeriodoAtual += alunoTurmas.get(i).getTurma().getDisciplina().getCreditos();
+				}
 			}
-
 		}
 		return creditosPeriodoAtual;
 	}
@@ -754,7 +755,7 @@ public int geraCreditosIntegralizadosComplementares(List<AlunoTurma> ats){
 		historico = String.format("Situacao academica............ %-33s CRE: %5s", sitAcad, cre);
 		lista.add(historico.replaceAll(" ", getEspacos(1)));
 				
-		historico = String.format("Forma de ingresso............. %s (em %s.%c)", fachada.getAluno().getFormaIngresso(), getDisciplinasOrdenadas(getAluno()).get(0).getTurma().getPeriodo().getAno(), getDisciplinasOrdenadas(getAluno()).get(0).getTurma().getPeriodo().getSemestre());
+		historico = String.format("Forma de ingresso............. %s", fachada.getAluno().getFormaIngresso());
 		lista.add(historico.replaceAll(" ", getEspacos(1)));
 		
 		return lista;		

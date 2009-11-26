@@ -30,7 +30,8 @@ public class Usuario implements Serializable {
 	private String email;
 	private String pergunta;
 	private String resposta;
-	private String rg;
+	private RG rg;
+	
 
 	public Usuario() {
 	}
@@ -40,7 +41,7 @@ public class Usuario implements Serializable {
 	}
 
 	public Usuario(long id, Aluno aluno, Professor professor, String senha,
-			String nome, String cpf, Set<Role> roles, String rg) {
+			String nome, String cpf, Set<Role> roles, RG rg) {
 		this.id = id;
 		this.aluno = aluno;
 		this.professor = professor;
@@ -69,6 +70,17 @@ public class Usuario implements Serializable {
 
 	public void setAluno(Aluno aluno) {
 		this.aluno = aluno;
+	}
+
+	@OneToOne(fetch = FetchType.EAGER, cascade= {CascadeType.ALL})
+	@JoinColumn(name = "usuario_rg")
+	public RG getRg() {
+		return this.rg;
+	}
+
+	
+	public void setRg(RG rg) {
+		this.rg = rg;
 	}
 
 	@OneToOne(fetch = FetchType.EAGER, cascade= {CascadeType.ALL})
@@ -143,13 +155,13 @@ public class Usuario implements Serializable {
 		return resposta;
 	}
 
-	@Column(name="rg")
+	/*@Column(name="rg")
 	public String getRg() {
 		return rg;
 	}
 
 	public void setRg(String rg) {
 		this.rg = rg;
-	}
+	}*/
 
 }

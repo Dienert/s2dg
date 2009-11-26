@@ -23,13 +23,13 @@ import org.hibernate.validator.NotNull;
 public class Aluno implements Serializable {
 
 	public enum SituacaoAcademica {INDEFINIDO, REGULAR, GRADUADO};
-	public enum FormaIngresso {VESTIBULAR, DECISAO_CONSEPE,DECISAO_JUDICIAL,MOBILIDADE_INTERNA, VESTIBULAR_EAD_DEMANDA_SOCIAL,
+	/*public enum FormaIngresso {VESTIBULAR, DECISAO_CONSEPE,DECISAO_JUDICIAL,MOBILIDADE_INTERNA, VESTIBULAR_EAD_DEMANDA_SOCIAL,
 	VESTIBULAR_EAD_PROFESSOR,VESTIBULAR_PROESP_UFPB,VESTIBULAR_PROESP_OUTROS_ORG_PUB,REOPCAO_DE_POLO_EAD, EAD_TRANSFERENCIA_PSTV,
 	DISCIPLINAS_ISOLADAS_ESPECIAL,TRANSFERENCIA_PSTV, CONVENIO, MUDANCA_DE_CAMPUS_CURSO, GRADUADO, VESTIBULAR_MUDANCA_DE_CURSO,
 	TRANSFERENCIA_MUDANCA_DE_CURSO, CONVENIO_MUDANCA_DE_CURSO, TRANSFERENCIA_EX_OFICIO,TRANSFERENCIA_POR_FORCA_LIMINAR,
 	TRANSFERENCIA_POR_FORCA_SENTENCA,PEC,REINGRESSO,PROGRAMA_PIANI,VESTIBULAR_2,PROGRAMA_DE_MOBILIDADE_ESTUDANTIL,PEC_MSC,REINGRESSO_POR_DECISAO_DO_CONSEPE,
 	REOPCAO_MUDANCA_DE_TURNO
-	}
+	}*/
 	
 	private static final long serialVersionUID = 1L;
 	private String matricula;
@@ -153,7 +153,7 @@ public class Aluno implements Serializable {
 	public void setSituacaoAcademica(SituacaoAcademica situacaoAcademica) {
 		this.situacaoAcademica = situacaoAcademica;
 	}
-
+/*
 	@Column(name = "forma_ingresso")
 	public FormaIngresso getFormaIngresso() {
 		return formaIngresso;
@@ -162,10 +162,21 @@ public class Aluno implements Serializable {
 	public void setFormaIngresso(FormaIngresso formaIngresso) {
 		this.formaIngresso = formaIngresso;
 	}
+*/
 
 	@Column(name = "matriculas_institucionais")
 	public int getMatriculasInstitucionais() {
 		return matriculasInstitucionais;
+	}
+
+	@OneToOne(fetch = FetchType.EAGER, cascade= {CascadeType.ALL})
+	@JoinColumn(name = "aluno_forma_ingresso")
+	public FormaIngresso getFormaIngresso() {
+		return formaIngresso;
+	}
+
+	public void setFormaIngresso(FormaIngresso formaIngresso) {
+		this.formaIngresso = formaIngresso;
 	}
 
 	public void setMatriculasInstitucionais(int matriculasInstitucionais) {
