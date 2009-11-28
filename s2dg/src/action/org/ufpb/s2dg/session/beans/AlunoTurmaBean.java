@@ -78,11 +78,11 @@ public class AlunoTurmaBean implements Serializable{
 		else return null;
 	}
 	
-	public void trancamentoParcial(){
+	public String trancamentoParcial(){
 		alunoTurma.setSituacao(Situacao.TRANCADO);
 		fachada.trancamentoParcial(alunoTurma);
-		gerarPDFTrancamento();
-		
+		gerarPDFTrancamentoParcial();
+		return "/home.seam";
 	}
 	
 	public boolean checaCondicoesTrancamentoParcial(){
@@ -113,7 +113,7 @@ public class AlunoTurmaBean implements Serializable{
 			return true;
 	}
 
-	public void gerarPDFTrancamento() {
+	public void gerarPDFTrancamentoParcial() {
 		ArrayList<HashMap<String, String>> mapas = new ArrayList<HashMap<String, String>>();
 		//Numero - Codigo - Nome da disciplina - Creditos - CargaHoraria - Horarios - Sala
 		AlunoTurma at = alunoTurma;
@@ -136,7 +136,32 @@ public class AlunoTurmaBean implements Serializable{
 			System.out.println(at.getTurma().getNumero());
 			mapas.add(mapa);
 		
-		pdfAction.geraPdfTranca("Comprovante_Trancamento.pdf", mapas);
+		pdfAction.geraPdfTranca("Comprovante_Trancamento", mapas);
 	}
 	
+	public void gerarPDFTrancamentoTotal() {
+		ArrayList<HashMap<String, String>> mapas = new ArrayList<HashMap<String, String>>();
+		//Numero - Codigo - Nome da disciplina - Creditos - CargaHoraria - Horarios - Sala
+		AlunoTurma at = alunoTurma;
+			HashMap<String, String> mapa = new HashMap<String, String>();
+			mapa.put("Aviso","A disciplina foi trancada.");
+			mapa.put("Numero", at.getTurma().getNumero());
+			mapa.put("Codigo", at.getTurma().getDisciplina().getCodigo());
+			mapa.put("Nome", at.getTurma().getDisciplina().getNome());
+			String horarios = "";
+			for (Horario h : matriculaBean.getHorariosOrdenados(at.getTurma().getHorarios())) {
+				horarios += h.toString()+ "\n";
+			}
+			mapa.put("Horarios", horarios);
+			String salas = "";
+			mapa.put("Turma", at.getTurma().getNumero());
+			int creditos = at.getTurma().getDisciplina().getCreditos();
+			mapa.put("Creditos", String.valueOf(creditos));
+			System.out.println(at.getTurma().getNumero());
+			mapa.put("Carga Horaria", String.valueOf(creditos*15));
+			System.out.println(at.getTurma().getNumero());
+			mapas.add(mapa);
+		
+		pdfAction.geraPdfTranca("Comprovante_Trancamento", mapas);
+	}
 }
