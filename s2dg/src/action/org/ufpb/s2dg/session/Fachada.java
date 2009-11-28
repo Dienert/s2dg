@@ -36,6 +36,7 @@ import org.ufpb.s2dg.session.beans.CalendarioBean;
 import org.ufpb.s2dg.session.beans.GlobalBean;
 import org.ufpb.s2dg.session.beans.TurmaBean;
 import org.ufpb.s2dg.session.beans.UsuarioBean;
+import org.ufpb.s2dg.session.persistence.AlunoDAO;
 import org.ufpb.s2dg.session.persistence.AlunoTurmaAvaliacaoDAO;
 import org.ufpb.s2dg.session.persistence.AlunoTurmaDAO;
 import org.ufpb.s2dg.session.persistence.AvaliacaoDAO;
@@ -67,6 +68,8 @@ public class Fachada implements Serializable {
 	private UsuarioDAO usuarioDAO;
 	@In
 	private AlunoTurmaDAO alunoTurmaDAO;
+	@In
+	private AlunoDAO alunoDAO;
 	@In
 	private TurmaDAO turmaDAO;
 	@In
@@ -397,6 +400,18 @@ public class Fachada implements Serializable {
 		return salaDAO.getSalas(id);
 	}
 
+	public int getNumeroDeTrancamentosTotaisEfetuados(){
+		return usuarioBean.getUsuario().getAluno().getTracamentosTotais();
+	}
+	
+	public int getMaximoDeTrancamentosTotaisPossiveis(){
+		return usuarioBean.getUsuario().getAluno().getCurriculo().getMaximoTrancamentosTotais();
+	}
+	
+	public void fazerTrancamentoTotal(){
+		alunoTurmasBean.fazerTrancamentoTotal();
+	}
+	
 	public void fazLog(String log) {
 		logDAO.cria(log, usuarioBean.getUsuario());
 	}
@@ -411,7 +426,7 @@ public class Fachada implements Serializable {
 		
 		return alunoTurmaDAO.getAlunoTurmas(usuarioBean.getUsuario().getAluno(), alunoTurmaBean.getAlunoTurma().getTurma().getDisciplina());
 	}
-	
+
 	public int getNumeroDeVezesAlunoTurmaCursadasAnteriormente() {
 		return alunoTurmaDAO.getAlunoTurmas(usuarioBean.getUsuario().getAluno(), alunoTurmaBean.getAlunoTurma().getTurma().getDisciplina()).size();
 	}
@@ -420,4 +435,15 @@ public class Fachada implements Serializable {
 		return alunoTurmasBean.numeroDeDisciplinasAtivas();
 	}
 	
+	public List<AlunoTurma> getAlunoTurmasEmCurso(){
+		return turmasMatriculadasBean.getAlunoTurmasEmCurso();
+	} 
+	
+	public void persisteSituacaoTurma(AlunoTurma at) {
+		alunoTurmaDAO.atualizaSituacaoTrancamento(at);
+	}
+	
+	public void persisteAluno(Aluno aluno) {
+		alunoDAO.atualiza(aluno);
+	}
 }

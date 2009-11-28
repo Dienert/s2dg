@@ -29,5 +29,8 @@ public class AlunoDAO {
 		return lista;
 	}
 	
+	public void atualiza(Aluno aluno) {
+		entityManager.merge(aluno);		
+	}
 	
 }

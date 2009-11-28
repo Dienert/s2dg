@@ -13,6 +13,7 @@ import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.ufpb.s2dg.entity.Aluno;
 import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.AlunoTurmaAvaliacao;
 import org.ufpb.s2dg.entity.Avaliacao;
@@ -113,4 +114,24 @@ public class AlunoTurmasBean implements Serializable {
 		System.out.print("Pegou geral total.");
 	}
 	
+	public boolean fazerTrancamentoTotal(){
+		Aluno aluno = fachada.getAluno();
+		int trancamentoTotais = aluno.getTracamentosTotais();
+		if (trancamentoTotais >= aluno.getCurriculo().getMaximoTrancamentosTotais())
+			return false;
+		
+		List<AlunoTurma> alunoTurmas = fachada.getAlunoTurmasEmCurso();
+		if(alunoTurmas != null) {
+			for(int i = 0; i < alunoTurmas.size(); i++) {
+				AlunoTurma alunoTurma = alunoTurmas.get(i);
+				if (alunoTurma.getSituacao() == AlunoTurma.Situacao.EM_CURSO){
+					alunoTurma.setSituacao(AlunoTurma.Situacao.TRANCADO_TOTAL);
+					fachada.persisteSituacaoTurma(alunoTurma);
+				}
+			}
+			aluno.setTracamentosTotais(++trancamentoTotais);
+			fachada.persisteAluno(aluno);
+		}
+		return true;
+	}
 }

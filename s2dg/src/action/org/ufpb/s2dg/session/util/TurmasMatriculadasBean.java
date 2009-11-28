@@ -448,6 +448,7 @@ public int geraCreditosIntegralizadosComplementares(List<AlunoTurma> ats){
 		return semestresAtivos;
 	}
 	
+	@Deprecated
 	public int geraTrancamentosTotais(List<AlunoTurma> alunoTurmas){
 		
 		ArrayList<AlunoTurma> lista  = new ArrayList<AlunoTurma>(alunoTurmas);
@@ -633,16 +634,18 @@ public int geraCreditosIntegralizadosComplementares(List<AlunoTurma> ats){
 		String linha, codigo, nome, ano, media, situacao;
 		int creditos, cargaHoraria, semestre;
 		for(int i = 0; i < ats.size(); i++){
-			codigo = ats.get(i).getTurma().getDisciplina().getCodigo();
-			nome = ats.get(i).getTurma().getDisciplina().getNome();
-			creditos = ats.get(i).getTurma().getDisciplina().getCreditos();
-			cargaHoraria = cargaHoraria(creditos);
-			ano = ats.get(i).getTurma().getPeriodo().getAno();
-			semestre = ats.get(i).getTurma().getPeriodo().getSemestre();
-			media = geraMedia(ats.get(i));
-			situacao = getTextoSituacao(ats.get(i).getSituacao());
-			linha = String.format("%s %-41s %d %3d %s %c %5s %s", codigo, nome, creditos, cargaHoraria, ano, semestre, media, situacao);
-			lista.add(linha.toUpperCase().replaceAll(" ", getEspacos(1)));
+			if (ats.get(i).getSituacao() != Situacao.TRANCADO_TOTAL) {
+				codigo = ats.get(i).getTurma().getDisciplina().getCodigo();
+				nome = ats.get(i).getTurma().getDisciplina().getNome();
+				creditos = ats.get(i).getTurma().getDisciplina().getCreditos();
+				cargaHoraria = cargaHoraria(creditos);
+				ano = ats.get(i).getTurma().getPeriodo().getAno();
+				semestre = ats.get(i).getTurma().getPeriodo().getSemestre();
+				media = geraMedia(ats.get(i));
+				situacao = getTextoSituacao(ats.get(i).getSituacao());
+				linha = String.format("%s %-41s %d %3d %s %c %5s %s", codigo, nome, creditos, cargaHoraria, ano, semestre, media, situacao);
+				lista.add(linha.toUpperCase().replaceAll(" ", getEspacos(1)));
+			}
 		}
 		return lista;
 	}
@@ -721,7 +724,7 @@ public int geraCreditosIntegralizadosComplementares(List<AlunoTurma> ats){
 		String historico = String.format("Numero de semestres cursados.. %4d (Minimo: %2d, Maximo: %2d) de %d ativos", semCursados, minSemestres, maxSemestres, ativos);
 		lista.add(historico.replaceAll(" ", getEspacos(1)));
 		
-		int trancTotais = geraTrancamentosTotais(getDisciplinasOrdenadas(getAluno()));
+		int trancTotais = fachada.getNumeroDeTrancamentosTotaisEfetuados();
 		int maxTrancs = fachada.getAluno().getCurriculo().getMaximoTrancamentosTotais();
 		historico = String.format("Trancamentos Totais efetuados. %4d (Max: %d sem)", trancTotais, maxTrancs);
 		lista.add(historico.replaceAll(" ", getEspacos(1)));

@@ -24,7 +24,8 @@ public class MenuAction implements Serializable {
 								"/configuracoes.xhtml",
 							 	"/matricula.xhtml", 
 							 	"/paginahistorico.xhtml", 
-							 	"/paginahorario.xhtml"};
+							 	"/paginahorario.xhtml",
+							 	"/trancamento_total.xhtml"};
 	//Menu Docente
 	public int Id_Menu2 = 0;
 

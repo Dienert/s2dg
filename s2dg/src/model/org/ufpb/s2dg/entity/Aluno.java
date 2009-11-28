@@ -39,6 +39,7 @@ public class Aluno implements Serializable {
 	private SituacaoAcademica situacaoAcademica;
 	private FormaIngresso formaIngresso;
 	private int matriculasInstitucionais;
+	private int tracamentosTotais;
 	private String dataConclusao;
 	private String nomeProva1;
 	private String nomeProva2;
@@ -69,7 +70,7 @@ public class Aluno implements Serializable {
 
 	public Aluno(String matricula, Usuario usuario,
 			Set<AlunoTurma> alunoTurmas, Curriculo curriculo, SituacaoAcademica situacaoAcademica,
-			FormaIngresso formaIngresso, int matriculasInstitucionais,
+			FormaIngresso formaIngresso, int matriculasInstitucionais, int tracamentosTotais,
 			String dataConclusao, String nomeProva1, String nomeProva2, String nomeProva3, String nomeProva4,
 			String nomeProva5, String nomeProva6, String nomeProva7, String nomeProva8, String nomeProva9 
 			,Integer valorProva1
@@ -83,6 +84,7 @@ public class Aluno implements Serializable {
 		this.situacaoAcademica = situacaoAcademica;
 		this.formaIngresso = formaIngresso;
 		this.matriculasInstitucionais = matriculasInstitucionais;
+		this.tracamentosTotais = tracamentosTotais;
 		this.dataConclusao = dataConclusao;
 		this.nomeProva1 = nomeProva1;
 		this.nomeProva2 = nomeProva2;
@@ -164,10 +166,18 @@ public class Aluno implements Serializable {
 	}
 */
 
+	
+	
 	@Column(name = "matriculas_institucionais")
 	public int getMatriculasInstitucionais() {
 		return matriculasInstitucionais;
 	}
+
+	@Column(name = "trancamentos_totais")
+	public int getTracamentosTotais() {
+		return tracamentosTotais;
+	}
+
 
 	@OneToOne(fetch = FetchType.EAGER, cascade= {CascadeType.ALL})
 	@JoinColumn(name = "aluno_forma_ingresso")
@@ -181,6 +191,10 @@ public class Aluno implements Serializable {
 
 	public void setMatriculasInstitucionais(int matriculasInstitucionais) {
 		this.matriculasInstitucionais = matriculasInstitucionais;
+	}
+	
+	public void setTracamentosTotais(int tracamentosTotais) {
+		this.tracamentosTotais = tracamentosTotais;
 	}
 	
 	@Column(name = "dt_conclusao")
