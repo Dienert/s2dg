@@ -28,15 +28,17 @@
    <!-- Make sure this URL pattern is the same as that used by the Faces Servlet -->
    <web:hot-deploy-filter url-pattern="*.seam"/>
 
+   <!--  Para o jBoss AS 4.2 
+   <persistence:entity-manager-factory name="entityManagerFactory" persistence-unit-name="s2dg"/>
+
+   <persistence:managed-persistence-context name="entityManager" auto-create="true" entity-manager-factory="#{entityManagerFactory}"/>
+	-->
+
+	<!--  Para o jBoss AS 5.1 --> 
    <persistence:entity-manager-factory name="entityManagerFactory" persistence-unit-name="s2dg" installed="false"/>
 	
-	<!--  
-   <persistence:managed-persistence-context name="entityManager" auto-create="true"
-                          entity-manager-factory="#{entityManagerFactory}"/>
-	-->
-	
    <persistence:managed-persistence-context name="entityManager" auto-create="true" entity-manager-factory="#{entityManagerFactory}" persistence-unit-jndi-name="java:/s2dgDatasource"/>
-  
+
    <drools:rule-base name="securityRules">
       <drools:rule-files><value>/security.drl</value></drools:rule-files>
    </drools:rule-base>

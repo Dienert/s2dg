@@ -187,10 +187,11 @@ public class PDFAction implements Serializable{
 	
 	public void geraPdfHistorico(){
 		
-		SimpleDateFormat sdf = new SimpleDateFormat("dd-MM-yyyy_hh:mm:ss");
-		sdf.format(new Date(System.currentTimeMillis()));
+		Date hoje = new Date();  
+		String formato = "dd-MM-yyyy";  
+		SimpleDateFormat sdf = new SimpleDateFormat(formato);
 		
-		String nome = "Historico_"+fachada.getCPF()+"_"+ sdf + ".pdf";
+		String nome = "Historico_"+ sdf.format(hoje);
 		
 		Rectangle pageSize = new Rectangle(PageSize.A4);
 		 
