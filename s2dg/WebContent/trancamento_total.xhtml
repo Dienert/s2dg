@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:s="http://jboss.com/products/seam/taglib">
+
+	<rich:panel id="trancamneto_total" styleClass="border_zero">
+	<h:form>
+	<rich:panel>
+	<f:facet name="header">Trancamento Total</f:facet>
+	
+	<a4j:outputPanel style="margin:0px;padding-left:-10px;" ajaxRendered="true">
+		<h:messages infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal" />
+	</a4j:outputPanel>
+	
+	<h:outputText style="font-style: italic;"
+			value="Aluno(a), você está prestes a realizar o trancamento total do período.
+					Após confirmado o trancamento, todas as suas disciplinas deste período serão trancadas. " />
+		<br />
+		<h:outputText style="font-style: italic;"
+			value="Você realizou #{fachada.getNumeroDeTrancamentosTotaisEfetuados()} de no máximo #{fachada.getMaximoDeTrancamentosTotaisPossiveis()} possíveis." />
+			<br />
+		<h:outputText style="font-style: italic;"
+			value="Uma vez confirmada, esta operação não podera ser desfeita." />
+			<br />
+			<br />
+			<br />			
+		<div class="actionButtons">
+			<a4j:commandButton id="botaochamatranca"
+								value="Trancamento Total" >
+				<rich:componentControl for="panel" attachTo="botaochamatranca" operation="show" event="onclick"/>
+			</a4j:commandButton>
+		</div>
+	
+	
+<rich:modalPanel id="panel" width="350" height="100">
+        <f:facet name="header">
+            <h:panelGroup>
+                <h:outputText value="Alerta"></h:outputText>
+            </h:panelGroup>
+        </f:facet>
+        <f:facet name="controls">
+            <h:panelGroup>
+                <h:graphicImage value="/img/del.png" styleClass="hidelink" id="hidelink"/>
+                <rich:componentControl for="trancamneto_total" attachTo="hidelink" operation="hide" event="onclick"/>
+            </h:panelGroup>
+        </f:facet>
+        <h:outputText value="Tem certeza que deseja fazer o trancamento total?"></h:outputText>
+        <br/>
+     	<div class="actionButtons">
+     	
+     	<a4j:commandButton id="botaotranca1" value="Trancar" action="#{fachada.fazerTrancamentoTotal()}" operation="hide" event="onclick" />
+     	<rich:componentControl for="panel"  attachTo="botaotranca1"
+					operation="hide" event="onclick" />
+     	
+			<a4j:commandButton id="voltar" value="Voltar">
+				<rich:componentControl for="panel" attachTo="voltar"
+					operation="hide" event="onclick" />
+			</a4j:commandButton>						
+		</div>
+    </rich:modalPanel>	
+	
+	</rich:panel>
+	</h:form>
+</rich:panel>
+</ui:composition>

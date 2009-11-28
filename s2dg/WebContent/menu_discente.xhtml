@@ -38,47 +38,21 @@
 			
 				<a4j:commandLink style="color:red;" styleClass="opcao_menu" rendered="#{matriculaBean.podeFazerMatricula()}"					
 					value="Efetuar Matrícula" action="#{MenuAction.setId_Menu(2)}" reRender="corpo"/>
-				<a4j:commandLink rendered="#{matriculaBean.podeFazerMatricula()}"> <br /> </a4j:commandLink>
+				
+				<!-- <a4j:commandLink rendered="#{matriculaBean.podeFazerMatricula()}"> <br /> </a4j:commandLink> -->
+				
+				<br />
 				
 				<a4j:commandLink styleClass="opcao_menu" 
 					value="Histórico" action="#{MenuAction.setId_Menu(3)}" reRender="corpo" />
 				<br />
 				<a4j:commandLink styleClass="opcao_menu"
-					value="Horário" action="#{MenuAction.setId_Menu(4)}" reRender="corpo" />
-					
+					value="Horário" action="#{MenuAction.setId_Menu(4)}" reRender="corpo" />					
 				<br />
-				<a4j:commandLink styleClass="opcao_menu" rendered="#{matriculaBean.podeFazerTrancamentoTotal()}"
-					value="Trancamento Total" action="#{alunoTurmasBean.trancamentoTotal}" reRender="corpo" id="botaochamatranca" />
-					<rich:componentControl for="panel" attachTo="botaochamatranca" operation="show" event="onclick"/>
-					<!-- faltando criar a ação do menu e o bean para liberar o trancamento ou nao. -->
-										
-        <rich:modalPanel id="panel" width="350" height="100">
-        <f:facet name="header">
-            <h:panelGroup>
-                <h:outputText value="Atencao"></h:outputText>
-            </h:panelGroup>
-        </f:facet>
-        <f:facet name="controls">
-            <h:panelGroup>
-                <h:graphicImage value="/img/del.png" styleClass="hidelink" id="hidelink"/>
-                <rich:componentControl for="panel" attachTo="hidelink" operation="hide" event="onclick"/>
-            </h:panelGroup>
-        </f:facet>
-        <h:outputText value="Tem certeza que deseja realizar um trancamento total?"></h:outputText>
-        <br/>
-     	<div class="actionButtons">
-			<a4j:commandButton id="botaotranca"
-				action="#{alunoTurmasBean.trancamentoTotal}" reRender="corpo" value="Trancar">
-				<rich:componentControl for="panel" attachTo="botaotranca"
-					operation="hide" event="onclick" />
-			</a4j:commandButton>
-			<a4j:commandButton id="voltar" value="Voltar">
-				<rich:componentControl for="panel" attachTo="voltar"
-					operation="hide" event="onclick" />
-			</a4j:commandButton>						
-		</div>
-    </rich:modalPanel>
-
+								
+				<a4j:commandLink styleClass="opcao_menu" rendered="#{matriculaBean.podeFazerTrancamentoTotal()}"					
+					value="Trancamento Total" action="#{MenuAction.setId_Menu(5)}" reRender="corpo"/> 
+							
 
 			</h:form>
 		</rich:panel>
