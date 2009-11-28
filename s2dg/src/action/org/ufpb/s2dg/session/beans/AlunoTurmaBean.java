@@ -79,11 +79,10 @@ public class AlunoTurmaBean implements Serializable{
 	}
 	
 	public void trancamentoParcial(){
-		System.out.print("Pegou geral entrando no metodo. Id="+alunoTurma.getId() +"Id_turma ="+alunoTurma.getTurma() +"id aluno="+ alunoTurma.getAluno()+ "SItuacao ="+alunoTurma.getSituacao());
 		alunoTurma.setSituacao(Situacao.TRANCADO);
 		fachada.trancamentoParcial(alunoTurma);
 		gerarPDFTrancamento();
-		System.out.print("Pegou geral na saida. SItuacao ="+alunoTurma.getSituacao());
+		
 	}
 	
 	public boolean checaCondicoesTrancamentoParcial(){
