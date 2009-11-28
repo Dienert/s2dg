@@ -97,8 +97,9 @@
 				
 			  <h:commandButton action="#{pdfAction.geraPdfDiario('Relatorio_de_Notas.pdf', alunoTurmasBean.alunoTurmas, avaliacoesBean.avaliacoes)}" 
 			  value="Imprimir" styleClass="botao_salvar" rendered="#{not avaliacoesBean.eNulo(alunoTurmasBean.alunoTurmas)}"/>
-			  
-			  <a4j:commandButton id="botaoFinaliza"
+
+<!--			  
+  			  <a4j:commandButton id="botaoFinaliza"
 								value="Finalizar Disciplina" 
 								disabled="#{turmaBean.podeFinalizarTurma()}">
 				<rich:componentControl for="box" attachTo="botaoFinaliza" operation="show" event="onclick"/>
@@ -136,7 +137,7 @@
     </h:form>
 	</rich:panel>
 			
-		
+-->		
 		</h:form>
 		<br />
 		<br />

@@ -81,7 +81,6 @@ public class AlunoTurmaBean implements Serializable{
 	public String trancamentoParcial(){
 		alunoTurma.setSituacao(Situacao.TRANCADO);
 		fachada.trancamentoParcial(alunoTurma);
-		gerarPDFTrancamentoParcial();
 		return "/home.seam";
 	}
 	
