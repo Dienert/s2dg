@@ -24,9 +24,10 @@ public class TurmaDAO {
 	@SuppressWarnings("unchecked")
 	public List<Turma> getTurmas(Professor professor, Periodo periodo) {
 		List<Turma> list = (List<Turma>) entityManager.createQuery(
-    	"select turma from Turma as turma where turma.periodo = :periodo and :professor member of turma.professores order by turma.disciplina.nome")
+    	"select turma from Turma as turma where turma.periodo = :periodo and turma.finalizada = :finalizada and :professor member of turma.professores order by turma.disciplina.nome")
     	.setParameter("professor", professor)
     	.setParameter("periodo",periodo)
+    	.setParameter("finalizada", new Boolean(false))
     	.getResultList();
 		
 		return list;
@@ -43,6 +44,7 @@ public class TurmaDAO {
 			return list.get(0);
 		return null;
 	}
+	
 	@SuppressWarnings("unchecked")
 	public List<Turma> getTurmas(Disciplina d, Periodo p) {
 		Query q = entityManager.createQuery("select t from Turma as t where t.disciplina = :disciplina and t.periodo = :periodo")

@@ -42,6 +42,14 @@ public class AvaliacaoDAO {
 		entityManager.persist(novaAvaliacao);
 		entityManager.flush();
 	}
+	
+	public void publicaNotas(Avaliacao avaliacao, Turma turma) {
+		if (avaliacao != null) {
+			avaliacao.setPublicado(true);
+			entityManager.merge(avaliacao);
+			entityManager.flush();			
+		}		
+	}
 
 	public void atualiza(Avaliacao avaliacao) {
 		if(avaliacao != null) {

@@ -56,6 +56,18 @@ public class AvaliacoesBean implements Serializable {
 		return 0;
 	}
 	
+	public String getNotaPublicada(Avaliacao avaliacao) {
+		AlunoTurma alunoTurmaAtual = fachada.getAlunoTurma();
+		if((alunoTurmaAtual != null)&&(avaliacao != null)) {
+			AlunoTurmaAvaliacao alunoTurmaAvaliacao = fachada.getAlunoTurmaAvaliacaoPublicada(alunoTurmaAtual,avaliacao);
+			if(alunoTurmaAvaliacao != null)
+				return String.valueOf(alunoTurmaAvaliacao.getNota());
+			else
+				return "-";
+		}
+		return "-";
+	}
+			
 	public boolean eNulo(List<AlunoTurma> lista) {
 		if (lista == null || lista.isEmpty()) {
 			return true;

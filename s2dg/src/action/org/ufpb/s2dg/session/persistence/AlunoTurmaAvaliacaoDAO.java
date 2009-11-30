@@ -11,6 +11,7 @@ import org.jboss.seam.annotations.Name;
 import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.AlunoTurmaAvaliacao;
 import org.ufpb.s2dg.entity.Avaliacao;
+import org.ufpb.s2dg.entity.Turma;
 
 @AutoCreate
 @Name("alunoTurmaAvaliacaoDAO")
@@ -23,7 +24,7 @@ public class AlunoTurmaAvaliacaoDAO {
 		try {
 			if (alunoTurma != null) {
 				Object result = entityManager.createQuery(
-				"select alunoTurmaAvaliacao from AlunoTurmaAvaliacao as alunoTurmaAvaliacao where alunoTurmaAvaliacao.alunoTurma =:alunoTurma and alunoTurmaAvaliacao.avaliacao =:avaliacao")
+				"select alunoTurmaAvaliacao from AlunoTurmaAvaliacao as alunoTurmaAvaliacao where alunoTurmaAvaliacao.alunoTurma =:alunoTurma and alunoTurmaAvaliacao.avaliacao = :avaliacao")
 				.setParameter("alunoTurma", alunoTurma)
 				.setParameter("avaliacao", avaliacao)
 				.getSingleResult();
@@ -33,6 +34,23 @@ public class AlunoTurmaAvaliacaoDAO {
 			return null;
 		}
 	}
+	
+	public AlunoTurmaAvaliacao getAlunoTurmaAvaliacaoPublicada(AlunoTurma alunoTurma, Avaliacao avaliacao) {
+		Boolean publicado = new Boolean(true);
+		try {
+			if (alunoTurma != null) {
+				Object result = entityManager.createQuery(
+				"select alunoTurmaAvaliacao from AlunoTurmaAvaliacao as alunoTurmaAvaliacao, Avaliacao as avaliacaoo where alunoTurmaAvaliacao.avaliacao = avaliacaoo.id and  alunoTurmaAvaliacao.alunoTurma =:alunoTurma and alunoTurmaAvaliacao.avaliacao =:avaliacao and avaliacaoo.publicado = :publicado")
+				.setParameter("alunoTurma", alunoTurma)
+				.setParameter("avaliacao", avaliacao)
+				.setParameter("publicado", publicado)
+				.getSingleResult();
+				return (AlunoTurmaAvaliacao) result; 
+			} else return null;
+		} catch(NoResultException e) {
+			return null;
+		}
+	}		
 	
 	@SuppressWarnings("unchecked")
 	public List<AlunoTurmaAvaliacao> getAlunoTurmaAvaliacao(Avaliacao avaliacao) {
@@ -53,6 +71,23 @@ public class AlunoTurmaAvaliacaoDAO {
 			return null;
 		}
 		return null;
+	}
+	
+	public List<AlunoTurmaAvaliacao> getAvaliacoesPorAluno(AlunoTurma alunoturma) {
+		try {
+			if (alunoturma != null) { 	
+				Object result = entityManager.createQuery(
+				"select alunoTurmaAvaliacao from AlunoTurmaAvaliacao as alunoTurmaAvaliacao where alunoTurmaAvaliacao.alunoTurma =:alunoturma")
+				.setParameter("alunoturma", alunoturma)
+				.getResultList();
+				return (List<AlunoTurmaAvaliacao>) result;			
+			} else {
+				return null;
+			}
+			} catch(NoResultException e) {
+				return null;
+			}
+		
 	}
 
 	public AlunoTurmaAvaliacao cria(AlunoTurma alunoTurma, Avaliacao avaliacao) {

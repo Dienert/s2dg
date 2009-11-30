@@ -15,6 +15,7 @@ import org.ufpb.s2dg.entity.Avaliacao;
 import org.ufpb.s2dg.entity.EventoCalendarioTurma;
 import org.ufpb.s2dg.entity.Turma;
 import org.ufpb.s2dg.session.Fachada;
+import org.ufpb.s2dg.session.persistence.AvaliacaoDAO;
 
 @Name("avaliacaoBean")
 @Scope(ScopeType.PAGE)
@@ -29,11 +30,14 @@ public class AvaliacaoBean implements Serializable {
 	private boolean criarOuEditar;
 	private boolean avaliacaoVazia;
 	private Avaliacao avaliacaoParaExclusao;
+	private Avaliacao avaliacaoParaPublicacao;
 	
 	@In
 	Fachada fachada;
 	@In
 	FacesContext facesContext;
+	@In
+	TimestampBean TimestampBean;
 
 	public AvaliacaoBean() {
 		avaliacao = new Avaliacao();
@@ -72,7 +76,7 @@ public class AvaliacaoBean implements Serializable {
 		criarOuEditar = false;
 		if(avaliacao.getDataEvento() == null)
 			avaliacao.setDataEvento(new EventoCalendarioTurma());
-	}
+	}	
 	
 	public void cancelarEdicao() {
 		this.avaliacao = new Avaliacao();
@@ -87,6 +91,14 @@ public class AvaliacaoBean implements Serializable {
 	public void setAvaliacaoParaExclusao(Avaliacao avaliacaoParaExclusao) {
 		this.avaliacaoParaExclusao = avaliacaoParaExclusao;
 	}
+	
+	public Avaliacao getAvaliacaoParaPublicacao() {
+		return avaliacaoParaPublicacao;
+	}
+
+	public void setAvaliacaoParaPublicacao(Avaliacao avaliacaoParaPublicacao) {
+		this.avaliacaoParaPublicacao= avaliacaoParaPublicacao;
+	}	
 	
 	public void atualizarAvaliacao() {
 		if(avaliacao.getDataEvento().getData() == null)
@@ -160,6 +172,25 @@ public class AvaliacaoBean implements Serializable {
 		}
 		fachada.initAvaliacoes();
 		
+	}
+	
+	public void publicarNotas() {
+		Avaliacao avaliacao = avaliacaoParaPublicacao;
+		Turma turmaAtual = fachada.getTurma();
+		if((avaliacao != null)&&(turmaAtual != null)) {		
+			avaliacao.setPublicado(true);
+			String log = "Publicando com sucesso a avaliacao \"" + avaliacao.getNome()
+			+ "\" para a turma " + turmaAtual.getNumero()
+			+ " (id:" + turmaAtual.getId()
+			+ ") da disciplina " + turmaAtual.getDisciplina().getNome()
+			+ "(código:" + turmaAtual.getDisciplina().getCodigo()
+			+ ")";		
+		    fachada.fazLog(log);
+			fachada.atualizaAvaliacao(avaliacao);
+		}			
+		
+		
+		fachada.initAvaliacoes();
 	}
 	
 }

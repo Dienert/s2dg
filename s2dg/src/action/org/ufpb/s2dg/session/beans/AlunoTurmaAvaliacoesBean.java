@@ -3,6 +3,8 @@ package org.ufpb.s2dg.session.beans;
 import java.io.Serializable;
 import java.util.List;
 
+import javax.persistence.NoResultException;
+
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.In;
@@ -11,6 +13,7 @@ import org.jboss.seam.annotations.Scope;
 import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.AlunoTurmaAvaliacao;
 import org.ufpb.s2dg.entity.Avaliacao;
+import org.ufpb.s2dg.entity.Turma;
 import org.ufpb.s2dg.session.Fachada;
 
 @Name("alunoTurmaAvaliacoesBean")
@@ -47,5 +50,16 @@ public class AlunoTurmaAvaliacoesBean implements Serializable {
 		}
 		return new AlunoTurmaAvaliacao();
 	}
+		
+    public List<AlunoTurmaAvaliacao> getAvaliacoesPorTurma(Turma turma) {    	
+    		if (turma != null) {
+    			//return fachada.getAvaliacoesPorTurma(turma);
+    		} else {
+    			return null;
+    		}	    	
+    		return null;
+	}
+	
+	
 	
 }
