@@ -38,6 +38,7 @@ public class Turma implements java.io.Serializable {
 	private Set<Horario> horarios;
 	private Set<Sala> salas = new HashSet<Sala>(0);
 	private Set<Aula> aulas;
+	private boolean finalizada;
 	
 	public Turma() {
 	}
@@ -46,6 +47,7 @@ public class Turma implements java.io.Serializable {
 		this.id = id;
 		this.disciplina = disciplina;
 		this.numero = numero;
+		this.finalizada = false;
 	}
 
 	public Turma(long id, Set<Professor> professores, Periodo periodo,
@@ -57,6 +59,7 @@ public class Turma implements java.io.Serializable {
 		this.periodo = periodo;
 		this.disciplina = disciplina;
 		this.numero = numero;
+		this.finalizada = false;
 		this.alunoTurmas = alunoTurmas;
 		this.avaliacoes = avaliacoes;
 		this.calcularMediaAutomaticamente = calcularMediaAutomaticamente;
@@ -116,6 +119,15 @@ public class Turma implements java.io.Serializable {
 
 	public void setNumero(String numero) {
 		this.numero = numero;
+	}
+	
+	@Column(name = "finalizada")		
+	public boolean getFinalizada() {
+		return this.finalizada;
+	}
+
+	public void setFinalizada(boolean finalizada) {
+		this.finalizada = finalizada;
 	}
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)

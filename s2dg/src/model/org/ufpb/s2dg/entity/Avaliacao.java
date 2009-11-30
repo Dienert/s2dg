@@ -25,6 +25,7 @@ public class Avaliacao implements Serializable {
 	private long id;
 	private String nome;
 	private int peso;
+	private boolean publicado;
 	private Turma turma;
 	private Set<AlunoTurmaAvaliacao> alunoTurmaAvaliacoes;
 	private EventoCalendarioTurma dataEvento;
@@ -38,6 +39,7 @@ public class Avaliacao implements Serializable {
 		this.nome = nome;
 		this.peso = peso;
 		this.turma = turma;
+		this.publicado = false;
 	}
 	
 	public Avaliacao(long id, String nome, int peso, Turma turma, Set<AlunoTurmaAvaliacao> alunoTurmaAvaliacoes) {
@@ -46,6 +48,7 @@ public class Avaliacao implements Serializable {
 		this.peso = peso;
 		this.turma = turma;
 		this.alunoTurmaAvaliacoes = alunoTurmaAvaliacoes;
+		this.publicado = false;
 	}
 
 
@@ -73,6 +76,15 @@ public class Avaliacao implements Serializable {
 	}
 	public void setPeso(int peso) {
 		this.peso = peso;
+	}
+	
+	@Column(name = "publicado", nullable = true)
+	public boolean getPublicado() {
+		return publicado;
+	}
+	
+	public void setPublicado(boolean publicado) {
+		this.publicado = publicado;
 	}
 	
 	@ManyToOne(fetch = FetchType.LAZY)
