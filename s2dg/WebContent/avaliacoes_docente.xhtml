@@ -61,6 +61,19 @@
 							            </span>
 							        </rich:toolTip>
 								</a4j:commandLink>
+								<a4j:commandLink id="publicar#{avaliacao.id}"
+								    rendered="#{not avaliacao.publicado}"
+								    action="#{avaliacaoBean.setAvaliacaoParaPublicacao(avaliacao)}"											
+									oncomplete="Richfaces.showModalPanel('PublicarNotaModalPanel',{width:485, top:200});"							
+									reRender="criar_avaliacao">
+									<img alt="editar" src="img/editrec.png" />
+									<rich:toolTip direction="top-right">
+            							<span style="white-space:nowrap">
+							               Publicar
+							            </span>
+							        </rich:toolTip>
+								</a4j:commandLink>
+								
 							</h:panelGroup>
 						</f:facet>
 						<h:inputText value="#{alunoTurmaAvaliacoesBean.getAlunoTurmaAvaliacao(alunoTurma, avaliacao).nota}"
@@ -81,67 +94,30 @@
 					</rich:column>
 				</rich:dataTable>
 			</rich:panel>
-			<h:selectBooleanCheckbox id="checkboxmedia"
-				value="#{turmaBean.turma.calcularMediaAutomaticamente}">
-				<a4j:support event="onmouseup"
-					action="#{turmaBean.switchCalcMediaAuto}"
-					reRender="tabela_avaliacoes, checkboxmedia" limitToList="true" 
-					rendered="#{not avaliacoesBean.eNulo(alunoTurmasBean.alunoTurmas)}" />
-			</h:selectBooleanCheckbox>
-			<h:outputText for="checkboxmedia"
-				value="Calcular Média Automaticamente" rendered="#{not avaliacoesBean.eNulo(alunoTurmasBean.alunoTurmas)}"/>
-			<a4j:commandButton styleClass="botao_salvar" type="submit"
-				value="Salvar"
-				action="#{alunoTurmasBean.atualizaAlunoTurmas}"
-				reRender="tabela_avaliacoes" rendered="#{not avaliacoesBean.eNulo(alunoTurmasBean.alunoTurmas)}"/>
-				
-			  <h:commandButton action="#{pdfAction.geraPdfDiario('Relatorio_de_Notas.pdf', alunoTurmasBean.alunoTurmas, avaliacoesBean.avaliacoes)}" 
-			  value="Imprimir" styleClass="botao_salvar" rendered="#{not avaliacoesBean.eNulo(alunoTurmasBean.alunoTurmas)}"/>
-
-<!--			  
-  			  <a4j:commandButton id="botaoFinaliza"
-								value="Finalizar Disciplina" 
-								disabled="#{turmaBean.podeFinalizarTurma()}">
-				<rich:componentControl for="box" attachTo="botaoFinaliza" operation="show" event="onclick"/>
-			</a4j:commandButton>
-			<rich:modalPanel id="box" width="350" height="100">
-        <f:facet name="header">
-            <h:panelGroup>
-                <h:outputText value="Alerta"></h:outputText>
-            </h:panelGroup>
-        </f:facet>
-        <f:facet name="controls">
-            <h:panelGroup>
-                <h:graphicImage value="/img/del.png" styleClass="hidelink" id="hidelink"/>
-                <rich:componentControl for="panel" attachTo="hidelink" operation="hide" event="onclick"/>
-            </h:panelGroup>
-        </f:facet>
-        <h:outputText value="Ao finalizar a disciplina a situacao do aluno sera exportada para o historico.
-        Nenhuma nota podera ser alterada, apenas a media final estara sujeita a ateracoes ate o final do 
-        proximo periodo.
-        
-        Tem certeza que deseja continuar?"></h:outputText>
-        <br/>
-     	<div class="actionButtons">
-     	
-     	<a4j:commandButton id="botaofinaliza1" value="Finalizar" operation="hide" event="onclick" ajaxSingle="true" reRender="corpo" />
-     	<rich:componentControl for="panel"  attachTo="botaotranca1"
-					operation="hide" event="onclick" ajaxSingle="true" reRender="corpo"/>
-     	
-			<a4j:commandButton id="voltar" value="Voltar">
-				<rich:componentControl for="panel" attachTo="voltar"
-					operation="hide" event="onclick" />
-			</a4j:commandButton>						
-		</div>
-    </rich:modalPanel>
-    </h:form>
-	</rich:panel>
-			
--->		
-		</h:form>
-		<br />
-		<br />
-		<br />
+				<h:selectBooleanCheckbox id="checkboxmedia"
+					value="#{turmaBean.turma.calcularMediaAutomaticamente}">
+					<a4j:support event="onmouseup"
+						action="#{turmaBean.switchCalcMediaAuto}"
+						reRender="tabela_avaliacoes, checkboxmedia" limitToList="true" 
+						rendered="#{not avaliacoesBean.eNulo(alunoTurmasBean.alunoTurmas)}" />
+				</h:selectBooleanCheckbox>
+				<h:outputText for="checkboxmedia"
+					value="Calcular Média Automaticamente" rendered="#{not avaliacoesBean.eNulo(alunoTurmasBean.alunoTurmas)}"/>
+				<a4j:commandButton styleClass="botao_salvar" type="submit"
+					value="Salvar"
+					action="#{alunoTurmasBean.atualizaAlunoTurmas}"
+					reRender="tabela_avaliacoes" rendered="#{not avaliacoesBean.eNulo(alunoTurmasBean.alunoTurmas)}"/>	
+							
+				  <h:commandButton action="#{pdfAction.geraPdfDiario('Relatorio_de_Notas.pdf', alunoTurmasBean.alunoTurmas, avaliacoesBean.avaliacoes)}" 
+				  value="Imprimir" styleClass="botao_salvar" rendered="#{not avaliacoesBean.eNulo(alunoTurmasBean.alunoTurmas)}"/>
+				  <br />
+				  <a4j:commandButton styleClass="botao_finalizar" type="submit" value="Finalizar Disciplina" action="#{alunoTurmasBean.finalizaTurma}" 
+				  		reRender="tabela_avaliacoes" rendered="#{not avaliacoesBean.eNulo(alunoTurmasBean.alunoTurmas)}" />		    
+			</h:form>
+			<br />
+			<br />
+			<br />
+		
 		<h:panelGrid columns="2">
 			<ui:include src="/criar_editar_avaliacao.xhtml" />
 			<ui:include src="/dica_avaliacoes.xhtml" />
