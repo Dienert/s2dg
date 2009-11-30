@@ -9,13 +9,16 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.log.Log;
 import org.ufpb.s2dg.entity.Aluno;
 import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.AlunoTurmaAvaliacao;
 import org.ufpb.s2dg.entity.Avaliacao;
 import org.ufpb.s2dg.entity.Calendario;
+import org.ufpb.s2dg.entity.Centro;
 import org.ufpb.s2dg.entity.Curriculo;
 import org.ufpb.s2dg.entity.Curso;
 import org.ufpb.s2dg.entity.Disciplina;
@@ -64,6 +67,10 @@ public class Fachada implements Serializable {
 	 * 
 	 */
 	private static final long serialVersionUID = -8622239731631410022L;
+	
+	@Logger
+	private Log log;
+	
 	@In
 	private UsuarioDAO usuarioDAO;
 	@In
@@ -123,7 +130,6 @@ public class Fachada implements Serializable {
 	@Create
 	public void init() {
 		globalBean.setGlobal(getGlobalDoBanco());
-		calendarioBean.setCalendario(getCalendarioDoBanco());
 	}
 	
 	public Usuario getUsuarioDoBanco(String username) {
@@ -278,6 +284,15 @@ public class Fachada implements Serializable {
 		return alunoTurmaAvaliacaoDAO.getAlunoTurmaAvaliacaoPublicada(alunoTurmaAtual,avaliacao);
 	}
 	
+	public Turma getTurmaDisciplinaSelecionada(){
+		try {
+			return alunoTurmaBean.getAlunoTurma().getTurma();
+		} catch (NullPointerException npe) {
+			log.warn("getTurmaDisciplinaSelecionada - NullPointerException: {0}", npe.getMessage());
+			return null;
+		}
+	}
+	
 	public void initAvaliacoes() {
 		avaliacoesBean.init();
 	}
@@ -313,8 +328,12 @@ public class Fachada implements Serializable {
 		avaliacoesBean.setAvaliacoes(avaliacoes);
 	}
 
-	public Calendario getCalendario() {
-		return calendarioBean.getCalendario();
+	public Calendario getCalendarioAluno() {
+		return calendarioBean.getCalendarioAluno();
+	}
+	
+	public Calendario getCalendarioProfessor(){
+		return calendarioBean.getCalendarioProfessor();
 	}
 
 	public Aluno getAluno() {
@@ -451,6 +470,30 @@ public class Fachada implements Serializable {
 
 	public int numeroDeDisciplinasAtivas() {
 		return alunoTurmasBean.numeroDeDisciplinasAtivas();
+	}
+
+	public Calendario getCalendarioDoBanco(Periodo periodoAtual, Centro centro) {
+		return calendarioDAO.getCalendario(periodoAtual, centro);
+	}
+
+	public void setCalendarioAluno(Calendario calendarioAluno) {
+		calendarioBean.setCalendarioAluno(calendarioAluno);
+	}
+
+	public void setCalendarioProfessor(Calendario calendarioProfessor) {
+		calendarioBean.setCalendarioProfessor(calendarioProfessor);
+	}
+
+	public List<AlunoTurma> getAlunoTurmaIrregulares() {
+		return alunoTurmaDAO.getAlunoTurmaInvalidos();
+	}
+
+	public List<Calendario> getCalendariosDoBanco() {
+		return calendarioDAO.getCalendarios();
+	}
+
+	public List<AlunoTurma> getAlunoTurmasDoBanco(Periodo periodo, Centro centro) {
+		return alunoTurmaDAO.getAlunoTurmas(periodo, centro);
 	}
 	
 	public List<AlunoTurma> getAlunoTurmasEmCurso(){
