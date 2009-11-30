@@ -58,10 +58,14 @@ public class Authenticator
         }
         
         fachada.setUsuario(usuario);
-        if(usuario.getAluno() != null)
+        
+        if(usuario.getAluno() != null){
         	fachada.initTurmasMatriculadas();
+        }
         
         return true;
     }
 
 }
+
+

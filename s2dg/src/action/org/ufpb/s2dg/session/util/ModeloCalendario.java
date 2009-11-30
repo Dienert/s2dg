@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -16,6 +17,7 @@ import org.ufpb.s2dg.entity.Avaliacao;
 import org.ufpb.s2dg.entity.Calendario;
 import org.ufpb.s2dg.entity.EventoCalendarioTurma;
 import org.ufpb.s2dg.entity.Horario;
+import org.ufpb.s2dg.entity.Turma;
 import org.ufpb.s2dg.session.Fachada;
 import org.ufpb.s2dg.session.util.ItemDeCalendario.TipoData;
 
@@ -28,11 +30,20 @@ public class ModeloCalendario implements CalendarDataModel, Serializable {
 	@In
 	Fachada fachada;
 	
+	public ModeloCalendario(){
+		
+	}
 	
 	public CalendarDataModelItem[] getData(Date[] datas) {
 		if (datas == null) return null;
 		
-		Calendario calendario = fachada.getCalendario();
+		/* TODO Clodoaldo: 
+		 * Adicionar escolha de calendario de acordo com usuario logado.
+		 * É preciso checar qual é o perfil ativo - professor ou aluno?
+		 * Para teste, está sendo pego calendario de aluno.
+		 * Se usar usuario professor vai dar pau, deve-se trocar aqui antes.
+		*/
+		Calendario calendario = fachada.getCalendarioAluno();
 		
 		itens = new ItemDeCalendario[datas.length];
 		Calendar c = Calendar.getInstance();
@@ -111,7 +122,14 @@ public class ModeloCalendario implements CalendarDataModel, Serializable {
 	private void datasComAula(Date[] datas) {
 		
 		Calendar c = Calendar.getInstance();
-		Set<Horario> horariosDeAula = fachada.getTurma().getHorarios();
+		// TODO Clodoaldo: Analisar porque fachada está toda nula aqui!
+		Turma t = fachada.getTurmaDisciplinaSelecionada();
+		Set<Horario> horariosDeAula = null;
+		if (t != null)
+			horariosDeAula = t.getHorarios();
+		else
+			horariosDeAula = new HashSet<Horario>();
+		
 		for(int i = 0; i < datas.length; i++){
 			
 			c.setTime(datas[i]);

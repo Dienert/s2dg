@@ -10,7 +10,6 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 import org.hibernate.validator.Length;
@@ -25,16 +24,6 @@ public class Periodo implements Serializable {
 	private String ano;
 	private char semestre;
 	private Set<Turma> turmas = new HashSet<Turma>(0);
-	private Calendario calendario;
-
-	@OneToOne(mappedBy="periodo")
-	public Calendario getCalendario() {
-		return calendario;
-	}
-
-	public void setCalendario(Calendario calendario) {
-		this.calendario = calendario;
-	}
 
 	public Periodo() {
 	}

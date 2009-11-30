@@ -16,6 +16,7 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name = "professor")
@@ -32,6 +33,8 @@ public class Professor implements java.io.Serializable {
 	private Set<Turma> turmas = new HashSet<Turma>(0);
 	@OneToOne(mappedBy="professor")
 	private Usuario usuario;
+	@ManyToOne
+	private Departamento departamento;
 
 	public Professor() {
 	}
@@ -69,6 +72,14 @@ public class Professor implements java.io.Serializable {
 
 	public void setUsuario(Usuario usuario) {
 		this.usuario = usuario;
+	}
+
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
+
+	public Departamento getDepartamento() {
+		return departamento;
 	}
 
 }

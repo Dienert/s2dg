@@ -8,6 +8,7 @@ import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.persistence.ManyToOne;
 
 @Entity
 @Table(name = "curso")
@@ -20,6 +21,7 @@ public class Curso implements Serializable {
 	private String nome;
 	private String codigo;
 	private String cur_ato_criacao;
+	private Centro centro;
 	
 	public Curso() {
 	}
@@ -89,6 +91,16 @@ public class Curso implements Serializable {
 
 	public void setCur_ato_criacao(String cur_ato_criacao) {
 		this.cur_ato_criacao = cur_ato_criacao;
+	}
+
+	public void setCentro(Centro centro) {
+		this.centro = centro;
+	}
+
+	
+	@ManyToOne
+	public Centro getCentro() {
+		return centro;
 	}
 
 
