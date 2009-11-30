@@ -20,6 +20,7 @@ import org.ufpb.s2dg.entity.Avaliacao;
 import org.ufpb.s2dg.entity.Turma;
 import org.ufpb.s2dg.entity.AlunoTurma.Situacao;
 import org.ufpb.s2dg.session.Fachada;
+import org.ufpb.s2dg.session.persistence.AlunoTurmaDAO;
 import org.ufpb.s2dg.session.util.AlunoTurmaComparator;
 
 @Name("alunoTurmasBean")
@@ -86,6 +87,31 @@ public class AlunoTurmasBean implements Serializable {
 		}
 	}
 	
+	public void finalizaTurma() {
+		Turma turmaAtual = fachada.getTurma();	
+		if(turmaAtual != null) {
+			List<AlunoTurma> alunosDaTurma_list = fachada.getAlunosPorTurma(turmaAtual);
+			for (int i = 0; i < alunosDaTurma_list.size(); i++) {
+				AlunoTurma alunoTurma = alunosDaTurma_list.get(i);
+				List<AlunoTurmaAvaliacao> avaliacoes = fachada.getAvaliacoesPorAluno(alunoTurma);
+				float media = 5.0f;
+				//float media = calculaMediasPorAluno(avaliacoes);
+				if (media >= 5.0f) {
+					alunoTurma.setSituacao(Situacao.APROVADO);
+					//TODO: Reprovação por faltas
+				}				
+				alunoTurma.setMedia(media);
+				fachada.atualizaAlunoTurma(alunoTurma);						
+			}		
+			turmaAtual.setFinalizada(true);								
+			fachada.atualizaTurma();
+					
+			String time = TimestampBean.getHour();
+			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO,time+" - Disciplina finalizada com sucesso.", null);
+			facesContext.addMessage("corpo2",facesMessage);
+		}
+	}
+	
 	private void calculaMedias() {
 		if(alunoTurmas != null) {
 			for(int i = 0; i < alunoTurmas.size(); i++) {
@@ -101,6 +127,32 @@ public class AlunoTurmasBean implements Serializable {
 			}
 		}
 	}
+	
+	private float calculaMediasPorAluno(List<AlunoTurmaAvaliacao> avaliacoes_list) {
+		float somaNota = 0;
+		float somaPeso = 0;
+		if (avaliacoes_list != null) {
+			for (int i = 0; i < avaliacoes_list.size(); i++) {
+				AlunoTurmaAvaliacao avaliacao = avaliacoes_list.get(i);
+				//somaNota += avaliacao.getNota() * avaliacao.get				
+			}
+		}
+		
+		if(alunoTurmas != null) {
+			for(int i = 0; i < alunoTurmas.size(); i++) {
+				
+				List<Avaliacao> avaliacoes = fachada.getAvaliacoes();
+				for(int j = 0; j < avaliacoes.size(); j++) {
+					somaNota += fachada.getAlunoTurmaAvaliacao(alunoTurmas.get(i), avaliacoes.get(j)).getNota()
+					* avaliacoes.get(j).getPeso();
+					somaPeso += avaliacoes.get(j).getPeso();
+				}
+				alunoTurmas.get(i).setMedia(somaNota/somaPeso);
+			}
+		}
+		return 0.0f;
+	}
+	
 	
 	public int numeroDeDisciplinasAtivas(){
 		return ((alunoTurmas == null) ? 0 : alunoTurmas.size());

@@ -183,6 +183,10 @@ public class Fachada implements Serializable {
 		}
 		return null;
 	}
+	
+	public List<AlunoTurma> getAlunosPorTurma(Turma turma) {		
+		return alunoTurmaDAO.getAlunoTurmas(turma);
+	}
 
 	public void setAlunoTurma(AlunoTurma alunoTurma) {
 		alunoTurmaBean.setAlunoTurma(alunoTurma);
@@ -207,6 +211,10 @@ public class Fachada implements Serializable {
 	public void criaAvaliacao(Avaliacao avaliacao) {
 		avaliacaoDAO.cria(avaliacao, turmaBean.getTurma());
 	}
+	
+	public void publicaNotas(Avaliacao avaliacao) {
+		avaliacaoDAO.publicaNotas(avaliacao, turmaBean.getTurma());		
+	}
 
 	public List<AlunoTurma> getAlunoTurmasDoBanco() {
 		return alunoTurmaDAO.getAlunoTurmas(turmaBean.getTurma());
@@ -223,6 +231,11 @@ public class Fachada implements Serializable {
 	public List<AlunoTurmaAvaliacao> getAlunoTurmaAvaliacoes() {
 		return alunoTurmaAvaliacoesBean.getAlunoTurmaAvaliacoes();
 	}
+	
+	public List<AlunoTurmaAvaliacao> getAvaliacoesPorAluno(AlunoTurma alunoturma) {
+		return alunoTurmaAvaliacaoDAO.getAvaliacoesPorAluno(alunoturma);	
+	}
+
 
 	public void atualizaAlunoTurmaAvaliacao(
 			AlunoTurmaAvaliacao alunoTurmaAvaliacao) {
@@ -260,6 +273,11 @@ public class Fachada implements Serializable {
 		return alunoTurmaAvaliacaoDAO.getAlunoTurmaAvaliacao(alunoTurmaAtual,avaliacao);
 	}
 
+	public AlunoTurmaAvaliacao getAlunoTurmaAvaliacaoPublicada(
+			AlunoTurma alunoTurmaAtual, Avaliacao avaliacao) {
+		return alunoTurmaAvaliacaoDAO.getAlunoTurmaAvaliacaoPublicada(alunoTurmaAtual,avaliacao);
+	}
+	
 	public void initAvaliacoes() {
 		avaliacoesBean.init();
 	}

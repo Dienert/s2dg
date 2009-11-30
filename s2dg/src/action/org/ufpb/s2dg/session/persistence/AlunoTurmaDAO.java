@@ -37,7 +37,7 @@ public class AlunoTurmaDAO {
 	@SuppressWarnings("unchecked")
 	public List<AlunoTurma> getAlunoTurmas(Turma turma) {
 		return (List<AlunoTurma>) entityManager.createQuery(
-    	"select alunoTurma from AlunoTurma as alunoTurma where alunoTurma.turma = :turma")
+    	"Select at from AlunoTurma as at where at.turma = :turma")
     	.setParameter("turma", turma)
     	.getResultList();
 	}
