@@ -11,6 +11,7 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.ufpb.s2dg.entity.Aluno;
 import org.ufpb.s2dg.entity.AlunoTurma;
+import org.ufpb.s2dg.entity.Centro;
 import org.ufpb.s2dg.entity.Disciplina;
 import org.ufpb.s2dg.entity.Periodo;
 import org.ufpb.s2dg.entity.Turma;
@@ -45,7 +46,7 @@ public class AlunoTurmaDAO {
 
 	
 	public void atualiza(AlunoTurma alunoTurma) {
-		
+		// TODO Clodaldo: Extract & Move Method
 		Integer maxFaltas = Math.round(((fachada.getTurma().getDisciplina().getCreditos())*10/8)+new Float(0.4));
 		if (alunoTurma.getFaltas() > maxFaltas){
 			alunoTurma.setMedia(new Float(0));
@@ -98,6 +99,27 @@ public class AlunoTurmaDAO {
 			}
 		}
 		return null;
+	}
+
+	public List<AlunoTurma> getAlunoTurmaInvalidos() {
+		/*
+		 *  TODO Auto-generated method stub - Pegar disciplinas que estao irregulares para
+		 *  setar nota zero nelas.
+		 */
+		return null;
+	}
+
+	// TODO Clodoaldo: Query perigosa, pode dar pau!
+	@SuppressWarnings("unchecked")
+	public List<AlunoTurma> getAlunoTurmas(Periodo periodo, Centro centro) {
+		
+		return (List<AlunoTurma>) entityManager.createQuery(
+				"select at from AlunoTurma as at " +
+				"where at.turma.disciplina.curriculos.curso.centro = :centro" +
+				"and at.turma.periodo = :periodo")
+				.setParameter("centro", centro)
+				.setParameter("periodo", periodo)
+				.getResultList();
 	}
 	
 }
