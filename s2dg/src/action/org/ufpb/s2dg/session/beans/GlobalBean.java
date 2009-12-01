@@ -69,7 +69,7 @@ public class GlobalBean {
 	
 	@Create
 	public void init(){
-		checarDataLimiteImplantacaoNotas.start();
+		//checarDataLimiteImplantacaoNotas.start();
 	}
 	
 	public GlobalBean(){
