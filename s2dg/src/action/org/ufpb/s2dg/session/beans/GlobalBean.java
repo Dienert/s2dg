@@ -5,6 +5,7 @@ import java.util.List;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.AutoCreate;
+import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
@@ -64,11 +65,15 @@ public class GlobalBean {
 			 * return false;
 			 */
 		}
-	}; 
+	};
+	
+	@Create
+	public void init(){
+		checarDataLimiteImplantacaoNotas.start();
+	}
 	
 	public GlobalBean(){
 		super();
-		checarDataLimiteImplantacaoNotas.start();
 	}
 
 	public Global getGlobal() {
