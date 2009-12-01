@@ -78,7 +78,6 @@ public class AlunoTurmaBean implements Serializable{
 		else return null;
 	}
 	
-	public String trancamentoParcial(){
 
 	public String trancamentoParcial(){
 		alunoTurma.setSituacao(Situacao.TRANCADO);
