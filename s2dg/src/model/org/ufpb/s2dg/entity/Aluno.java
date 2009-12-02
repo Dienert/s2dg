@@ -179,7 +179,7 @@ public class Aluno implements Serializable {
 	}
 
 
-	@OneToOne(fetch = FetchType.EAGER, cascade= {CascadeType.ALL})
+	@ManyToOne(fetch = FetchType.EAGER, cascade= {CascadeType.ALL})
 	@JoinColumn(name = "aluno_forma_ingresso")
 	public FormaIngresso getFormaIngresso() {
 		return formaIngresso;
