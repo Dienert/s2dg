@@ -111,8 +111,39 @@
 				  <h:commandButton action="#{pdfAction.geraPdfDiario('Relatorio_de_Notas.pdf', alunoTurmasBean.alunoTurmas, avaliacoesBean.avaliacoes)}" 
 				  value="Imprimir" styleClass="botao_salvar" rendered="#{not avaliacoesBean.eNulo(alunoTurmasBean.alunoTurmas)}"/>
 				  <br />
-				  <a4j:commandButton styleClass="botao_finalizar" type="submit" value="Finalizar Disciplina" action="#{alunoTurmasBean.finalizaTurma}" 
+  			<a4j:commandButton id="botaochamafinaliza" disabled="#{not turmaBean.podeFinalizarTurma()}" value="Finalizar Disciplina" >
+				<rich:componentControl for="panel" attachTo="botaochamafinaliza" operation="show" event="onclick"/>
+			</a4j:commandButton>	    
+			
+			<rich:modalPanel id="panel" width="350" height="100">
+        <f:facet name="header">
+            <h:panelGroup>
+                <h:outputText value="Alerta"></h:outputText>
+            </h:panelGroup>
+        </f:facet>
+        <f:facet name="controls">
+            <h:panelGroup>
+                <h:graphicImage value="/img/del.png" styleClass="hidelink" id="hidelink"/>
+                <rich:componentControl for="panel" attachTo="hidelink" operation="hide" event="onclick"/>
+            </h:panelGroup>
+        </f:facet>
+        <h:outputText value="Professor(a), após a finalizacao da disciplina, a média dos alunos ficará registrada no seu histórico escolar, podendo ser alterada até o final do próximo período.
+        Deseja continuar?"></h:outputText>
+        <br/>
+     	<div class="actionButtons">
+     	
+     	 <a4j:commandButton styleClass="botao_finalizar" type="submit" value="Finalizar Disciplina" disabled="#{not turmaBean.podeFinalizarTurma()}" action="#{alunoTurmasBean.finalizaTurma}" 
 				  		reRender="tabela_avaliacoes" rendered="#{not avaliacoesBean.eNulo(alunoTurmasBean.alunoTurmas)}" />		    
+     	<rich:componentControl for="panel"  attachTo="botaotranca1"
+					operation="hide" event="onclick" ajaxSingle="true" reRender="corpo"/>
+     	
+			<a4j:commandButton id="voltar" value="Voltar">
+				<rich:componentControl for="panel" attachTo="voltar"
+					operation="hide" event="onclick" />
+			</a4j:commandButton>						
+		</div>
+    </rich:modalPanel>
+			
 			</h:form>
 			<br />
 			<br />

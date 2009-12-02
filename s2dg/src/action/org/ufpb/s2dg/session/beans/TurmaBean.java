@@ -102,7 +102,7 @@ public class TurmaBean implements Serializable{
 	
 	public boolean podeFinalizarTurma() {
 		return true;
-		/*Calendario calendario = fachada.getCalendario();
+	/*	Calendario calendario = fachada.getCalendarioDoBanco();
 		if(calendario != null) {
 			Date inicioImplantacao = calendario.getFimPeriodo();
 			inicioImplantacao.setDate(inicioImplantacao.getDate()+1);
