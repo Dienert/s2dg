@@ -288,7 +288,7 @@ public class Fachada implements Serializable {
 		try {
 			return alunoTurmaBean.getAlunoTurma().getTurma();
 		} catch (NullPointerException npe) {
-			log.warn("getTurmaDisciplinaSelecionada - NullPointerException: {0}", npe.getMessage());
+			//log.warn("getTurmaDisciplinaSelecionada - NullPointerException: {0}", npe.getMessage());
 			return null;
 		}
 	}
