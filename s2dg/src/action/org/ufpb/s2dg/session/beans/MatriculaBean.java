@@ -194,9 +194,7 @@ public class MatriculaBean implements Serializable{
 	}
 	
 
-	private void removerDisciplinasCursadas(
-			List<Disciplina> disciplinasDoCurriculo,
-			List<AlunoTurma> alunoTurmas) {
+	private void removerDisciplinasCursadas(List<Disciplina> disciplinasDoCurriculo, List<AlunoTurma> alunoTurmas) {
 		if(alunoTurmas != null) {
 			for(AlunoTurma at : alunoTurmas) {
 				if (at != null) {

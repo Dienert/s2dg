@@ -94,13 +94,18 @@ public class AlunoTurmasBean implements Serializable {
 			for (int i = 0; i < alunosDaTurma_list.size(); i++) {
 				AlunoTurma alunoTurma = alunosDaTurma_list.get(i);
 				List<AlunoTurmaAvaliacao> avaliacoes = fachada.getAvaliacoesPorAluno(alunoTurma);
-				float media = 5.0f;
-				//float media = calculaMediasPorAluno(avaliacoes);
-				if (media >= 5.0f) {
-					alunoTurma.setSituacao(Situacao.APROVADO);
-					//TODO: Reprovação por faltas
-				}				
-				alunoTurma.setMedia(media);
+				Integer maxFaltas = Math.round(((fachada.getTurma().getDisciplina().getCreditos())*10/8)+new Float(0.4));
+				if (alunoTurma.getFaltas() > maxFaltas){
+					alunoTurma.setMedia(new Float(0));
+					alunoTurma.setSituacao(Situacao.REPROVADO_POR_FALTA);
+				} else {
+					float media_aluno = alunoTurma.getMedia(); 				    										
+					if (media_aluno >= 5.0f) { //TODO Deixar a média da disciplina flexível
+						alunoTurma.setSituacao(Situacao.APROVADO);					
+					} else {
+						alunoTurma.setSituacao(Situacao.REPROVADO_POR_MEDIA);
+					}					
+				}																				
 				fachada.atualizaAlunoTurma(alunoTurma);						
 			}		
 			turmaAtual.setFinalizada(true);								

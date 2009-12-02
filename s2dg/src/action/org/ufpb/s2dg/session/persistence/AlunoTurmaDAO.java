@@ -49,23 +49,7 @@ public class AlunoTurmaDAO {
 	}
 
 	public void atualiza(AlunoTurma alunoTurma) {
-		// TODO Clodaldo: Extract & Move Method
-		Integer maxFaltas = Math.round(((fachada.getTurma().getDisciplina()
-				.getCreditos()) * 10 / 8)
-				+ new Float(0.4));
-		if (alunoTurma.getFaltas() > maxFaltas) {
-			alunoTurma.setMedia(new Float(0));
-			alunoTurma.setSituacao(Situacao.REPROVADO_POR_FALTA);
-			log.info(alunoTurma.getSituacao());
-		} else if (alunoTurma.getMedia() >= 5.0) {
-			alunoTurma.setSituacao(Situacao.APROVADO);
-			log.info(alunoTurma.getSituacao());
-		} else {
-			alunoTurma.setSituacao(Situacao.REPROVADO_POR_MEDIA);
-			log.info(alunoTurma.getSituacao());
-		}
 		entityManager.merge(alunoTurma);
-
 	}
 
 	public void cria(AlunoTurma alunoTurma) {
