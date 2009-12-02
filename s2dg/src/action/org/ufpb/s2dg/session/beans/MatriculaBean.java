@@ -439,7 +439,7 @@ public class MatriculaBean implements Serializable{
 	
 	
 	public boolean podeFazerTrancamentoTotal(){
-		return true;
+		return false;
 		/*
 		if(fachada.getAluno().getSituacaoAcademica() != SituacaoAcademica.REGULAR)
 			return false;
