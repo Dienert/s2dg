@@ -132,9 +132,9 @@
         <br/>
      	<div class="actionButtons">
      	
-     	 <a4j:commandButton id="botaofinaliza" styleClass="botao_finalizar" type="submit" value="Finalizar Disciplina" action="#{alunoTurmasBean.finalizaTurma}" 
-				  		reRender="tabela_avaliacoes, checkboxmedia, organizerxxxxx, criar_avaliacao, corpo" />		    
-     	<rich:componentControl for="panel"  attachTo="botaofinaliza"
+     	 <a4j:commandButton styleClass="botao_finalizar" type="submit" value="Finalizar Disciplina" disabled="#{not turmaBean.podeFinalizarTurma()}" action="#{alunoTurmasBean.finalizaTurma}" 
+				  		reRender="tabela_avaliacoes" rendered="#{not avaliacoesBean.eNulo(alunoTurmasBean.alunoTurmas)}" />		    
+     	<rich:componentControl for="panel"  attachTo="botaoFinaliza"
 					operation="hide" event="onclick" ajaxSingle="true" reRender="corpo"/>
      	
 			<a4j:commandButton id="voltar" value="Voltar">
