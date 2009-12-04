@@ -87,7 +87,7 @@ public class AlunoTurmasBean implements Serializable {
 		}
 	}
 	
-	public void finalizaTurma() {
+	public String finalizaTurma() {
 		Turma turmaAtual = fachada.getTurma();	
 		if(turmaAtual != null) {
 			List<AlunoTurma> alunosDaTurma_list = fachada.getAlunosPorTurma(turmaAtual);
@@ -113,8 +113,9 @@ public class AlunoTurmasBean implements Serializable {
 					
 			String time = TimestampBean.getHour();
 			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO,time+" - Disciplina finalizada com sucesso.", null);
-			facesContext.addMessage("corpo2",facesMessage);
+			facesContext.addMessage("corpo2",facesMessage);						
 		}
+		return "/home.seam";
 	}
 	
 	private void calculaMedias() {
