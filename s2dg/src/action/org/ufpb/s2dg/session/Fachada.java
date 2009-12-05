@@ -1,6 +1,7 @@
 package org.ufpb.s2dg.session;
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -47,6 +48,7 @@ import org.ufpb.s2dg.session.persistence.CurriculoDAO;
 import org.ufpb.s2dg.session.persistence.CursoDAO;
 import org.ufpb.s2dg.session.persistence.DataEventoDAO;
 import org.ufpb.s2dg.session.persistence.DisciplinaDAO;
+import org.ufpb.s2dg.session.persistence.EventoCalendarioTurmaDAO;
 import org.ufpb.s2dg.session.persistence.GlobalDAO;
 import org.ufpb.s2dg.session.persistence.LogDAO;
 import org.ufpb.s2dg.session.persistence.OfertaDAO;
@@ -102,6 +104,8 @@ public class Fachada implements Serializable {
 	private SalaDAO salaDAO;
 	@In
 	private LogDAO logDAO;
+	@In
+	private EventoCalendarioTurmaDAO eventoCalendarioTurmaDAO;
 	
 	@In
 	private UsuarioBean usuarioBean;
@@ -470,7 +474,6 @@ public class Fachada implements Serializable {
 	}
 
 	public void trancamentoParcial(AlunoTurma alunoTurma) {
-		System.out.print("Pegou geral na entrada da fachada. SItuacao ="+alunoTurma.getSituacao());
 		alunoTurmaDAO.atualizaSituacaoTrancamento(alunoTurma);
 		
 	}
@@ -522,6 +525,42 @@ public class Fachada implements Serializable {
 	
 	public void persisteAluno(Aluno aluno) {
 		alunoDAO.atualiza(aluno);
+	}
+	
+	public void confirmarPlanejamentoEventoCalendarioTurma(long idEventoCalendarioTurma){
+		turmaBean.confirmarPlanejamentoEventoCalendarioTurma(idEventoCalendarioTurma);
+	}
+	
+	public void setarPlanejamentoEventoCalendarioTurma(long idEventoCalendarioTurma, String planejamentoExecutado){
+		turmaBean.setPlanejamentoCalendarioTurmaTurma(idEventoCalendarioTurma, planejamentoExecutado);
+	}
+	
+	public void atribuirPresencaAlunoEventoCalendarioTurma(long idEventoCalendarioTurma, Aluno aAluno, boolean presenca){
+		turmaBean.atribuirPresencaAlunoEventoCalendarioTurma(idEventoCalendarioTurma, aAluno, presenca);
+	}
+	
+	public void confirmarPlanejamentoEventoCalendarioTurma(Date dataEventoCalendarioTurma){
+		turmaBean.confirmarPlanejamentoEventoCalendarioTurma(dataEventoCalendarioTurma);
+	}
+	
+	public void setarPlanejamentoEventoCalendarioTurma(Date dataEventoCalendarioTurma, String planejamentoExecutado){
+		turmaBean.setPlanejamentoCalendarioTurmaTurma(dataEventoCalendarioTurma, planejamentoExecutado);
+	}
+	
+	public void atribuirPresencaAlunoEventoCalendarioTurma(Date dataEventoCalendarioTurma, Aluno aAluno, boolean presenca){
+		turmaBean.atribuirPresencaAlunoEventoCalendarioTurma(dataEventoCalendarioTurma, aAluno, presenca);
+	}
+	
+	public void persisteEventoCalendarioTurma(EventoCalendarioTurma eventoCalendarioTurma){
+		eventoCalendarioTurmaDAO.atualiza(eventoCalendarioTurma);
+	}
+	
+	public List<Aluno> getAlunos(Turma turma){
+		return alunoTurmaDAO.getAlunos(turma);
+	}
+	
+	public void persiteTurma(Turma turma){
+		turmaDAO.atualiza(turma);
 	}
 
 	public void setAbaAtivaDocente() {
