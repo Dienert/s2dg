@@ -27,7 +27,7 @@ public class EventoCalendario implements Serializable{
 	 */
 	private static final long serialVersionUID = 3040333643404387685L;
 	public enum TipoData implements Serializable { DIA_LETIVO("Dia Letivo"), DIA_AULA_DISCIPLINA("Dia de Aula") ,  
-		EVENTO_PERIODO("Evento de Periodo"), AVALIACAO("Avaliacao"), FERIADO("Feriado"); 
+		EVENTO_PERIODO("Evento de Período"), AVALIACAO("Avaliação"), FERIADO("Feriado"); 
 		String string;
 	
 		TipoData(String string){
