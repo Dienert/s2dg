@@ -35,8 +35,13 @@
             onclick="#{rich:component('organizerxxxxx')}.resetSelectedDate()" style="height: 100%;">
                 <h:panelGrid columns="1">
                     <h:outputText value="{day}" style="align:center"/>
-                    <h:outputText value="{data}"/>
-                    <a href="#" onclick="#{rich:component('panel')}.show()">|<u>Editar dia</u>|</a>
+                    <h:commandLink value="{data}"/>
+					<!--  <a href="#" onclick="#{rich:component('panel')}.show()">|<u>Editar
+					dia</u>|</a>-->
+
+					<!--  <a4j:commandLink value="Editar dia" 
+						rendered="#{turmaBean.isDiaDeAula(data)}"
+						oncomplete="#{rich:component('panel')}.show()"/>-->
                 </h:panelGrid>
             </a4j:outputPanel>
         </rich:calendar>

@@ -390,26 +390,31 @@ td.action a {
  * Indica a coloracao de cada item do calendario */
  
 .ic_dia_letivo{
+	font-size: 12px;
 	background-color: white;
 	color: black;
 }
 
 .ic_avaliacao{
+	font-size: 12px;
 	background-color: #FF3333;
 	color: white;
 }
 
 .ic_feriado{
+	font-size: 12px;
 	background-color: #3399FF;
 	color: white;
 }
 
 .ic_evento_periodo{
+	font-size: 12px;
 	background-color: #FFFFCC;
 	color: black;
 }
 
 .ic_dia_aula_disciplina{
+	font-size: 12px;
 	background-color: #CCFF99;
 	color: black;
 }
