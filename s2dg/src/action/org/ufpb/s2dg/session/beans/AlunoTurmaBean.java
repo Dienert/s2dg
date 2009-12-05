@@ -12,6 +12,7 @@ import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.log.Log;
+import org.ufpb.s2dg.entity.Aluno;
 import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.Disciplina;
 import org.ufpb.s2dg.entity.Horario;

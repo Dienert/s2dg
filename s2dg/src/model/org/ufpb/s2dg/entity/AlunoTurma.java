@@ -72,7 +72,7 @@ public class AlunoTurma implements Serializable {
 	}
 
 	@ManyToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "matricula_aluno", nullable = false)
+	@JoinColumn(name = "id_aluno", nullable = false)
 	@NotNull
 	public Aluno getAluno() {
 		return this.aluno;

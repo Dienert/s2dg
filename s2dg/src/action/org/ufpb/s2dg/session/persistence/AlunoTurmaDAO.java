@@ -131,4 +131,13 @@ public class AlunoTurmaDAO {
 				.setParameter("periodo", periodo).getResultList();
 	}
 
+	@SuppressWarnings("unchecked")
+	public List<Aluno> getAlunos(Turma turma) {
+		return (List<Aluno>) entityManager.createQuery(
+				"select Aluno as a from AlunoTurma as at " +
+					"where at.turma = :turma")
+					.setParameter("turma", turma)
+					.getResultList();
+	}
+
 }

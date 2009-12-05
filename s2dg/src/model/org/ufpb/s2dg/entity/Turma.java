@@ -1,5 +1,6 @@
 package org.ufpb.s2dg.entity;
 
+import java.util.Collections;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -37,7 +38,7 @@ public class Turma implements java.io.Serializable {
 	private Set<Oferta> ofertas;
 	private Set<Horario> horarios;
 	private Set<Sala> salas = new HashSet<Sala>(0);
-	private Set<Aula> aulas;
+	private Set<EventoCalendarioTurma> eventosCalendarioTurma;
 	private boolean finalizada;
 	
 	public Turma() {
@@ -196,14 +197,15 @@ public class Turma implements java.io.Serializable {
 	public void setHorarios(Set<Horario> horarios) {
 		this.horarios = horarios;
 	}
-
-	public void setAulas(Set<Aula> aulas) {
-		this.aulas = aulas;
+	
+	@OneToMany(fetch=EAGER)
+	public Set<EventoCalendarioTurma> getEventosCalendarioTurma() {
+		return Collections.unmodifiableSet(eventosCalendarioTurma);
 	}
 
-	@OneToMany(fetch=EAGER)
-	public Set<Aula> getAulas() {
-		return aulas;
+	public void setEventosCalendarioTurma(
+			Set<EventoCalendarioTurma> eventoCalendarioTurma) {
+		this.eventosCalendarioTurma = eventoCalendarioTurma;
 	}
 	
 }

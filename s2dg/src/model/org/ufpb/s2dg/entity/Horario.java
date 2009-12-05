@@ -135,6 +135,10 @@ public class Horario implements Serializable {
 			m2 = '0' + m2;
 		return dia+", "+h1+":"+m1+" - "+h2+":"+m2;
 	}
+	
+	public int parseDiaDaSemanaFormatoCalendar(){
+		return dia.ordinal()+1;
+	}
 
 	@Override
 	public int hashCode() {

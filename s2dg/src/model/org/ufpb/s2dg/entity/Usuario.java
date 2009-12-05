@@ -63,7 +63,7 @@ public class Usuario implements Serializable {
 	}
 
 	@OneToOne(fetch = FetchType.EAGER, cascade= {CascadeType.ALL})
-	@JoinColumn(name = "aluno_matricula")
+	@JoinColumn(name = "aluno_id")
 	public Aluno getAluno() {
 		return this.aluno;
 	}

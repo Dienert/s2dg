@@ -17,6 +17,8 @@ import javax.persistence.Table;
 
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
+import javax.persistence.GeneratedValue;
+import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name = "aluno")
@@ -30,6 +32,8 @@ public class Aluno implements Serializable {
 	TRANSFERENCIA_POR_FORCA_SENTENCA,PEC,REINGRESSO,PROGRAMA_PIANI,VESTIBULAR_2,PROGRAMA_DE_MOBILIDADE_ESTUDANTIL,PEC_MSC,REINGRESSO_POR_DECISAO_DO_CONSEPE,
 	REOPCAO_MUDANCA_DE_TURNO
 	}*/
+	
+	private long id;
 	
 	private static final long serialVersionUID = 1L;
 	private String matricula;
@@ -107,7 +111,6 @@ public class Aluno implements Serializable {
 		
 	}
 
-	@Id
 	@Column(name = "matricula", unique = true, nullable = false, length = 9)
 	@NotNull
 	@Length(max = 9)
@@ -115,6 +118,16 @@ public class Aluno implements Serializable {
 		return this.matricula;
 	}
 
+	@Id
+	@GeneratedValue(strategy=IDENTITY)
+	public long getId() {
+		return this.id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	public void setMatricula(String matricula) {
 		this.matricula = matricula;
 	}
@@ -368,6 +381,27 @@ public class Aluno implements Serializable {
 		this.valorProva9 = valorProva9;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + (int) (id ^ (id >>> 32));
+		return result;
+	}
 
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Aluno other = (Aluno) obj;
+		if (id != other.id)
+			return false;
+		return true;
+	}
+	
 	
 }

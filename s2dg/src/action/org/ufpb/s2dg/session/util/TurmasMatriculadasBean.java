@@ -117,7 +117,7 @@ public class TurmasMatriculadasBean implements Serializable{
 	}
 	
 	public List<AlunoTurma> getAluno(){
-		List<AlunoTurma> aluno = alunoDAO.getAlunos(usuarioBean.getUsuario().getAluno().getMatricula());
+		List<AlunoTurma> aluno = alunoDAO.getAlunos(usuarioBean.getUsuario().getAluno().getId());
 		return aluno;
 	}
 	public int geraCreditosIntegralizadosObrigatorias(List<AlunoTurma> ats){
