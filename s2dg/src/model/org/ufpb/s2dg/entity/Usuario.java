@@ -154,6 +154,14 @@ public class Usuario implements Serializable {
 	public String getResposta() {
 		return resposta;
 	}
+	
+	public boolean usuarioIsAluno(){
+		return (aluno != null);
+	}
+	
+	public boolean usuarioIsProfessor(){
+		return (professor !=null);
+	}
 
 	/*@Column(name="rg")
 	public String getRg() {

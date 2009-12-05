@@ -32,6 +32,7 @@ import org.ufpb.s2dg.entity.Professor;
 import org.ufpb.s2dg.entity.Turma;
 import org.ufpb.s2dg.entity.AlunoTurma.Situacao;
 import org.ufpb.s2dg.session.Fachada;
+import org.ufpb.s2dg.session.beans.UsuarioBean.TipoAbaAtiva;
 import org.ufpb.s2dg.session.util.HorarioComparator;
 import org.ufpb.s2dg.session.util.MenuAction;
 import org.ufpb.s2dg.session.util.ProfessorComparator;
@@ -61,8 +62,10 @@ public class MatriculaBean implements Serializable{
 	
 	@Create
 	public void init() {
-		aluno = fachada.getAluno();
-		listaTurmasAptas();
+		if (fachada.getAbaAtiva() == TipoAbaAtiva.DISCENTE){
+			aluno = fachada.getAluno();
+			listaTurmasAptas();
+		}
 	}
 	
 	public void listaTurmasAptas() {

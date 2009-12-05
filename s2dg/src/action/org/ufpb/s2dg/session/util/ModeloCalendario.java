@@ -19,6 +19,7 @@ import org.ufpb.s2dg.entity.EventoCalendarioTurma;
 import org.ufpb.s2dg.entity.Horario;
 import org.ufpb.s2dg.entity.Turma;
 import org.ufpb.s2dg.session.Fachada;
+import org.ufpb.s2dg.session.beans.UsuarioBean.TipoAbaAtiva;
 import org.ufpb.s2dg.session.util.ItemDeCalendario.TipoData;
 
 @Name("modeloCalendario")
@@ -43,7 +44,12 @@ public class ModeloCalendario implements CalendarDataModel, Serializable {
 		 * Para teste, está sendo pego calendario de aluno.
 		 * Se usar usuario professor vai dar pau, deve-se trocar aqui antes.
 		*/
-		Calendario calendario = fachada.getCalendarioAluno();
+		Calendario calendario = null;
+		if(fachada.getAbaAtiva() == TipoAbaAtiva.DISCENTE)
+			calendario = fachada.getCalendarioAluno();
+		if(fachada.getAbaAtiva() == TipoAbaAtiva.DOCENTE)
+			calendario = fachada.getCalendarioProfessor();
+		
 		
 		itens = new ItemDeCalendario[datas.length];
 		Calendar c = Calendar.getInstance();

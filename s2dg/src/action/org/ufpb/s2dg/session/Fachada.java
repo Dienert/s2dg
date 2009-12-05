@@ -39,6 +39,7 @@ import org.ufpb.s2dg.session.beans.CalendarioBean;
 import org.ufpb.s2dg.session.beans.GlobalBean;
 import org.ufpb.s2dg.session.beans.TurmaBean;
 import org.ufpb.s2dg.session.beans.UsuarioBean;
+import org.ufpb.s2dg.session.beans.UsuarioBean.TipoAbaAtiva;
 import org.ufpb.s2dg.session.persistence.AlunoDAO;
 import org.ufpb.s2dg.session.persistence.AlunoTurmaAvaliacaoDAO;
 import org.ufpb.s2dg.session.persistence.AlunoTurmaDAO;
@@ -506,5 +507,20 @@ public class Fachada implements Serializable {
 	
 	public void persisteAluno(Aluno aluno) {
 		alunoDAO.atualiza(aluno);
+	}
+
+	public void setAbaAtivaDocente() {
+		usuarioBean.alterar(TipoAbaAtiva.DOCENTE);
+		
+	}
+
+	public void setAbaAtivaDiscente() {
+		usuarioBean.alterar(TipoAbaAtiva.DISCENTE);
+		
+	}
+	
+	public TipoAbaAtiva getAbaAtiva(){
+		return usuarioBean.getAbaAtiva();
+		
 	}
 }

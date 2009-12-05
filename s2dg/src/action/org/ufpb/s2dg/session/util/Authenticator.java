@@ -59,7 +59,12 @@ public class Authenticator
         
         fachada.setUsuario(usuario);
         
-        if(usuario.getAluno() != null){
+        if (usuario.usuarioIsProfessor())
+        	fachada.setAbaAtivaDocente();
+        else
+        	fachada.setAbaAtivaDiscente();
+        
+        if(usuario.usuarioIsAluno()){
         	fachada.initTurmasMatriculadas();
         }
         

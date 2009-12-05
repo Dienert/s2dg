@@ -14,15 +14,15 @@
 			<rich:tabPanel switchType="server">
 			
 				<rich:tab label="Área do Docente" 
-					rendered="#{identity.hasRole('professor')}">
+					rendered="#{identity.hasRole('professor')}"
+					onclick="#{usuarioBean.defineAbaAtivaDocente()}">
 					<ui:include src="/layout/body_docente.xhtml"/>
 
 				</rich:tab>
 
 				<rich:tab label="Área do Discente"
-					rendered="#{identity.hasRole('aluno')}">
-
-
+					rendered="#{identity.hasRole('aluno')}"
+					onclick="#{usuarioBean.defineAbaAtivaDiscente()}">
 					<ui:include src="/layout/body_discente.xhtml"/>
 				</rich:tab>
 

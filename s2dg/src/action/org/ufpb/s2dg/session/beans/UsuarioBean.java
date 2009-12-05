@@ -5,8 +5,10 @@ import java.io.Serializable;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.log.Log;
 import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.Calendario;
 import org.ufpb.s2dg.entity.Centro;
@@ -25,8 +27,15 @@ public class UsuarioBean implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	@Logger
+	private Log log;
 
 	private Usuario usuario;
+	
+	public enum TipoAbaAtiva { DOCENTE,	DISCENTE }
+	
+	private TipoAbaAtiva abaAtiva;
 	
 	@In
 	Fachada fachada;
@@ -86,6 +95,23 @@ public class UsuarioBean implements Serializable{
 	private Centro getCentroProfessor() {
 		// TODO Clodoaldo: Remove Middle Man?
 		return usuario.getProfessor().getDepartamento().getCentro();
+	}
+	
+	public void alterar(TipoAbaAtiva nova){
+		abaAtiva = nova;
+		log.info("alterar(TipoAbaAtiva) - novo valor: {0}", abaAtiva);
+	}
+	
+	public void defineAbaAtivaDocente() {
+		alterar(TipoAbaAtiva.DOCENTE);
+	}
+
+	public void defineAbaAtivaDiscente() {
+		alterar(TipoAbaAtiva.DISCENTE);
+	}
+	
+	public TipoAbaAtiva getAbaAtiva() {
+		return abaAtiva;
 	}
 	
 }
