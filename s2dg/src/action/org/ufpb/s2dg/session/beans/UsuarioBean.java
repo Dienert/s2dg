@@ -74,15 +74,15 @@ public class UsuarioBean implements Serializable{
 	 */
 	
 	private void defineCalendarioAluno() {
-		Periodo periodoAtual = fachada.getPeriodoAtual();
 		Centro centroAluno = getCentroAluno();
+		Periodo periodoAtual = fachada.getPeriodoAtual(centroAluno);
 		Calendario calendarioAluno = fachada.getCalendarioDoBanco(periodoAtual, centroAluno);
 		fachada.setCalendarioAluno(calendarioAluno);
 	}
 	
 	private void defineCalendarioProfessor() {
-		Periodo periodoAtual = fachada.getPeriodoAtual();
 		Centro centroProfessor = getCentroProfessor();
+		Periodo periodoAtual = fachada.getPeriodoAtual(centroProfessor);
 		Calendario calendarioProfessor = fachada.getCalendarioDoBanco(periodoAtual, centroProfessor);
 		fachada.setCalendarioProfessor(calendarioProfessor);
 	}

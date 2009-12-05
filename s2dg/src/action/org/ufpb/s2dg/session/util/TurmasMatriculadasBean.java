@@ -9,9 +9,12 @@ import java.util.List;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.log.Log;
 import org.ufpb.s2dg.entity.AlunoTurma;
+import org.ufpb.s2dg.entity.Centro;
 import org.ufpb.s2dg.entity.Disciplina;
 import org.ufpb.s2dg.entity.Horario;
 import org.ufpb.s2dg.entity.Sala;
@@ -34,6 +37,9 @@ public class TurmasMatriculadasBean implements Serializable{
 	 */
 	private static final long serialVersionUID = 1L;
 
+	@Logger
+	private Log log;
+	
 	private List<AlunoTurma> alunoTurmas;
 	
 	@In
@@ -178,8 +184,21 @@ public int geraCreditosIntegralizadosComplementares(List<AlunoTurma> ats){
 	}
 
 	public int geraCreditosPeriodoAtual(List<AlunoTurma> alunoTurmas){
-		int anoAtual = Integer.parseInt(fachada.getGlobalDoBanco().getPeriodoAtual().getAno());
-        int semestreAtual = (int)(fachada.getGlobalDoBanco().getPeriodoAtual().getSemestre());
+		// TODO Clodoaldo: isso pode ser perigoso!
+		Centro c =null;
+		try {
+			c = usuarioBean.getUsuario().getAluno().getCurriculo().getCurso().getCentro();
+		} catch (NullPointerException e) {
+			log.warn("geraCreditosPeriodoAtual() - Fudeu, nao ta pegando o centro aqui!");
+		} 
+		int anoAtual = 0;
+		int semestreAtual = 0;
+		try {
+			anoAtual = Integer.parseInt(fachada.getPeriodoAtual(c).getAno());
+			semestreAtual = (int)(fachada.getPeriodoAtual(c).getSemestre());
+		} catch (NullPointerException e) {
+			log.warn("geraCreditosPeriodoAtual() - A falta do centro fudeu, periodo e ano ta zero");
+		}
 		int creditosPeriodoAtual = 0;
 		for(int i=0; i < alunoTurmas.size(); i++){
 			if (alunoTurmas.get(i).getAluno().getMatricula().equals(fachada.getAluno().getMatricula())) {

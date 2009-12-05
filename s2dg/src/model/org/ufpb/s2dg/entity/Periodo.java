@@ -65,6 +65,11 @@ public class Periodo implements Serializable {
 	}
 
 	public void setAno(String ano) {
+		try{
+			Integer.parseInt(ano);
+		} catch(NumberFormatException e){
+			throw new IllegalArgumentException("Filha da puta, nao bota isso aqui, e so numero!");
+		}
 		this.ano = ano;
 	}
 
@@ -74,6 +79,11 @@ public class Periodo implements Serializable {
 	}
 
 	public void setSemestre(char semestre) {
+		try{
+			Integer.parseInt(new Character(semestre).toString());
+		} catch(NumberFormatException e){
+			throw new IllegalArgumentException("Filha da puta, nao bota isso aqui, e so numero!");
+		}
 		this.semestre = semestre;
 	}
 
@@ -86,4 +96,33 @@ public class Periodo implements Serializable {
 		this.turmas = turmas;
 	}
 
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((ano == null) ? 0 : ano.hashCode());
+		result = prime * result + semestre;
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Periodo other = (Periodo) obj;
+		if (ano == null) {
+			if (other.ano != null)
+				return false;
+		} else if (!ano.equals(other.ano))
+			return false;
+		if (semestre != other.semestre)
+			return false;
+		return true;
+	}
+
+	
 }

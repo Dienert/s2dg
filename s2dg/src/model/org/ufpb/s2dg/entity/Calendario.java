@@ -135,11 +135,38 @@ public class Calendario implements Serializable {
 	public Centro getCentro() {
 		return centro;
 	}
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((centro == null) ? 0 : centro.hashCode());
+		result = prime * result + ((periodo == null) ? 0 : periodo.hashCode());
+		return result;
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Calendario other = (Calendario) obj;
+		if (centro == null) {
+			if (other.centro != null)
+				return false;
+		} else if (!centro.equals(other.centro))
+			return false;
+		if (periodo == null) {
+			if (other.periodo != null)
+				return false;
+		} else if (!periodo.equals(other.periodo))
+			return false;
+		return true;
+	}
+	
+	
 }
-
-/*inicio do periodo, inicio das matriculas, fim das matriculas, 
- * ultimo dia de trancamento, termino periodo letivo, ultimo dia implantacao
- * de notas
- * @temporal*/
-
  

@@ -12,6 +12,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
@@ -31,6 +32,7 @@ public class Disciplina implements Serializable {
 	private Set<Turma> turmas = new HashSet<Turma>(0);
 	private Set<Curriculo> curriculos;
 	private Tipo tipo;
+	private Departamento departamento;
 
 	public Disciplina() {
 	}
@@ -114,6 +116,15 @@ public class Disciplina implements Serializable {
 
 	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
+	}
+
+	public void setDepartamento(Departamento departamento) {
+		this.departamento = departamento;
+	}
+
+	@ManyToOne
+	public Departamento getDepartamento() {
+		return departamento;
 	}
 
 }

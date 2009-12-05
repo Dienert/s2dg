@@ -3,16 +3,15 @@ package org.ufpb.s2dg.session;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import org.jboss.seam.log.Log;
 import org.ufpb.s2dg.entity.Aluno;
 import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.AlunoTurmaAvaliacao;
@@ -23,7 +22,6 @@ import org.ufpb.s2dg.entity.Curriculo;
 import org.ufpb.s2dg.entity.Curso;
 import org.ufpb.s2dg.entity.Disciplina;
 import org.ufpb.s2dg.entity.EventoCalendarioTurma;
-import org.ufpb.s2dg.entity.Global;
 import org.ufpb.s2dg.entity.Oferta;
 import org.ufpb.s2dg.entity.Periodo;
 import org.ufpb.s2dg.entity.Professor;
@@ -69,8 +67,8 @@ public class Fachada implements Serializable {
 	 */
 	private static final long serialVersionUID = -8622239731631410022L;
 	
-	@Logger
-	private Log log;
+/*	@Logger
+	private Log log;*/
 	
 	@In
 	private UsuarioDAO usuarioDAO;
@@ -130,24 +128,30 @@ public class Fachada implements Serializable {
 	
 	@Create
 	public void init() {
-		globalBean.setGlobal(getGlobalDoBanco());
+		atualizarPeriodosAtuais(getGlobalDoBanco());
 	}
-	
+
+	private void atualizarPeriodosAtuais(Map<Centro, Periodo> globalDoBanco) {
+		globalBean.setPeriodosAtuais(globalDoBanco);
+	}
+
 	public Usuario getUsuarioDoBanco(String username) {
 		return usuarioDAO.getUsuario(username);
 	}
 	
 	public List<Turma> getTurmasDoBanco() {
 		Usuario usuario = usuarioBean.getUsuario();
-		Periodo periodo = getPeriodoAtual();
-		if((usuario != null)&&(periodo != null)) {
+		if((usuario != null)) {
 			Professor professor = usuario.getProfessor();
 			if(professor == null)
 				professor = professorDAO.getProfessor(usuario);
-			if(professor != null)
-				return turmaDAO.getTurmas(professor,periodo);
+			if(professor != null){
+				Centro c = professor.getDepartamento().getCentro();
+				return turmaDAO.getTurmas(professor,getPeriodoAtual(c));
+			}
+				
 		}
-		return null;
+		return new ArrayList<Turma>();
 	}
 
 	public void cancelarEdicaoDeAvaliacao() {
@@ -162,33 +166,39 @@ public class Fachada implements Serializable {
 		return avaliacaoDAO.getAvaliacoes(turmaBean.getTurma());
 	}
 
-	public Periodo getPeriodoAtual() {
+	public Periodo getPeriodoAtual(Centro centro) {
 		if(globalBean != null)
-			return globalBean.getGlobal().getPeriodoAtual();
+			return globalBean.getPeriodoAtual(centro);
 		else
 			return null;
 	}
 
-	public Global getGlobalDoBanco() {
-		return globalDAO.getGlobal();
+	public Map<Centro, Periodo> getGlobalDoBanco(){
+		return globalDAO.getRelacaoPeriodosAtuais();
 	}
 
 	public void setTurma(Turma turma) {
 		turmaBean.setTurma(turma);		
 	}
 
-	public Calendario getCalendarioDoBanco() {
-		return calendarioDAO.getCalendario(getPeriodoAtual());
+	public Calendario getCalendarioDoBanco(Centro c) {
+		return calendarioDAO.getCalendario(getPeriodoAtual(c));
 	}
 
 	public List<AlunoTurma> getAlunoTurmaDoBanco() {
-		Usuario usuario = usuarioBean.getUsuario();
-		if(usuario != null) {
-			Aluno aluno = usuario.getAluno();
-			if(aluno != null)
-				return alunoTurmaDAO.getAlunoTurmas(aluno, getPeriodoAtual());
+		try {
+			Usuario usuario = usuarioBean.getUsuario();
+			if(usuario != null) {
+				Aluno aluno = usuario.getAluno();
+				if(aluno != null){
+					Centro c = aluno.getCurriculo().getCurso().getCentro();
+					return alunoTurmaDAO.getAlunoTurmas(aluno, getPeriodoAtual(c));
+				}
+			}
+			return new ArrayList<AlunoTurma>();
+		} catch (NullPointerException e) {
+			return new ArrayList<AlunoTurma>();
 		}
-		return null;
 	}
 	
 	public List<AlunoTurma> getAlunosPorTurma(Turma turma) {		
@@ -407,7 +417,12 @@ public class Fachada implements Serializable {
 	}
 
 	public List<Turma> getTurmasDoBanco(Disciplina d) {
-		return turmaDAO.getTurmas(d, getPeriodoAtual());
+		try {
+			Centro c = d.getDepartamento().getCentro();
+			return turmaDAO.getTurmas(d, getPeriodoAtual(c));
+		} catch (NullPointerException e) {
+			return new ArrayList<Turma>();
+		}
 	}
 
 	public Curso getCursoDoBanco(Curriculo curriculo) {

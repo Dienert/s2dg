@@ -14,7 +14,6 @@ import javax.persistence.Table;
 @Entity
 @Table(name = "global")
 public class Global implements Serializable {
-	
 	private static final long serialVersionUID = 1L;
 	
 	@Id
@@ -24,6 +23,9 @@ public class Global implements Serializable {
 	@OneToOne(fetch = FetchType.EAGER, cascade= {CascadeType.ALL})
 	@JoinColumn(name="periodo_atual")
 	private Periodo periodoAtual;
+	
+	@OneToOne
+	private Centro centro;
 	
 	public Periodo getPeriodoAtual() {
 		return periodoAtual;
@@ -39,6 +41,14 @@ public class Global implements Serializable {
 
 	public void setId(long id) {
 		this.id = id;
+	}
+
+	public void setCentro(Centro centro) {
+		this.centro = centro;
+	}
+
+	public Centro getCentro() {
+		return centro;
 	}
 	
 }
