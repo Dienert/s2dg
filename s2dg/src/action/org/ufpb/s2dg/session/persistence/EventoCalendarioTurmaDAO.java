@@ -27,7 +27,7 @@ public class EventoCalendarioTurmaDAO {
 	public ArrayList<EventoCalendarioTurma> getDataEvento(int mes, int ano) {
 		try {
 			return (ArrayList<EventoCalendarioTurma>) entityManager.createQuery(
-					"select de from DataEvento as de where EXTRACT(MONTH FROM de.data) = :mes and " +
+					"select de from EventoCalendarioTurma as de where EXTRACT(MONTH FROM de.data) = :mes and " +
 					"EXTRACT(YEAR FROM de.data) = :ano")
 					.setParameter("mes", mes).setParameter("ano", ano).
 					getResultList();
@@ -40,13 +40,9 @@ public class EventoCalendarioTurmaDAO {
 	}
 
 	@SuppressWarnings("unchecked")
-	public List<EventoCalendarioTurma> getDataEvento(Turma turma) {
-		Query query = entityManager.createQuery("select de from DataEvento as de where de.turma = :turma")
-			.setParameter("turma", turma);
-		List<EventoCalendarioTurma> list = query.getResultList();
-		if(list.size() > 0)
-			return list;
-		return null;
+	public List<EventoCalendarioTurma> getEventoCalendarioTurma(Turma turma) {
+		return entityManager.createQuery("select de from EventoCalendarioTurma as de where de.turma = :turma")
+			.setParameter("turma", turma).getResultList();
 	}
 
 	public void cria(EventoCalendarioTurma dataEvento) {

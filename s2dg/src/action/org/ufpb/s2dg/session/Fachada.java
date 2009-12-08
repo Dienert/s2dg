@@ -3,6 +3,7 @@ package org.ufpb.s2dg.session;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -11,8 +12,10 @@ import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.log.Log;
 import org.ufpb.s2dg.entity.Aluno;
 import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.AlunoTurmaAvaliacao;
@@ -69,8 +72,8 @@ public class Fachada implements Serializable {
 	 */
 	private static final long serialVersionUID = -8622239731631410022L;
 	
-/*	@Logger
-	private Log log;*/
+	@Logger
+	private Log log;
 	
 	@In
 	private UsuarioDAO usuarioDAO;
@@ -576,5 +579,9 @@ public class Fachada implements Serializable {
 	public TipoAbaAtiva getAbaAtiva(){
 		return usuarioBean.getAbaAtiva();
 		
+	}
+
+	public List<EventoCalendarioTurma> getEventosCalendarioTurma(Turma turma) {
+		return eventoCalendarioTurmaDAO.getEventoCalendarioTurma(turma);
 	}
 }

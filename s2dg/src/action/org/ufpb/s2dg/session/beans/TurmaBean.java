@@ -14,14 +14,14 @@ import java.util.Set;
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
-import org.apache.commons.logging.Log;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.In;
-import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.ufpb.s2dg.entity.Aluno;
+import org.ufpb.s2dg.entity.AlunoPresenca;
+import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.Calendario;
 import org.ufpb.s2dg.entity.Centro;
 import org.ufpb.s2dg.entity.EventoCalendarioTurma;
@@ -63,11 +63,8 @@ public class TurmaBean implements Serializable{
 		fachada.cancelarEdicaoDeAvaliacao();
 		fachada.initAvaliacoes();
 		fachada.initAlunoTurmas();
-		try{
 		carregaEventosCalendarioTurma();
-		}catch(Exception ex){
-			ex.printStackTrace();
-		}
+		//atualizaAlunosDaTurma();
 	}
 	
 	public void switchCalcMediaAuto() {
@@ -192,7 +189,7 @@ public class TurmaBean implements Serializable{
 	
 	public List<String> exportarPlanejamentoAulas(){
 		ArrayList<String> planejamentos = new ArrayList<String>();
-		Set<EventoCalendarioTurma> eventosCalendarioTurma = turma.getEventosCalendarioTurma();
+		List<EventoCalendarioTurma> eventosCalendarioTurma = turma.getEventosCalendarioTurma();
 		
 		for(EventoCalendarioTurma eventoCalendarioTurma : eventosCalendarioTurma)
 			planejamentos.add(eventoCalendarioTurma.getPlanejamento());
@@ -248,11 +245,17 @@ public class TurmaBean implements Serializable{
 	}	
 
 	private void carregaEventosCalendarioTurma(){
-		if(turma.getEventosCalendarioTurma() == null || turma.getEventosCalendarioTurma().size() == 0){
-			// TODO Elenilson: ao atualizar getPeriodoAtual(), atualizar aqui!
+		if(turma.getEventosCalendarioTurma() == null || turma.getEventosCalendarioTurma().isEmpty()){
+			List<EventoCalendarioTurma> eventoCalendarioTurmaDoBanco = fachada.getEventosCalendarioTurma(this.turma);
+			
+			if(eventoCalendarioTurmaDoBanco != null && !eventoCalendarioTurmaDoBanco.isEmpty()){
+				turma.setEventosCalendarioTurma(eventoCalendarioTurmaDoBanco);
+				return;
+			}
+				
 			Centro centro = turma.getDisciplina().getDepartamento().getCentro();
 			Calendario calendario = fachada.getCalendarioDoBanco(fachada.getPeriodoAtual(centro), centro);
-			Set<EventoCalendarioTurma> eventosCalendarioTurma = new HashSet<EventoCalendarioTurma>();
+			List<EventoCalendarioTurma> eventosCalendarioTurma = new ArrayList<EventoCalendarioTurma>();
 			
 			Calendar c = Calendar.getInstance();
 			
@@ -266,27 +269,68 @@ public class TurmaBean implements Serializable{
 			Date dataAtual = c.getTime();
 			
 			Set<Horario> horarios = turma.getHorarios();
+			List<AlunoTurma> alunosDaTurma = fachada.getAlunosPorTurma(turma);
 			
 			while(dataAtual.compareTo(fimDePeriodo) < 0){
 				
 				//Verifica se o dia atual e' um dia correspondente a um dia de aula e adiciona na lista
 				for(Horario horario : horarios)
 					if(c.get(Calendar.DAY_OF_WEEK) == horario.parseDiaDaSemanaFormatoCalendar()){
-						eventosCalendarioTurma.add(new EventoCalendarioTurma(dataAtual));
+						EventoCalendarioTurma novoEventoCalendarioTurma = new EventoCalendarioTurma(dataAtual);
+						
+						//Preenche as informacoes default do evento
+						novoEventoCalendarioTurma.setPlanejamento("");
+						novoEventoCalendarioTurma.setExecucao("");
+						novoEventoCalendarioTurma.setTurma(turma);
+						
+						Set<AlunoPresenca> alunosPresenca = new HashSet<AlunoPresenca>();
+						
+						//Insere todos os alunos no evento
+						for(AlunoTurma alunoTurma : alunosDaTurma)
+							alunosPresenca.add(new AlunoPresenca(alunoTurma.getAluno(), true, novoEventoCalendarioTurma));
+						
+						//Adiciona a lista de presencas ao novo eventot
+						novoEventoCalendarioTurma.setPresencas(alunosPresenca);
+						
+						//Adiciona o novo evento na lista de eventos da turma
+						eventosCalendarioTurma.add(novoEventoCalendarioTurma);
 						break;
 					}
 					
-				c.roll(Calendar.DAY_OF_YEAR, 1);
-				if(c.get(Calendar.DAY_OF_YEAR) == 1)
-					c.roll(Calendar.YEAR, 1);
+				c.add(Calendar.DAY_OF_MONTH, 1);
 				dataAtual = c.getTime();
 			}
 			
 			turma.setEventosCalendarioTurma(eventosCalendarioTurma);
+			System.out.println("PRIMEIRO EVENTOT" + turma.getEventosCalendarioTurma().iterator().next());
 			fachada.persiteTurma(turma);
 		}
+		System.out.println("2PRIMEIRO EVENTOT" + turma.getEventosCalendarioTurma().iterator().next());
 	}
 
+	@SuppressWarnings("unused")
+	private void atualizaAlunosDaTurma(){
+		List<EventoCalendarioTurma> eventosCalendarioTurma = turma.getEventosCalendarioTurma();
+		if(eventosCalendarioTurma == null || eventosCalendarioTurma.size() == 0)
+			return;
+		
+		List<AlunoTurma> alunosDaTurma = fachada.getAlunosPorTurma(turma);
+		Iterator<EventoCalendarioTurma> iteratorEventosCalendarioTurma = eventosCalendarioTurma.iterator();
+		EventoCalendarioTurma primeiroEventoCalendarioTurma = iteratorEventosCalendarioTurma.next();
+		
+		for(AlunoTurma alunoTurma : alunosDaTurma){
+			//Se nao contem o aluno, entao ele foi adicionado depois de ter sido criado os eventos e deve ser adicionado
+			if(!primeiroEventoCalendarioTurma.getPresencas().contains(alunosDaTurma)){
+				iteratorEventosCalendarioTurma = eventosCalendarioTurma.iterator();
+				
+				while(iteratorEventosCalendarioTurma.hasNext())
+					iteratorEventosCalendarioTurma.next().atribuirPresenca(alunoTurma.getAluno(), true);
+			}
+		}
+		
+		fachada.persiteTurma(turma);
+	}
+	
 	public boolean isDiaDeAula(Date data){
 		Iterator<EventoCalendarioTurma> diasDeAula = turma.getEventosCalendarioTurma().iterator();
 		

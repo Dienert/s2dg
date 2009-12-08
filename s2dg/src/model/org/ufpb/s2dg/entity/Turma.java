@@ -1,7 +1,7 @@
 package org.ufpb.s2dg.entity;
 
-import java.util.Collections;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -15,14 +15,11 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.Table;
 
 import org.hibernate.validator.Length;
 import org.hibernate.validator.NotNull;
-import static javax.persistence.FetchType.EAGER;
 
 @Entity
-@Table(name = "turma")
 public class Turma implements java.io.Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -38,7 +35,7 @@ public class Turma implements java.io.Serializable {
 	private Set<Oferta> ofertas;
 	private Set<Horario> horarios;
 	private Set<Sala> salas = new HashSet<Sala>(0);
-	private Set<EventoCalendarioTurma> eventosCalendarioTurma;
+	private List<EventoCalendarioTurma> eventosCalendarioTurma;
 	private boolean finalizada;
 	
 	public Turma() {
@@ -198,13 +195,14 @@ public class Turma implements java.io.Serializable {
 		this.horarios = horarios;
 	}
 	
-	@OneToMany(fetch=EAGER)
-	public Set<EventoCalendarioTurma> getEventosCalendarioTurma() {
-		return Collections.unmodifiableSet(eventosCalendarioTurma);
+	@OneToMany(fetch=FetchType.EAGER, cascade=CascadeType.ALL, mappedBy = "turma")
+	public List<EventoCalendarioTurma> getEventosCalendarioTurma() {
+		//return Collections.unmodifiableSet(eventosCalendarioTurma);
+		return eventosCalendarioTurma;
 	}
 
 	public void setEventosCalendarioTurma(
-			Set<EventoCalendarioTurma> eventoCalendarioTurma) {
+			List<EventoCalendarioTurma> eventoCalendarioTurma) {		
 		this.eventosCalendarioTurma = eventoCalendarioTurma;
 	}
 	

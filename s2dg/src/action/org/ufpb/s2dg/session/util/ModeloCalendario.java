@@ -141,8 +141,7 @@ public class ModeloCalendario implements CalendarDataModel, Serializable {
 			c.setTime(datas[i]);
 			for (Horario h: horariosDeAula){
 				if(c.get(Calendar.DAY_OF_WEEK) == h.getDia().ordinal()+1){
-					String evento = (String) itens[i].getData() + h.horarioFormatado();
-					evento += "\nEditar dia";
+					String evento = (String) itens[i].getData() + h.horarioFormatado() + "<br/>Editar dia";
 					itens[i].setData(evento);
 					if(itens[i].getTipo() != null && 
 							itens[i].getTipo().ordinal() < TipoData.DIA_AULA_DISCIPLINA.ordinal() ||

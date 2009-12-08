@@ -1,5 +1,7 @@
 package org.ufpb.s2dg.entity;
 
+import java.io.Serializable;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
@@ -9,8 +11,11 @@ import static javax.persistence.GenerationType.IDENTITY;
 
 @Entity
 @Table(name="centro")
-public class Centro {
+public class Centro implements Serializable {
 
+	
+	private static final long serialVersionUID = -4277390638888120580L;
+	
 	@Id
 	@GeneratedValue(strategy=IDENTITY)
 	private long id;

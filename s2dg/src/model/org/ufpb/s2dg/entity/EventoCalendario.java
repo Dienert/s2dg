@@ -88,6 +88,7 @@ public class EventoCalendario implements Serializable{
 
 	public void setTipoData(TipoData tipoData) {
 		this.tipoData = tipoData;
+		setEvento(tipoData.toString());
 	}
 
 	@Override

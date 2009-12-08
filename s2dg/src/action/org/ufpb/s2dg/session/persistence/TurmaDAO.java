@@ -32,9 +32,11 @@ public class TurmaDAO {
 		
 		return list;
 	}
+	
 	public void atualiza(Turma turmaAtual) {
 		entityManager.merge(turmaAtual);
 	}
+	
 	@SuppressWarnings("unchecked")
 	public Turma getTurma(AlunoTurma at) {
 		Query q = entityManager.createQuery("select t from Turma as t where :at member of t.alunoTurmas")
