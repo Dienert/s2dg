@@ -8,8 +8,11 @@ import javax.persistence.Query;
 import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
+import org.ufpb.s2dg.entity.Aluno;
+import org.ufpb.s2dg.entity.AlunoPresenca;
 import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.Disciplina;
+import org.ufpb.s2dg.entity.EventoCalendarioTurma;
 import org.ufpb.s2dg.entity.Periodo;
 import org.ufpb.s2dg.entity.Professor;
 import org.ufpb.s2dg.entity.Turma;
@@ -17,6 +20,8 @@ import org.ufpb.s2dg.entity.Turma;
 @AutoCreate
 @Name("turmaDAO")
 public class TurmaDAO {
+	
+	private static final long ID_DO_ALUNO_FAKE = 13L;
 
 	@In
 	EntityManager entityManager;
@@ -34,6 +39,23 @@ public class TurmaDAO {
 	}
 	
 	public void atualiza(Turma turmaAtual) {
+		
+		// TODO gambiarra: O codigo abaixo representa uma gambiarra		
+		List<EventoCalendarioTurma> eventoTurma = turmaAtual.getEventosCalendarioTurma();
+		List<AlunoPresenca> listAP = eventoTurma.get(0).getPresencas();
+		
+		if (listAP == null || listAP.isEmpty()) {
+			for (EventoCalendarioTurma eventoCalTur : eventoTurma) {
+				AlunoPresenca alunoPresenca = new AlunoPresenca();
+				alunoPresenca.setEventocalendarioturma(eventoCalTur);
+				Aluno a = new Aluno();
+				a.setId(ID_DO_ALUNO_FAKE);
+				alunoPresenca.setAluno(a);
+				eventoCalTur.getPresencas().add(alunoPresenca);
+			}
+		}
+		// A gambiarra termina aqui
+
 		entityManager.merge(turmaAtual);
 	}
 	

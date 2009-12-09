@@ -4,8 +4,10 @@ import static javax.persistence.CascadeType.ALL;
 import static javax.persistence.FetchType.EAGER;
 
 import java.io.Serializable;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -18,7 +20,7 @@ import javax.persistence.OneToMany;
 public class EventoCalendarioTurma extends EventoCalendario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Set<Avaliacao> avaliacoes;
-	private Set<AlunoPresenca> presencas; //AQUI /*Como preencher a lista com os ids dos alunos?*/
+	private List<AlunoPresenca> presencas; //AQUI /*Como preencher a lista com os ids dos alunos?*/
 	private boolean presencaPublicada;
 	private String planejamento;
 	private String execucao;
@@ -58,14 +60,14 @@ public class EventoCalendarioTurma extends EventoCalendario implements Serializa
 	
 	public void atribuirPresenca(Aluno aluno, boolean presente){	
 		if(presencas == null)
-			presencas = new HashSet<AlunoPresenca>();
+			presencas = new ArrayList<AlunoPresenca>();
 			
 		presencas.add(new AlunoPresenca(aluno, presente, this));
 	}
 	
 	public void atribuirPresenca(AlunoPresenca alunoPresenca){	
 		if(presencas == null)
-			presencas = new HashSet<AlunoPresenca>();
+			presencas = new ArrayList<AlunoPresenca>();
 		
 		presencas.add(alunoPresenca);
 	}
@@ -95,8 +97,8 @@ public class EventoCalendarioTurma extends EventoCalendario implements Serializa
 	}
 	
 	@Column(nullable = true)
-	@OneToMany(cascade = ALL, mappedBy = "eventocalendarioturma", fetch = EAGER)
-	public Set<AlunoPresenca> getPresencas() {
+	@OneToMany(cascade = ALL, mappedBy = "eventocalendarioturma")
+	public List<AlunoPresenca> getPresencas() {
 		return presencas;
 	}
 
@@ -110,7 +112,7 @@ public class EventoCalendarioTurma extends EventoCalendario implements Serializa
 		this.turma = turma;
 	}
 
-	public void setPresencas(Set<AlunoPresenca> presencas) {
+	public void setPresencas(List<AlunoPresenca> presencas) {
 		this.presencas = presencas;
 	}
 

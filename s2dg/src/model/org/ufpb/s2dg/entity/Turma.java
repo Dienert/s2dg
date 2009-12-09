@@ -183,7 +183,6 @@ public class Turma implements java.io.Serializable {
 	public void setOfertas(Set<Oferta> ofertas) {
 		this.ofertas = ofertas;
 	}
-
 	
 	@ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
 	@JoinTable(name = "turma_horario", schema = "public", joinColumns = { @JoinColumn(name = "id_turma", nullable = false, updatable = false) }, inverseJoinColumns = { @JoinColumn(name = "id_horario", nullable = false, updatable = false) })

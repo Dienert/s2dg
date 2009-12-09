@@ -41,6 +41,8 @@ public class TurmaBean implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = 1L;
+	
+	private static final long ID_ALUNO_FAKE = 13L;
 	Turma turma;
 	//@Logger
 	//private Log log;
@@ -65,8 +67,25 @@ public class TurmaBean implements Serializable{
 		fachada.initAlunoTurmas();
 		carregaEventosCalendarioTurma();
 		//atualizaAlunosDaTurma();
+		// Esse metodo e para consertar uma gambiarra
+		retiraAlunoFake();
 	}
 	
+	private void retiraAlunoFake() {
+		List<EventoCalendarioTurma> eventoTurma = turma.getEventosCalendarioTurma();
+		List<AlunoPresenca> alunosPresenca = eventoTurma.get(0).getPresencas();
+		
+		if (alunosPresenca.get(0).getAluno().getId() == ID_ALUNO_FAKE) {
+			for (EventoCalendarioTurma eventoCalendarioTurma : eventoTurma) {
+				for (int i = 0; i < eventoCalendarioTurma.getPresencas().size(); i++) {
+					AlunoPresenca alunoPresenca = eventoCalendarioTurma.getPresencas().get(i);
+					if (alunoPresenca.getAluno().getId() == ID_ALUNO_FAKE)
+						eventoCalendarioTurma.getPresencas().remove(alunoPresenca);
+				}
+			}
+		}
+	}
+
 	public void switchCalcMediaAuto() {
 		if (turma.isCalcularMediaAutomaticamente())
 			turma.setCalcularMediaAutomaticamente(false);
@@ -244,7 +263,8 @@ public class TurmaBean implements Serializable{
 		}
 	}	
 
-	private void carregaEventosCalendarioTurma(){
+	private void carregaEventosCalendarioTurma() {
+		
 		if(turma.getEventosCalendarioTurma() == null || turma.getEventosCalendarioTurma().isEmpty()){
 			List<EventoCalendarioTurma> eventoCalendarioTurmaDoBanco = fachada.getEventosCalendarioTurma(this.turma);
 			
@@ -283,7 +303,7 @@ public class TurmaBean implements Serializable{
 						novoEventoCalendarioTurma.setExecucao("");
 						novoEventoCalendarioTurma.setTurma(turma);
 						
-						Set<AlunoPresenca> alunosPresenca = new HashSet<AlunoPresenca>();
+						List<AlunoPresenca> alunosPresenca = new ArrayList<AlunoPresenca>();
 						
 						//Insere todos os alunos no evento
 						for(AlunoTurma alunoTurma : alunosDaTurma)
@@ -302,10 +322,10 @@ public class TurmaBean implements Serializable{
 			}
 			
 			turma.setEventosCalendarioTurma(eventosCalendarioTurma);
-			System.out.println("PRIMEIRO EVENTOT" + turma.getEventosCalendarioTurma().iterator().next());
+			//System.out.println("PRIMEIRO EVENTOT" + turma.getEventosCalendarioTurma().iterator().next());
 			fachada.persiteTurma(turma);
 		}
-		System.out.println("2PRIMEIRO EVENTOT" + turma.getEventosCalendarioTurma().iterator().next());
+		//System.out.println("2PRIMEIRO EVENTOT" + turma.getEventosCalendarioTurma().iterator().next());
 	}
 
 	@SuppressWarnings("unused")

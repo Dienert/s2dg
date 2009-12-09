@@ -54,7 +54,7 @@ public class AlunoPresenca implements Serializable{
 		this.id = id;
 	}
 	
-	@ManyToOne(cascade=ALL, optional = false)
+	@ManyToOne(cascade=ALL, optional = true)
 	public Aluno getAluno() {
 		return aluno;
 	}
@@ -75,7 +75,7 @@ public class AlunoPresenca implements Serializable{
 		this.eventocalendarioturma = eventocalendarioturma;
 	}
 
-	@ManyToOne(cascade=ALL, fetch = EAGER, optional = false)
+	@ManyToOne(cascade=ALL, optional = false)
 	@JoinColumn(name="eventocalendarioturma_id", referencedColumnName = "id")
 	public EventoCalendarioTurma getEventocalendarioturma() {
 		return eventocalendarioturma;
