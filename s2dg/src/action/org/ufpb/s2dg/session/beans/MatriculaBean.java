@@ -22,6 +22,7 @@ import org.jboss.seam.annotations.Scope;
 import org.jboss.seam.annotations.Transactional;
 import org.ufpb.s2dg.entity.Aluno;
 import org.ufpb.s2dg.entity.AlunoTurma;
+import org.ufpb.s2dg.entity.Calendario;
 import org.ufpb.s2dg.entity.Curriculo;
 import org.ufpb.s2dg.entity.Curso;
 import org.ufpb.s2dg.entity.Disciplina;
@@ -30,6 +31,7 @@ import org.ufpb.s2dg.entity.Horario;
 import org.ufpb.s2dg.entity.Oferta;
 import org.ufpb.s2dg.entity.Professor;
 import org.ufpb.s2dg.entity.Turma;
+import org.ufpb.s2dg.entity.Aluno.SituacaoAcademica;
 import org.ufpb.s2dg.entity.AlunoTurma.Situacao;
 import org.ufpb.s2dg.session.Fachada;
 import org.ufpb.s2dg.session.beans.UsuarioBean.TipoAbaAtiva;
@@ -420,46 +422,38 @@ public class MatriculaBean implements Serializable{
 	}
 	
 	public boolean podeFazerTrancamentoParcial(){
-		// TODO Adicionar a logica de periodo de trancamento total
-		// TODO Terminar primeiro a nova estrutura de calendario
-		return true;
-		/*
 		if(fachada.getAluno().getSituacaoAcademica() != SituacaoAcademica.REGULAR)
 			return false;
-		Calendario calendario = fachada.getCalendario();
+		Calendario calendario = fachada.getCalendarioAluno();
 		if(calendario != null) {
-			Date inicioPeriodo = calendario.getInicioPeriodo();
+			Date fimMatricula = calendario.getFimMatricula();
 			Date fimPeriodoTrancamento = calendario.getUltimoDiaTrancamento();
 			Date hoje = getDataAtual();
-			if((hoje.compareTo(inicioPeriodo) >= 0)&&(hoje.compareTo(fimPeriodoTrancamento) <= 0))
+			if((hoje.compareTo(fimMatricula) >= 0)&&(hoje.compareTo(fimPeriodoTrancamento) <= 0))
 				return true;
 			else
 				return false;
 		}
 		return false;
-		*/
 	}
 	
 	
 	public boolean podeFazerTrancamentoTotal(){
-		return false;
-		/*
 		if(fachada.getAluno().getSituacaoAcademica() != SituacaoAcademica.REGULAR)
 			return false;
-		Calendario calendario = fachada.getCalendario();
+		Calendario calendario = fachada.getCalendarioAluno();
 		if(calendario != null) {
-			Date inicioPeriodo = calendario.getInicioPeriodo();
+			Date fimMatricula = calendario.getFimMatricula();
 			Date fimPeriodoTrancamento = calendario.getUltimoDiaTrancamento();
 			Date hoje = getDataAtual();
-			if((hoje.compareTo(inicioPeriodo) >= 0)&&(hoje.compareTo(fimPeriodoTrancamento) <= 0))
+			if((hoje.compareTo(fimMatricula) >= 0)&&(hoje.compareTo(fimPeriodoTrancamento) <= 0))
 				return true;
 			else
 				return false;
 		}
 		return false;
-		*/
+		
 	}
-	
 	
 	public Date getDataAtual() {  
 		Calendar calendar = new GregorianCalendar();  

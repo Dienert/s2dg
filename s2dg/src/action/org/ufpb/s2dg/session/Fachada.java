@@ -468,10 +468,6 @@ public class Fachada implements Serializable {
 		return usuarioBean.getUsuario().getAluno().getCurriculo().getMaximoTrancamentosTotais();
 	}
 	
-	public void fazerTrancamentoTotal(){
-		alunoTurmasBean.fazerTrancamentoTotal();
-	}
-	
 	public void fazLog(String log) {
 		logDAO.cria(log, usuarioBean.getUsuario());
 	}

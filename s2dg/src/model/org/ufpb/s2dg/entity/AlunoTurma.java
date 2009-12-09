@@ -18,7 +18,7 @@ import org.hibernate.validator.NotNull;
 @Table(name = "aluno_turma")
 public class AlunoTurma implements Serializable {
 
-	public enum Situacao {APROVADO, DISPENSADO, TRANCADO, REPROVADO_POR_FALTA, REPROVADO_POR_MEDIA, EM_CURSO, TRANCADO_TOTAL};
+	public enum Situacao {APROVADO, DISPENSADO, TRANCADO, REPROVADO_POR_FALTA, REPROVADO_POR_MEDIA, EM_CURSO};
 	
 	private static final long serialVersionUID = 1L;
 	private long id;

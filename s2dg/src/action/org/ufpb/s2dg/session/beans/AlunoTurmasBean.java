@@ -22,6 +22,7 @@ import org.ufpb.s2dg.entity.AlunoTurma.Situacao;
 import org.ufpb.s2dg.session.Fachada;
 import org.ufpb.s2dg.session.persistence.AlunoTurmaDAO;
 import org.ufpb.s2dg.session.util.AlunoTurmaComparator;
+import org.ufpb.s2dg.session.util.TrancamentoBean;
 
 @Name("alunoTurmasBean")
 @Scope(ScopeType.SESSION)
@@ -37,6 +38,8 @@ public class AlunoTurmasBean implements Serializable {
 	
 	@In
 	private Fachada fachada;
+	@In
+	private TrancamentoBean trancamentoBean;
 	@In
 	FacesContext facesContext;
 	
@@ -172,24 +175,27 @@ public class AlunoTurmasBean implements Serializable {
 		System.out.print("Pegou geral total.");
 	}
 	
-	public boolean fazerTrancamentoTotal(){
+	public String fazerTrancamentoTotal(){
 		Aluno aluno = fachada.getAluno();
 		int trancamentoTotais = aluno.getTracamentosTotais();
-		if (trancamentoTotais >= aluno.getCurriculo().getMaximoTrancamentosTotais())
-			return false;
+		if (trancamentoTotais >= aluno.getCurriculo().getMaximoTrancamentosTotais()) {
+			return null;
+		}
+			
 		
 		List<AlunoTurma> alunoTurmas = fachada.getAlunoTurmasEmCurso();
 		if(alunoTurmas != null) {
 			for(int i = 0; i < alunoTurmas.size(); i++) {
 				AlunoTurma alunoTurma = alunoTurmas.get(i);
 				if (alunoTurma.getSituacao() == AlunoTurma.Situacao.EM_CURSO){
-					alunoTurma.setSituacao(AlunoTurma.Situacao.TRANCADO_TOTAL);
+					alunoTurma.setSituacao(AlunoTurma.Situacao.TRANCADO);
 					fachada.persisteSituacaoTurma(alunoTurma);
 				}
 			}
 			aluno.setTracamentosTotais(++trancamentoTotais);
 			fachada.persisteAluno(aluno);
 		}
-		return true;
+		trancamentoBean.setTrancadoTotal(true);
+		return "/home.seam";
 	}
 }

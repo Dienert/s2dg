@@ -616,7 +616,7 @@ public int geraCreditosIntegralizadosComplementares(List<AlunoTurma> ats){
 			historico = "CURSO: "+fachada.getAluno().getCurriculo().getCurso().getCodigo()+"--"+fachada.getAluno().getCurriculo().getCurso().getNome();
 			historico += " CURRICULO: "+fachada.getAluno().getCurriculo().getNumero();
 			lista.add(historico.toUpperCase());
-			historico = "RECONHECIMENTO: "+fachada.getAluno().getCurriculo().getCurso().getCur_ato_criacao()+"  "+"RG: "+fachada.getUsuario().getRg();
+			historico = "RECONHECIMENTO: "+fachada.getAluno().getCurriculo().getCurso().getCur_ato_criacao()+"  "+"RG: "+ (fachada.getUsuario().getRg() != null ? fachada.getUsuario().getRg() : "");
 			lista.add(historico.toUpperCase());
         }catch(Exception ex){
         	lista.add("Banco inconsistente, favor corrigir!");
@@ -653,18 +653,17 @@ public int geraCreditosIntegralizadosComplementares(List<AlunoTurma> ats){
 		String linha, codigo, nome, ano, media, situacao;
 		int creditos, cargaHoraria, semestre;
 		for(int i = 0; i < ats.size(); i++){
-			if (ats.get(i).getSituacao() != Situacao.TRANCADO_TOTAL) {
-				codigo = ats.get(i).getTurma().getDisciplina().getCodigo();
-				nome = ats.get(i).getTurma().getDisciplina().getNome();
-				creditos = ats.get(i).getTurma().getDisciplina().getCreditos();
-				cargaHoraria = cargaHoraria(creditos);
-				ano = ats.get(i).getTurma().getPeriodo().getAno();
-				semestre = ats.get(i).getTurma().getPeriodo().getSemestre();
-				media = geraMedia(ats.get(i));
-				situacao = getTextoSituacao(ats.get(i).getSituacao());
-				linha = String.format("%s %-41s %d %3d %s %c %5s %s", codigo, nome, creditos, cargaHoraria, ano, semestre, media, situacao);
-				lista.add(linha.toUpperCase().replaceAll(" ", getEspacos(1)));
-			}
+
+			codigo = ats.get(i).getTurma().getDisciplina().getCodigo();
+			nome = ats.get(i).getTurma().getDisciplina().getNome();
+			creditos = ats.get(i).getTurma().getDisciplina().getCreditos();
+			cargaHoraria = cargaHoraria(creditos);
+			ano = ats.get(i).getTurma().getPeriodo().getAno();
+			semestre = ats.get(i).getTurma().getPeriodo().getSemestre();
+			media = geraMedia(ats.get(i));
+			situacao = getTextoSituacao(ats.get(i).getSituacao());
+			linha = String.format("%s %-41s %d %3d %s %c %5s %s", codigo, nome, creditos, cargaHoraria, ano, semestre, media, situacao);
+			lista.add(linha.toUpperCase().replaceAll(" ", getEspacos(1)));
 		}
 		return lista;
 	}
