@@ -30,7 +30,8 @@ public class MenuAction implements Serializable {
 	public int Id_Menu2 = 0;
 
 	String[] lista_opcoes2 = {"/corpo_do_docente.xhtml", 
-								"/configuracoes.xhtml"};
+								"/configuracoes.xhtml,",
+								"/alterar_notas_semestre_anterior.xhtml"};
 	
 	//Menu Discente
 	public String getOption() {
@@ -50,6 +51,10 @@ public class MenuAction implements Serializable {
 			this.Id_Menu = idMenu;
 			this.Id_Menu2 = 0;
 		}
+	}
+	
+	public void setId_MenuProfessor(int idMenu){
+		this.Id_Menu2 = idMenu;
 	}
 	
 }

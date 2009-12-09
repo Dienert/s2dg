@@ -6,31 +6,47 @@
 	xmlns:ui="http://java.sun.com/jsf/facelets"
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
-	xmlns:s="http://jboss.com/products/seam/taglib" 
+	xmlns:s="http://jboss.com/products/seam/taglib"
 	template="/layout/menu.xhtml">
-	
-<ui:define name="menu">
-	<div class="menu_disciplinas">
-		<center>
-			<h:outputText styleClass="menu_disciplinas_titulo" value="Disciplinas Ministradas" />
-		</center>
-		<div class="menu_disciplinas_lista">
-			<a4j:keepAlive beanName="MenuAction" />
-			<h:form>
-				<ui:repeat value="#{disciplinasMinistradasBean.turmasPorDisciplina}" var="disciplinaTurmas">
-					<h:outputText styleClass="menu_disciplina_nome" value="#{disciplinaTurmas.disciplina.nome}" />
-					<ui:repeat value="#{disciplinaTurmas.turmas}" var="turma">
-						<a4j:commandLink styleClass="menu_disciplina_turma"
-							action="#{turmaBean.setTurma(turma)}"
-							value=":: Turma #{turma.numero}"
-							reRender="corpo2" />
-						<br/>
-					</ui:repeat>
-					<br/>
+
+	<ui:define name="menu">
+		<div class="menu_disciplinas">
+		<center><h:outputText styleClass="menu_disciplinas_titulo"
+			value="Disciplinas Ministradas" /></center>
+		<div class="menu_disciplinas_lista"><a4j:keepAlive
+			beanName="MenuAction" /> <h:form>
+			<ui:repeat value="#{disciplinasMinistradasBean.turmasPorDisciplina}"
+				var="disciplinaTurmas">
+				<h:outputText styleClass="menu_disciplina_nome"
+					value="#{disciplinaTurmas.disciplina.nome}" />
+				<ui:repeat value="#{disciplinaTurmas.turmas}" var="turma">
+					<a4j:commandLink styleClass="menu_disciplina_turma"
+						action="#{turmaBean.setTurma(turma)}"
+						value=":: Turma #{turma.numero}" reRender="corpo2" />
+					<br />
 				</ui:repeat>
-			</h:form>
+				<br />
+			</ui:repeat>
+		</h:form></div>
 		</div>
-	</div>
-</ui:define>
-			
+		<br />
+		<a4j:keepAlive beanName="MenuAction" />
+		<div class="menu_opcoes">
+		<center><h:outputText styleClass="menu_opcoes_titulo"
+			value="Opções do Usuário" /> <rich:panel>
+			<h:form>
+
+
+
+				<a4j:commandLink styleClass="opcao_menu"
+					value="Alterar Notas do Semestre Anterior"
+					action="#{MenuAction.setId_MenuProfessor(2)}" reRender="corpo2" >
+					</a4j:commandLink>
+
+
+			</h:form>
+		</rich:panel></center>
+		</div>
+	</ui:define>
+
 </ui:composition>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:s="http://jboss.com/products/seam/taglib">
+
+	<rich:panel id="trancamneto_total" styleClass="border_zero">
+	<h:form>
+	<rich:panel>
+	<f:facet name="header">Alterar Notas do Semestre Anterior</f:facet>
+	
+	<a4j:outputPanel style="margin:0px;padding-left:-10px;" ajaxRendered="true">
+		<h:messages infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal" />
+	</a4j:outputPanel>
+	
+	<center>
+	<h:outputText style="font-style: italic;"
+			value="Professor(a), aqui você pode selecionar uma das disciplinas ministradas no semestre anterior para
+			alterar a média final de algum aluno. " />
+			</center>
+		<br />
+			<div class="menu_disciplinas_lista">
+			<a4j:keepAlive beanName="MenuAction" />
+			<h:form>
+				<ui:repeat value="#{disciplinasMinistradasBean.turmasPorDisciplina}" var="disciplinaTurmas">
+					<h:outputText styleClass="menu_disciplina_nome" value="#{disciplinaTurmas.disciplina.nome}" />
+					<ui:repeat value="#{disciplinaTurmas.turmas}" var="turma">
+						<a4j:commandLink styleClass="menu_disciplina_turma"
+							action="#{turmaBean.setTurma(turma)}"
+							value=":: Turma #{turma.numero}"
+							reRender="corpo2" />
+						<br/>
+					</ui:repeat>
+					<br/>
+				</ui:repeat>
+			</h:form>
+		</div>
+	</rich:panel>
+	</h:form>
+</rich:panel>
+</ui:composition>

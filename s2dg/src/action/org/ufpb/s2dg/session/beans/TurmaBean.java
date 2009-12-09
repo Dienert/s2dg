@@ -65,10 +65,10 @@ public class TurmaBean implements Serializable{
 		fachada.cancelarEdicaoDeAvaliacao();
 		fachada.initAvaliacoes();
 		fachada.initAlunoTurmas();
-		carregaEventosCalendarioTurma();
+		//carregaEventosCalendarioTurma();
 		//atualizaAlunosDaTurma();
 		// Esse metodo e para consertar uma gambiarra
-		retiraAlunoFake();
+		//retiraAlunoFake();
 	}
 	
 	private void retiraAlunoFake() {
