@@ -585,13 +585,13 @@ public class PDFAction implements Serializable{
 		SimpleDateFormat sdf = new SimpleDateFormat(formato);
 		
 		
-		geraCabecalho("TRANCAMENTO DE TOTAL DE PERÍODO");
+		geraCabecalho("TRANCAMENTO TOTAL DE PERÍODO");
 		
 		Font f1 = new Font(); f1.setStyle(Font.BOLD); f1.setSize(12);
         Font f2 = new Font(); f2.setStyle(Font.ITALIC); f2.setSize(8);
         Font f3 = new Font(Font.COURIER); f3.setStyle(Font.ITALIC); f3.setSize(8);
 		
-        String msg = "Comprovante de trancamento de total:\n";
+        String msg = "Comprovante de trancamento total:\n";
         addParagrafo(new Paragraph(msg.replaceAll("&nbsp;", " "), f3));
         
         msg = "Emitido em: "+ sdf.format(hoje) + "\n\n";
