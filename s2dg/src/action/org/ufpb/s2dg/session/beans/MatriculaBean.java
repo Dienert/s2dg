@@ -39,6 +39,7 @@ import org.ufpb.s2dg.session.util.HorarioComparator;
 import org.ufpb.s2dg.session.util.MenuAction;
 import org.ufpb.s2dg.session.util.ProfessorComparator;
 import org.ufpb.s2dg.session.util.TurmaComparator;
+import org.ufpb.s2dg.session.util.TurmasMatriculadasBean;
 
 @Name("matriculaBean")
 @Scope(ScopeType.PAGE)
@@ -61,6 +62,8 @@ public class MatriculaBean implements Serializable{
 	Fachada fachada;
 	@In
 	FacesContext facesContext;
+	@In
+	TurmasMatriculadasBean turmasMatriculadasBean;
 	
 	@Create
 	public void init() {
@@ -446,10 +449,13 @@ public class MatriculaBean implements Serializable{
 			Date fimMatricula = calendario.getFimMatricula();
 			Date fimPeriodoTrancamento = calendario.getUltimoDiaTrancamento();
 			Date hoje = getDataAtual();
-			if((hoje.compareTo(fimMatricula) >= 0)&&(hoje.compareTo(fimPeriodoTrancamento) <= 0))
-				return true;
-			else
-				return false;
+			if (!turmasMatriculadasBean.getAlunoTurmasEmCurso().isEmpty()) {
+				if((hoje.compareTo(fimMatricula) >= 0)&&(hoje.compareTo(fimPeriodoTrancamento) <= 0))
+					return true;
+				else
+					return false;
+			}
+			return false;
 		}
 		return false;
 		

@@ -13,6 +13,8 @@
 	    <f:facet name="header">
 								Trancamento da Disciplina
     	</f:facet>	
+    	
+    	<rich:panel id="p1" styleClass="border_zero" > 
     	<h:outputText style="font-style: italic;"
 			value="Aluno(a), você está prestes a realizar o trancamento de uma disciplina.
 					Após confirmado o trancamento você não poderá mais cursar essa disciplina neste período.
@@ -27,13 +29,17 @@
 			value="Uma vez confirmada não poderá ser desfeita." />
 			<br />
 			<br />
-			<br />			
+			<br />
+		<h:selectBooleanCheckbox id="concorda" immediate="true" value="#{trancamentoBean.requiredBoxParcial}"  >
+			<a4j:support ajaxSingle="true" event="onclick"  reRender="p1" />
+		</h:selectBooleanCheckbox>
+		<h:outputText style="font-style: italic;" value="Entendi e concordo" />	
 		<div class="actionButtons">
-			<a4j:commandButton id="botaochamatranca"
-								value="Trancar Disciplina" >
+			<a4j:commandButton id="botaochamatranca" value="Trancar Disciplina" disabled="#{not trancamentoBean.requiredBoxParcial}">
 				<rich:componentControl for="panel" attachTo="botaochamatranca" operation="show" event="onclick"/>
 			</a4j:commandButton>
 		</div>
+	</rich:panel>
 				
 <rich:modalPanel id="panel" width="350" height="100">
         <f:facet name="header">

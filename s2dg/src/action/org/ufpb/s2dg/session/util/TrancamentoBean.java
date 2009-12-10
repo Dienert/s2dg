@@ -27,6 +27,7 @@ public class TrancamentoBean implements Serializable {
 	private static final long serialVersionUID = -396395780804966001L;
 
 	private boolean requiredBox = false;
+	private boolean requiredBoxParcial = false;
 	private boolean trancadoTotal = false;
 	private boolean trancadoParcial = false;
 	
@@ -63,8 +64,19 @@ public class TrancamentoBean implements Serializable {
 	public boolean getRequiredBox() {
 		return requiredBox;
 	}
-
 	
+	
+	
+	public boolean getRequiredBoxParcial() {
+		return requiredBoxParcial;
+	}
+
+
+	public void setRequiredBoxParcial(boolean requiredBoxParcial) {
+		this.requiredBoxParcial = requiredBoxParcial;
+	}
+
+
 	public boolean numeroMaximoDeTrancamentosTotaisAtingido(){
 
 		if (fachada.getAluno().getTracamentosTotais() >= fachada.getAluno().getCurriculo().getMaximoTrancamentosTotais())
