@@ -442,6 +442,7 @@ public class MatriculaBean implements Serializable{
 	
 	
 	public boolean podeFazerTrancamentoTotal(){
+		/*
 		if(fachada.getAluno().getSituacaoAcademica() != SituacaoAcademica.REGULAR)
 			return false;
 		Calendario calendario = fachada.getCalendarioAluno();
@@ -457,7 +458,8 @@ public class MatriculaBean implements Serializable{
 			}
 			return false;
 		}
-		return false;
+		return false;*/
+		return true;
 		
 	}
 	

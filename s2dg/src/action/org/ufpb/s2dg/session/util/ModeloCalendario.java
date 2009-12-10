@@ -22,6 +22,9 @@ import org.ufpb.s2dg.session.Fachada;
 import org.ufpb.s2dg.session.beans.UsuarioBean.TipoAbaAtiva;
 import org.ufpb.s2dg.session.util.ItemDeCalendario.TipoData;
 
+import javax.faces.event.ValueChangeEvent;
+
+
 @Name("modeloCalendario")
 @AutoCreate
 public class ModeloCalendario implements CalendarDataModel, Serializable {
@@ -35,8 +38,8 @@ public class ModeloCalendario implements CalendarDataModel, Serializable {
 		
 	}
 	
-	public CalendarDataModelItem[] getData(Date[] datas) {
-		if (datas == null) return null;
+	public CalendarDataModelItem[] getData(Date[] dateArray) {
+		if (dateArray == null) return null;
 		
 		/* TODO Clodoaldo: 
 		 * Adicionar escolha de calendario de acordo com usuario logado.
@@ -51,9 +54,9 @@ public class ModeloCalendario implements CalendarDataModel, Serializable {
 			calendario = fachada.getCalendarioProfessor();
 		
 		
-		itens = new ItemDeCalendario[datas.length];
+		itens = new ItemDeCalendario[dateArray.length];
 		Calendar c = Calendar.getInstance();
-		c.setTime(datas[0]);
+		c.setTime(dateArray[0]);
 		
 		// Pegando dias da semana com aula	
 		// datasComAula(datas);
@@ -72,43 +75,43 @@ public class ModeloCalendario implements CalendarDataModel, Serializable {
 		
 		String eventos = "";
 		TipoData tipoData = null;
-		for (int i = 0; i < datas.length; i++) {
-			if (datas[i] != null) {
+		for (int i = 0; i < dateArray.length; i++) {
+			if (dateArray[i] != null) {
 				
-				if(equals(datas[i], calendario.getFimImplantacaoNotas())) {
+				if(equals(dateArray[i], calendario.getFimImplantacaoNotas())) {
 					eventos += "Fim de Implantação de Notas\n";
-					tipoData = TipoData.EVENTO_PERIODO;
+					tipoData = TipoData.EVENTO_PERIODO;					
 				}
-				if(equals(datas[i], calendario.getFimMatricula())) {
+				if(equals(dateArray[i], calendario.getFimMatricula())) {
 					eventos += "Fim do Período de Matrícula\n";
 					tipoData = TipoData.EVENTO_PERIODO;
 				}
-				if(equals(datas[i], calendario.getFimPeriodo())) {
+				if(equals(dateArray[i], calendario.getFimPeriodo())) {
 					eventos += "Fim do Período\n";
 					tipoData = TipoData.EVENTO_PERIODO;
 				}
-				if(equals(datas[i], calendario.getInicioMatricula())){
+				if(equals(dateArray[i], calendario.getInicioMatricula())){
 					eventos += "Início do Período de Matrícula\n";
 					tipoData = TipoData.EVENTO_PERIODO;
 				}
-				if(equals(datas[i], calendario.getInicioPeriodo())){
+				if(equals(dateArray[i], calendario.getInicioPeriodo())){
 					eventos += "Início do Período\n";
 					tipoData = TipoData.EVENTO_PERIODO;
 				}
-				if(equals(datas[i], calendario.getUltimoDiaTrancamento())) {
+				if(equals(dateArray[i], calendario.getUltimoDiaTrancamento())) {
 					eventos += "Último Dia de Trancamento\n";
 					tipoData = TipoData.EVENTO_PERIODO;
 				}
 				
 				if(datasEEventos != null) {
 					for (int j = 0; j < datasEEventos.size(); j++) {
-						if (datas[i].equals(datasEEventos.get(j).getData())) {
+						if (dateArray[i].equals(datasEEventos.get(j).getData())) {
 							eventos += datasEEventos.remove(j--).getEvento() + "\n";
 							tipoData = TipoData.AVALIACAO;
 						}
 					}
 				}
-				c.setTime(datas[i]);
+				c.setTime(dateArray[i]);
 				
 				if (eventos.equals("")) {
 					itens[i] = new ItemDeCalendario(c.get(Calendar.DAY_OF_MONTH));
@@ -120,7 +123,7 @@ public class ModeloCalendario implements CalendarDataModel, Serializable {
 				}
 			}
 		}
-		datasComAula(datas);
+		datasComAula(dateArray);
 		return itens;
 	}
 
@@ -181,5 +184,7 @@ public class ModeloCalendario implements CalendarDataModel, Serializable {
         }
         item.setData(eventos);
         return item;
+
 	}*/
+	    
 }

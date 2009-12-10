@@ -2,6 +2,8 @@ package org.ufpb.s2dg.session.beans;
 
 import java.io.Serializable;
 
+import javax.faces.event.ValueChangeEvent;
+
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.Name;
@@ -22,6 +24,7 @@ public class CalendarioBean implements Serializable {
 	
 	private Calendario calendarioProfessor;
 	
+	
 	public Calendario getCalendarioAluno() {
 		return calendarioAluno;
 	}
@@ -38,4 +41,7 @@ public class CalendarioBean implements Serializable {
 		this.calendarioProfessor = calendarioProfessor;
 	}
 	
+	public void valueChanged(ValueChangeEvent event) {
+        System.out.println(event.getNewValue()+"selected");       
+    }
 }
