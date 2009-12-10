@@ -123,6 +123,10 @@ public class Periodo implements Serializable {
 			return false;
 		return true;
 	}
-
+	
+	@Override
+	public String toString() {
+		return String.format("%s.%s",ano,semestre);
+	}
 	
 }

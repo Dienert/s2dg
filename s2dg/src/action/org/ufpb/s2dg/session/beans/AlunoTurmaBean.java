@@ -83,6 +83,7 @@ public class AlunoTurmaBean implements Serializable{
 	public String trancamentoParcial(){
 		alunoTurma.setSituacao(Situacao.TRANCADO);
 		fachada.trancamentoParcial(alunoTurma);
+		gerarPDFTrancamentoParcial();
 		return "/home.seam";
 	}
 	
@@ -118,51 +119,44 @@ public class AlunoTurmaBean implements Serializable{
 		ArrayList<HashMap<String, String>> mapas = new ArrayList<HashMap<String, String>>();
 		//Numero - Codigo - Nome da disciplina - Creditos - CargaHoraria - Horarios - Sala
 		AlunoTurma at = alunoTurma;
-			HashMap<String, String> mapa = new HashMap<String, String>();
-			mapa.put("Aviso","A disciplina foi trancada.");
-			mapa.put("Numero", at.getTurma().getNumero());
-			mapa.put("Codigo", at.getTurma().getDisciplina().getCodigo());
-			mapa.put("Nome", at.getTurma().getDisciplina().getNome());
-			String horarios = "";
-			for (Horario h : matriculaBean.getHorariosOrdenados(at.getTurma().getHorarios())) {
-				horarios += h.toString()+ "\n";
-			}
-			mapa.put("Horarios", horarios);
-			String salas = "";
-			mapa.put("Turma", at.getTurma().getNumero());
-			int creditos = at.getTurma().getDisciplina().getCreditos();
-			mapa.put("Creditos", String.valueOf(creditos));
-			System.out.println(at.getTurma().getNumero());
-			mapa.put("Carga Horaria", String.valueOf(creditos*15));
-			System.out.println(at.getTurma().getNumero());
-			mapas.add(mapa);
+		HashMap<String, String> mapa = new HashMap<String, String>();
+		mapa.put("Aviso","A disciplina foi trancada.");
+		mapa.put("NomeAluno", fachada.getUsuario().getNome());
+		mapa.put("Numero", at.getTurma().getNumero());
+		mapa.put("Codigo", at.getTurma().getDisciplina().getCodigo());
+		mapa.put("Nome", at.getTurma().getDisciplina().getNome());
+		String horarios = "";
+		for (Horario h : matriculaBean.getHorariosOrdenados(at.getTurma().getHorarios())) {
+			horarios += h.toString()+ "\n";
+		}
+		mapa.put("Horarios", horarios);
+		String salas = "";
+		mapa.put("Turma", at.getTurma().getNumero());
+		int creditos = at.getTurma().getDisciplina().getCreditos();
+		mapa.put("Creditos", String.valueOf(creditos));
+		System.out.println(at.getTurma().getNumero());
+		mapa.put("Carga Horaria", String.valueOf(creditos*15));
+		System.out.println(at.getTurma().getNumero());
+		mapas.add(mapa);
 		
-		pdfAction.geraPdfTranca("Comprovante_Trancamento", mapas);
+		HashMap<String, String> dadosAluno = new HashMap<String, String>();
+		dadosAluno.put("NomeAluno", fachada.getUsuario().getNome());
+		dadosAluno.put("MatriculaAluno", fachada.getUsuario().getAluno().getMatricula());
+		dadosAluno.put("CursoAluno", "" + fachada.getUsuario().getAluno().getCurriculo().getCurso().getNome());
+		dadosAluno.put("CurriculoAluno", "" + fachada.getUsuario().getAluno().getCurriculo().getNumero());
+		
+		pdfAction.geraPdfTranca("Comprovante_Trancamento", mapas, dadosAluno);
 	}
 	
 	public void gerarPDFTrancamentoTotal() {
-		ArrayList<HashMap<String, String>> mapas = new ArrayList<HashMap<String, String>>();
-		//Numero - Codigo - Nome da disciplina - Creditos - CargaHoraria - Horarios - Sala
-		AlunoTurma at = alunoTurma;
-			HashMap<String, String> mapa = new HashMap<String, String>();
-			mapa.put("Aviso","A disciplina foi trancada.");
-			mapa.put("Numero", at.getTurma().getNumero());
-			mapa.put("Codigo", at.getTurma().getDisciplina().getCodigo());
-			mapa.put("Nome", at.getTurma().getDisciplina().getNome());
-			String horarios = "";
-			for (Horario h : matriculaBean.getHorariosOrdenados(at.getTurma().getHorarios())) {
-				horarios += h.toString()+ "\n";
-			}
-			mapa.put("Horarios", horarios);
-			String salas = "";
-			mapa.put("Turma", at.getTurma().getNumero());
-			int creditos = at.getTurma().getDisciplina().getCreditos();
-			mapa.put("Creditos", String.valueOf(creditos));
-			System.out.println(at.getTurma().getNumero());
-			mapa.put("Carga Horaria", String.valueOf(creditos*15));
-			System.out.println(at.getTurma().getNumero());
-			mapas.add(mapa);
+
+		HashMap<String, String> dadosAluno = new HashMap<String, String>();
+		dadosAluno.put("NomeAluno", fachada.getUsuario().getNome());
+		dadosAluno.put("MatriculaAluno", fachada.getUsuario().getAluno().getMatricula());
+		dadosAluno.put("CursoAluno", "" + fachada.getUsuario().getAluno().getCurriculo().getCurso().getNome());
+		dadosAluno.put("CurriculoAluno", "" + fachada.getUsuario().getAluno().getCurriculo().getNumero());	
+		dadosAluno.put("PeriodoAluno", "" + fachada.getPeriodoAtual(fachada.getUsuario().getAluno().getCurriculo().getCurso().getCentro()).toString());
 		
-		pdfAction.geraPdfTranca("Comprovante_Trancamento", mapas);
+		pdfAction.geraPdfTrancaTotal("Comprovante_Trancamento_Total", dadosAluno);
 	}
 }

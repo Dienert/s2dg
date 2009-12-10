@@ -152,7 +152,7 @@ public class PDFAction implements Serializable{
         
 	}
 	
-	public void geraPdfTranca(String nome, ArrayList<HashMap<String, String>> informacoes){
+	public void geraPdfTranca(String nome, ArrayList<HashMap<String, String>> informacoes , HashMap<String, String> dadosAluno){
 		Rectangle pageSize = new Rectangle(PageSize.A4);
 		 
 		pageSize.setBackgroundColor(Color.WHITE);
@@ -169,7 +169,40 @@ public class PDFAction implements Serializable{
 		
 		this.doc.open();
 		
-		geraTabelaTranca(informacoes);
+		geraTabelaTranca(informacoes, dadosAluno);
+        
+		//geraCabecalho();
+
+        this.doc.close(); 
+
+        try {
+        	reportGenerator.generate(nome);
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_INFO,"Horário Individual impresso com sucesso!",null));
+		} catch (IOException e) {
+			facesContext.addMessage(null, new FacesMessage(FacesMessage.SEVERITY_ERROR,"Não foi possível imprimir o documento!",null));
+			e.printStackTrace();
+		}        
+        
+	}
+	
+	public void geraPdfTrancaTotal(String nome, HashMap<String, String> dadosAluno){
+		Rectangle pageSize = new Rectangle(PageSize.A4);
+		 
+		pageSize.setBackgroundColor(Color.WHITE);
+		
+		doc = new Document(pageSize);
+		
+		try {
+			PdfWriter.getInstance(doc, new FileOutputStream(nome));
+		} catch (FileNotFoundException e) {
+			e.printStackTrace();
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
+		
+		this.doc.open();
+		
+		geraTabelaTrancaTotal(dadosAluno);
         
 		//geraCabecalho();
 
@@ -430,14 +463,30 @@ public class PDFAction implements Serializable{
         catch (DocumentException ex) {ex.printStackTrace();}
 	}
 	
-	public void geraTabelaTranca(ArrayList<HashMap<String, String>> informacoes){				
+	public void geraTabelaTranca(ArrayList<HashMap<String, String>> informacoes, HashMap<String, String> dadosAluno){				
+		
+		Date hoje = new Date();  
+		String formato = "dd/MM/yyyy";  
+		SimpleDateFormat sdf = new SimpleDateFormat(formato);
+		
+		
 		geraCabecalho("TRANCAMENTO DE DISCIPLINA");
 		
 		Font f1 = new Font(); f1.setStyle(Font.BOLD); f1.setSize(12);
         Font f2 = new Font(); f2.setStyle(Font.ITALIC); f2.setSize(8);
+        Font f3 = new Font(Font.COURIER); f3.setStyle(Font.ITALIC); f3.setSize(8);
 		
-        String s = "A partir do presente momento, está trancada a seguinte disciplina:\n\n";
-        addParagrafo(new Paragraph(s.replaceAll("&nbsp;", " "), f2));
+        String msg = "Comprovante de trancamento de disciplina:\n";
+        addParagrafo(new Paragraph(msg.replaceAll("&nbsp;", " "), f3));
+        
+        msg = "Emitido em: "+ sdf.format(hoje) + "\n\n";
+        addParagrafo(new Paragraph(msg.replaceAll("&nbsp;", " "), f3));
+        
+        msg = String.format("%s %-60s %s %s %s", "Aluno: ", dadosAluno.get("NomeAluno"), " -- Matrícula: " , dadosAluno.get("MatriculaAluno"), "\n");
+        addParagrafo(new Paragraph(msg.replaceAll("&nbsp;", " "), f3));
+        
+        msg = String.format("%s %-60s %s %s %s", "Curso: ", dadosAluno.get("CursoAluno"), " -- Currículo: " , dadosAluno.get("CurriculoAluno"), "\n\n\n");
+        addParagrafo(new Paragraph(msg.replaceAll("&nbsp;", " "), f3));
         
         PdfPTable table = new PdfPTable(7);
         PdfPCell cell0 = new PdfPCell(new Paragraph("Trancamento", f2));
@@ -518,22 +567,49 @@ public class PDFAction implements Serializable{
         	table.addCell(cell7);
         	
         }
-        
 
-    	
-        try 
-        {
+        try {
             this.doc.add(table);
         } 
         catch (DocumentException ex) {ex.printStackTrace();}
         
-        
-    	//String s2 = "\n\n Data: xx/xx/xxxx \t Hora: hh:mm:ss"; 
-    	//addParagrafo(new Paragraph(s2.replaceAll("&nbsp;", " "), f2));
+        msg = "\nMensagem da CODESC aos alunos";
+        addParagrafo(new Paragraph(msg.replaceAll("&nbsp;", " "), f3));
     	
 	}
 	
-	
+	public void geraTabelaTrancaTotal(HashMap<String, String> dadosAluno){				
+		
+		Date hoje = new Date();  
+		String formato = "dd/MM/yyyy";  
+		SimpleDateFormat sdf = new SimpleDateFormat(formato);
+		
+		
+		geraCabecalho("TRANCAMENTO DE TOTAL DE PERÍODO");
+		
+		Font f1 = new Font(); f1.setStyle(Font.BOLD); f1.setSize(12);
+        Font f2 = new Font(); f2.setStyle(Font.ITALIC); f2.setSize(8);
+        Font f3 = new Font(Font.COURIER); f3.setStyle(Font.ITALIC); f3.setSize(8);
+		
+        String msg = "Comprovante de trancamento de total:\n";
+        addParagrafo(new Paragraph(msg.replaceAll("&nbsp;", " "), f3));
+        
+        msg = "Emitido em: "+ sdf.format(hoje) + "\n\n";
+        addParagrafo(new Paragraph(msg.replaceAll("&nbsp;", " "), f3));
+        
+        msg = String.format("%s %-60s %s %s %s", "Aluno: ", dadosAluno.get("NomeAluno"), " -- Matrícula: " , dadosAluno.get("MatriculaAluno"), "\n");
+        addParagrafo(new Paragraph(msg.replaceAll("&nbsp;", " "), f3));
+        
+        msg = String.format("%s %-60s %s %s %s", "Curso: ", dadosAluno.get("CursoAluno"), " -- Currículo: " , dadosAluno.get("CurriculoAluno"), "\n\n");
+        addParagrafo(new Paragraph(msg.replaceAll("&nbsp;", " "), f3));
+
+        msg = "INTERRUPÇÃO TOTAL em " + dadosAluno.get("PeriodoAluno") + " EFETUADA\n\n";
+        addParagrafo(new Paragraph(msg.replaceAll("&nbsp;", " "), f3));
+        
+        msg = "Mensagem da CODESC aos alunos";
+        addParagrafo(new Paragraph(msg.replaceAll("&nbsp;", " "), f3));
+           	
+	}
 	
 	public void geraTabelaRelatorioDeNotas(List<AlunoTurma> list, List<Avaliacao> avaliacoes){
 		geraCabecalho("DIÁRIO DE CLASSE");
