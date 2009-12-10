@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:s="http://jboss.com/products/seam/taglib">
+
+	<rich:modalPanel id="gerenciamento_aulas" width="640" height="480" onload="#{modeloCalendario.getData}">
+    	<f:facet name="header">
+			<h:panelGroup>
+        		<h:outputText value="Gerenciar Dia"></h:outputText>
+        	</h:panelGroup>
+        </f:facet>
+        <f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/img/del.png" styleClass="hidelink" id="hidelink"/>
+				<rich:componentControl for="gerenciamento_aulas" attachTo="hidelink" operation="hide" event="onclick"/>
+            </h:panelGroup>	
+        </f:facet>
+        <center>
+        	<rich:tabPanel switchType="client">
+				<rich:tab label="Gerenciamento de Aulas">	
+					<center>
+					Plano de Aula
+					<br />					
+					<rich:editor useSeamText="true" id="editorPlano" value="#{turmaBean.turma.planoDeCurso}" 
+						         width="400" height="150" plugins="save,paste" language="pt">
+					</rich:editor>
+					<br />
+					Conteúdo Lecionado									
+					<br />
+					<rich:editor useSeamText="true" id="editorLecionada" value="#{turmaBean.turma.planoDeCurso}" 
+						         width="400" height="150" plugins="save,paste" language="pt">
+					</rich:editor>
+					<a4j:commandButton type="submit" value="Salvar" ajaxSingle="true" action="#{turmaBean.atualizaPlanoDeCurso}" 
+			                   style="FONT-WEIGHT: bold; width : 85px; height : 29px;" reRender="planoDeCurso">
+					</a4j:commandButton>			
+					</center>  				
+				</rich:tab>
+				<rich:tab label="Gerenciamento de Presencas">	
+				<h:form >
+			<rich:panel styleClass="border_zero" id="tabela_avaliacoes">
+				
+				<br/>
+					<rich:dataTable var="alunoTurma"
+					value="#{alunoTurmasBean.alunoTurmas}" style="text-align: center;">
+						<rich:column styleClass="matricula" sortBy="#{alunoTurma.aluno.matricula}">
+							<f:facet name="header">Matrícula</f:facet>
+							<h:outputText value="#{alunoTurma.aluno.matricula}" />
+						</rich:column>		
+						<rich:column styleClass="aluno" sortOrder="ASCENDING" sortBy="#{alunoTurma.aluno.usuario.nome}">
+							<f:facet name="header">Aluno</f:facet>
+							<h:outputText value="#{alunoTurma.aluno.usuario.nome}" />
+						</rich:column>
+						<rich:column styleClass="faltas_acumuladas" sortBy="#{alunoTurma.faltas}">
+							<f:facet name="header">Faltas Acumuladas</f:facet>
+							<h:outputText value="#{alunoTurma.faltas}" />
+						</rich:column>
+						<rich:column styleClass="faltas_dia">
+						    <f:facet name="header">Presenca</f:facet>
+							<h:selectBooleanCheckbox id="checkboxmedia"
+								                     value="#{turmaBean.turma.calcularMediaAutomaticamente}">								                     			
+							</h:selectBooleanCheckbox>
+						</rich:column>
+					</rich:dataTable>	
+					<center>
+					<br/>
+					<a4j:commandButton type="submit" value="Salvar" ajaxSingle="true" action="#{turmaBean.atualizaPlanoDeCurso}" 
+			                   style="FONT-WEIGHT: bold; width : 85px; height : 29px;" reRender="planoDeCurso">
+					</a4j:commandButton>
+					</center>
+					</rich:panel>
+				</h:form>
+				</rich:tab>		
+			</rich:tabPanel>		
+		</center>        
+    </rich:modalPanel>    
+</ui:composition>

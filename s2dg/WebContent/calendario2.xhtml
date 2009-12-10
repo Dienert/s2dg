@@ -5,8 +5,9 @@
       xmlns:h="http://java.sun.com/jsf/html"
       xmlns:f="http://java.sun.com/jsf/core"
       xmlns:a4j="http://richfaces.org/a4j"
-      xmlns:rich="http://richfaces.org/rich">
-    <style>
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:s="http://jboss.com/products/seam/taglib">
+  <style>
         .header{
             font-weight:bold;
         }
@@ -14,53 +15,29 @@
             text-align:center;
         }
     </style>
-
-    <h:form>
-        <h:outputLink value="#" id="link">
-        Show Modal Panel 
-        <rich:componentControl for="panel" attachTo="link" operation="show" event="onclick"/>
-    </h:outputLink>
-        <center>
-        <rich:calendar popup="false" showApplyButton="false"
-            cellWidth="100px" cellHeight="100px" mode="ajax"
+	<center>
+    <h:form id="form">
+        <rich:messages/>
+        <a4j:jsFunction name="ajaxSubmit" oncomplete="#{rich:component('gerenciamento_aulas')}.show()" reRender="editContent" />
+        <rich:calendar value="#{calendarBean.selectedDate}"
+            popup="false" showApplyButton="false" 
+            cellWidth="100px" cellHeight="100px" 
             boundaryDatesMode="none" showWeeksBar="false" 
-            dataModel = "#{modeloCalendario}"
-            onchanged="if (event.rich.date) {ajaxSubmit();}" 
-            oncurrentdateselect="return true" id="organizerxxxxx" 
-            showFooter="false" immediate="true" ajaxSingle="true">
-            
-            <a4j:jsFunction name="ajaxSubmit" oncomplete="#{rich:component('calendar')}" reRender="corpo2:calendar, corpo:calendar" />
-            
-            <a4j:outputPanel id="outputPanelCalendar" layout="block"
-            onclick="#{rich:component('organizerxxxxx')}.resetSelectedDate()" style="height: 100%;">
+            dataModel="#{calendarDataModel}" onchanged="if (event.rich.date) {ajaxSubmit();}" oncurrentdateselect="return false" id="organizer" showFooter="false">
+            <f:facet name="header">
+                <h:panelGroup>
+                    <h:outputText value="Current Month" styleClass="header"/>
+                </h:panelGroup>
+            </f:facet>
+            <a4j:outputPanel layout="block" id="cell" onclick="#{rich:component('organizer')}.resetSelectedDate()" style="height: 100%;">
                 <h:panelGrid columns="1">
                     <h:outputText value="{day}" style="align:center"/>
-                    <h:commandLink value="{data}"/>
-					<!--  <a href="#" onclick="#{rich:component('panel')}.show()">|<u>Editar
-					dia</u>|</a>-->
-
-					<!--  <a4j:commandLink value="Editar dia" 
-						rendered="#{turmaBean.isDiaDeAula(data)}"
-						oncomplete="#{rich:component('panel')}.show()"/>-->
+                    <h:outputText value="{data.shortDescription.escapeHTML()}"/>
+                    <h:outputText value="{data.description.escapeHTML()}"/>
                 </h:panelGrid>
             </a4j:outputPanel>
         </rich:calendar>
-        </center>
-            <rich:modalPanel id="panel" width="350" height="100">
-        <f:facet name="header">
-            <h:panelGroup>
-                <h:outputText value="Modal Panel"></h:outputText>
-            </h:panelGroup>
-        </f:facet>
-        <f:facet name="controls">
-            <h:panelGroup>
-                <h:graphicImage value="/img/del.png" styleClass="hidelink" id="hidelink"/>
-                <rich:componentControl for="panel" attachTo="hidelink" operation="hide" event="onclick"/>
-            </h:panelGroup>
-        </f:facet>
-        <h:outputText value="Painel Modal"></h:outputText>
-        <br/>
-        <h:outputText value="Inserir um form e talz"></h:outputText>
-    </rich:modalPanel>
-        </h:form>
+    </h:form>    
+    </center>
+    <ui:include src="/gerenciamento_aulas.xhtml" />
 </ui:composition>
