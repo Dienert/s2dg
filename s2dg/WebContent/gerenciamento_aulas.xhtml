@@ -35,6 +35,9 @@
 					<rich:editor useSeamText="true" id="editorLecionada" value="#{turmaBean.turma.planoDeCurso}" 
 						         width="400" height="150" plugins="save,paste" language="pt">
 					</rich:editor>
+					<a4j:commandButton type="submit" value="Confirmar Planejamento" ajaxSingle="true" action="#{turmaBean.atualizaPlanoDeCurso}" 
+			                   style="FONT-WEIGHT: bold; width : 140px; height : 29px;" reRender="planoDeCurso">
+					</a4j:commandButton>
 					<a4j:commandButton type="submit" value="Salvar" ajaxSingle="true" action="#{turmaBean.atualizaPlanoDeCurso}" 
 			                   style="FONT-WEIGHT: bold; width : 85px; height : 29px;" reRender="planoDeCurso">
 					</a4j:commandButton>			
