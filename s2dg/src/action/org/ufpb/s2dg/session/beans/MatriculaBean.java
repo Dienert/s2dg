@@ -425,7 +425,7 @@ public class MatriculaBean implements Serializable{
 	}
 	
 	public boolean podeFazerTrancamentoParcial(){
-		if(fachada.getAluno().getSituacaoAcademica() != SituacaoAcademica.REGULAR)
+		/*if(fachada.getAluno().getSituacaoAcademica() != SituacaoAcademica.REGULAR)
 			return false;
 		Calendario calendario = fachada.getCalendarioAluno();
 		if(calendario != null) {
@@ -437,20 +437,24 @@ public class MatriculaBean implements Serializable{
 			else
 				return false;
 		}
-		return false;
+		return false;*/
+		return true;
 	}
 	
 	
 	public boolean podeFazerTrancamentoTotal(){
 		/*
+		List<AlunoTurma> turmas = turmasMatriculadasBean.getAlunoTurmasEmCurso();
+		
 		if(fachada.getAluno().getSituacaoAcademica() != SituacaoAcademica.REGULAR)
 			return false;
 		Calendario calendario = fachada.getCalendarioAluno();
-		if(calendario != null) {
-			Date fimMatricula = calendario.getFimMatricula();
-			Date fimPeriodoTrancamento = calendario.getUltimoDiaTrancamento();
-			Date hoje = getDataAtual();
-			if (!turmasMatriculadasBean.getAlunoTurmasEmCurso().isEmpty()) {
+		if(calendario != null && turmas != null) {
+			if (turmas.isEmpty()) {
+				Date fimMatricula = calendario.getFimMatricula();
+				Date fimPeriodoTrancamento = calendario.getUltimoDiaTrancamento();
+				Date hoje = getDataAtual();
+
 				if((hoje.compareTo(fimMatricula) >= 0)&&(hoje.compareTo(fimPeriodoTrancamento) <= 0))
 					return true;
 				else
@@ -458,7 +462,7 @@ public class MatriculaBean implements Serializable{
 			}
 			return false;
 		}
-		return false;*/
+		return false; */
 		return true;
 		
 	}
