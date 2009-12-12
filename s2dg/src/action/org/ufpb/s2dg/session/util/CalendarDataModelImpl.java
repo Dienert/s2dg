@@ -55,7 +55,8 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 	}
 
 	protected CalendarDataModelItem createDataModelItem(Date date) {
-		Calendario calendario = fachada.getCalendarioAluno();    	    	
+		// TODO tiago: ajeitar essa parte de carregar o calendario do professor ou do aluno
+		Calendario calendario = fachada.getCalendarioAluno();    	
 		Calendar c = Calendar.getInstance();
 		Boolean isEventDay = false;
 		CalendarDataModelItemImpl item = new CalendarDataModelItemImpl();
