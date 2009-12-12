@@ -1,14 +1,11 @@
 package org.ufpb.s2dg.session.util;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 
 import javax.faces.event.ValueChangeEvent;
 
@@ -20,8 +17,6 @@ import org.richfaces.model.CalendarDataModelItem;
 import org.ufpb.s2dg.entity.Avaliacao;
 import org.ufpb.s2dg.entity.Calendario;
 import org.ufpb.s2dg.entity.EventoCalendarioTurma;
-import org.ufpb.s2dg.entity.Horario;
-import org.ufpb.s2dg.entity.Turma;
 import org.ufpb.s2dg.session.Fachada;
 import org.ufpb.s2dg.session.util.CalendarDataModelItemImpl.TipoData;
 
@@ -62,6 +57,7 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 	protected CalendarDataModelItem createDataModelItem(Date date) {
 		Calendario calendario = fachada.getCalendarioAluno();    	    	
 		Calendar c = Calendar.getInstance();
+		Boolean isEventDay = false;
 		CalendarDataModelItemImpl item = new CalendarDataModelItemImpl();
 		ArrayList<EventoCalendarioTurma> datasEEventos = new ArrayList<EventoCalendarioTurma>();
 		List<Avaliacao> avaliacoes = fachada.getAvaliacoes();
@@ -102,14 +98,21 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 			eventos += "Último Dia de Trancamento\n";
 			tipoData = TipoData.EVENTO_PERIODO;			
 		}
-		data.put("shortDescription", eventos);
-
+		
 		if(datasEEventos != null) {
 			for (int j = 0; j < datasEEventos.size(); j++) {
-				if (date.equals(datasEEventos.get(j).getData())) {
-					eventos += datasEEventos.remove(j--).getEvento() + "\n";
-					tipoData = TipoData.AVALIACAO;
-				}
+				if (equals(date, datasEEventos.get(j).getData())) {
+					eventos += datasEEventos.get(j).getEvento() + "\n";					
+					tipoData = TipoData.AVALIACAO;	
+					isEventDay = true;					
+				} else {
+					if (equals(date, datasEEventos.get(j).getData())) {
+						eventos += datasEEventos.get(j).getEvento() + "\n";
+						tipoData = TipoData.DIA_AULA_DISCIPLINA;	
+						isEventDay = true;
+					}					
+				}				
+				datasEEventos.remove(j);
 			}
 		}
 		
@@ -122,25 +125,19 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 			item.setData(eventos);
 			item.setDay(c.get(Calendar.DAY_OF_MONTH));
 			item.setToolTip(tipoData);
+			item.setEnabled(isEventDay);
+			data.put("shortDescription", eventos);
+			data.put("description", "");
 			eventos = "";
 			tipoData = null;
 		}
-		/*
-		data.put("shortDescription", "Nothing planned");
-		data.put("description", "");
 		
 		
-
-
-		//Map data = new HashMap();
-		data.put("shortDescription", "Nothing planned");
-		data.put("description", "");
-		Calendar c = Calendar.getInstance();
+		c = Calendar.getInstance();
 		c.setTime(date);
-		item.setDay(c.get(Calendar.DAY_OF_MONTH));
-		item.setEnabled(true);
+		item.setDay(c.get(Calendar.DAY_OF_MONTH));		
 		item.setStyleClass("rel-hol");
-		item.setData(data); */
+		item.setData(data); 
 		return item;
 	} 
 

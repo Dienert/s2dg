@@ -14,7 +14,7 @@ public class CalendarDataModelItemImpl implements CalendarDataModelItem {
     private String styleClass;
     private Object toolTip;
     private int day;
-    private boolean enabled = true;
+    private boolean enabled = false;
     public enum TipoData implements Serializable { DIA_LETIVO, DIA_AULA_DISCIPLINA ,  EVENTO_PERIODO, AVALIACAO, FERIADO }
     private TipoData tipo;
     
