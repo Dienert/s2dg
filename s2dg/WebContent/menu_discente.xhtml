@@ -8,19 +8,17 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:s="http://jboss.com/products/seam/taglib" 
 	template="/layout/menu.xhtml">
+
 	
 <ui:define name="menu">
 	<div class="menu_disciplinas">
 		<center>
 			<h:outputText styleClass="menu_disciplinas_titulo" value="Turmas Matriculadas" />
 		</center>
-		<rich:panel rendered="#{turmasMatriculadasBean.naoVazio(turmasMatriculadasBean.alunoTurmasEmCurso)}" reRender="corpo">
+		<rich:panel id="painel" rendered="#{turmasMatriculadasBean.naoVazio(turmasMatriculadasBean.alunoTurmasEmCurso)}" reRender="corpo">
 			<h:form>
 				<ui:repeat value="#{turmasMatriculadasBean.alunoTurmasEmCurso}" var="alunoTurma">
-					<a4j:commandLink
-						action="#{alunoTurmaBean.setAlunoTurma(alunoTurma)}"
-						value=":: #{alunoTurma.turma.disciplina.nome}"
-						reRender="corpo" />
+					<a4j:commandLink action="#{alunoTurmaBean.setAlunoTurma(alunoTurma)}" value=":: #{alunoTurma.turma.disciplina.nome}" reRender="corpo" />
 						<!-- discente_mutavel, planoDeCurso, titulo_disciplina_dis, titulo_turma_dis, professores_turma -->
 					<br/>
 				</ui:repeat>
@@ -28,7 +26,7 @@
 		</rich:panel>
 	</div>
 	<br />	
-	 <a4j:keepAlive beanName="MenuAction" />
+	<a4j:keepAlive beanName="MenuAction" />
 	<div class="menu_opcoes">
 		<center>
 			<h:outputText styleClass="menu_opcoes_titulo" value="Opções do Usuário" />
@@ -58,8 +56,6 @@
 		</rich:panel>
 		
 		</center>
-	</div>
-	
+	</div>	
 </ui:define>
-			
 </ui:composition>

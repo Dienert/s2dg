@@ -59,7 +59,7 @@ public class TurmaBean implements Serializable{
 		return turma;
 	}
 
-	public void setTurma(Turma turma) {
+	public void setTurma(Turma turma) {	
 		MenuAction.setId_Menu(0);
 		this.turma = turma;
 		fachada.cancelarEdicaoDeAvaliacao();
