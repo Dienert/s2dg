@@ -18,17 +18,12 @@
 	<center>
     <h:form id="form">
         <rich:messages/>
-        <a4j:jsFunction name="ajaxSubmit" oncomplete="#{rich:component('gerenciamento_aulas')}.show()" reRender="editContent" />
+        <a4j:jsFunction name="ajaxSubmit" oncomplete="#{rich:component('gerenciamento_aulas')}.show()" reRender="corpo2:calendar, corpo:calendar" />
         <rich:calendar value="#{calendarBean.selectedDate}"
             popup="false" showApplyButton="false" 
             cellWidth="100px" cellHeight="100px" 
             boundaryDatesMode="none" showWeeksBar="false" 
-            dataModel="#{calendarDataModel}" onchanged="if (event.rich.date) {ajaxSubmit();}" oncurrentdateselect="return false" id="organizer" showFooter="false">
-            <f:facet name="header">
-                <h:panelGroup>
-                    <h:outputText value="Current Month" styleClass="header"/>
-                </h:panelGroup>
-            </f:facet>
+            dataModel="#{calendarDataModel}" onchanged="if (event.rich.date) {ajaxSubmit();}" oncurrentdateselect="return false" id="organizer" showFooter="false">            
             <a4j:outputPanel layout="block" id="cell" onclick="#{rich:component('organizer')}.resetSelectedDate()" style="height: 100%;">
                 <h:panelGrid columns="1">
                     <h:outputText value="{day}" style="align:center"/>
