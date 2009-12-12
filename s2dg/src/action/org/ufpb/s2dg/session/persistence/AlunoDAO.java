@@ -41,6 +41,11 @@ public class AlunoDAO {
 		return lista;
 	}
 	
+	public Aluno getAluno(long id) {
+		return (Aluno) entityManager.createQuery("select a from Aluno as a where a.id = :id")
+		.setParameter("id", id).getSingleResult();
+	}
+	
 	public void atualiza(Aluno aluno) {
 		entityManager.merge(aluno);		
 	}

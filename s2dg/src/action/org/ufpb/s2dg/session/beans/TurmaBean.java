@@ -65,22 +65,28 @@ public class TurmaBean implements Serializable{
 		fachada.cancelarEdicaoDeAvaliacao();
 		fachada.initAvaliacoes();
 		fachada.initAlunoTurmas();
-		//carregaEventosCalendarioTurma();
+		carregaEventosCalendarioTurma();
 		//atualizaAlunosDaTurma();
-		// Esse metodo e para consertar uma gambiarra
-		//retiraAlunoFake();
+		// Esse metodo eh para consertar uma gambiarra
+		retiraAlunoFake();
 	}
 	
 	private void retiraAlunoFake() {
-		List<EventoCalendarioTurma> eventoTurma = turma.getEventosCalendarioTurma();
-		List<AlunoPresenca> alunosPresenca = eventoTurma.get(0).getPresencas();
+		List<EventoCalendarioTurma> eventosDaTurma = fachada.getEventosCalendarioTurma(turma);
+		List<AlunoPresenca> alunosPresenca = eventosDaTurma.get(0).getPresencas();
+		//Aluno aluno = fachada.getAlunos(ID_ALUNO_FAKE).get(0).getAluno();
+		Aluno aluno = fachada.getAluno(ID_ALUNO_FAKE);
+		//aluno.setId(ID_ALUNO_FAKE);
+		AlunoPresenca alunoPresenca = new AlunoPresenca(aluno, true);
 		
-		if (alunosPresenca.get(0).getAluno().getId() == ID_ALUNO_FAKE) {
-			for (EventoCalendarioTurma eventoCalendarioTurma : eventoTurma) {
+		if (alunosPresenca.contains(alunoPresenca)) {
+			for (EventoCalendarioTurma eventoCalendarioTurma : eventosDaTurma) {
 				for (int i = 0; i < eventoCalendarioTurma.getPresencas().size(); i++) {
-					AlunoPresenca alunoPresenca = eventoCalendarioTurma.getPresencas().get(i);
-					if (alunoPresenca.getAluno().getId() == ID_ALUNO_FAKE)
+					alunoPresenca = eventoCalendarioTurma.getPresencas().get(i);
+					if (alunoPresenca.getAluno().getId() == ID_ALUNO_FAKE){
 						eventoCalendarioTurma.getPresencas().remove(alunoPresenca);
+						break;
+					}
 				}
 			}
 		}
@@ -264,6 +270,8 @@ public class TurmaBean implements Serializable{
 	}	
 
 	private void carregaEventosCalendarioTurma() {
+		List<EventoCalendarioTurma> event = fachada.getEventosCalendarioTurma(turma);
+		turma.setEventosCalendarioTurma(event);
 		
 		if(turma.getEventosCalendarioTurma() == null || turma.getEventosCalendarioTurma().isEmpty()){
 			List<EventoCalendarioTurma> eventoCalendarioTurmaDoBanco = fachada.getEventosCalendarioTurma(this.turma);
@@ -275,7 +283,7 @@ public class TurmaBean implements Serializable{
 				
 			Centro centro = turma.getDisciplina().getDepartamento().getCentro();
 			Calendario calendario = fachada.getCalendarioDoBanco(fachada.getPeriodoAtual(centro), centro);
-			List<EventoCalendarioTurma> eventosCalendarioTurma = new ArrayList<EventoCalendarioTurma>();
+			List<EventoCalendarioTurma> eventosCalendarioDaTurma = new ArrayList<EventoCalendarioTurma>();
 			
 			Calendar c = Calendar.getInstance();
 			
@@ -313,7 +321,7 @@ public class TurmaBean implements Serializable{
 						novoEventoCalendarioTurma.setPresencas(alunosPresenca);
 						
 						//Adiciona o novo evento na lista de eventos da turma
-						eventosCalendarioTurma.add(novoEventoCalendarioTurma);
+						eventosCalendarioDaTurma.add(novoEventoCalendarioTurma);
 						break;
 					}
 					
@@ -321,7 +329,7 @@ public class TurmaBean implements Serializable{
 				dataAtual = c.getTime();
 			}
 			
-			turma.setEventosCalendarioTurma(eventosCalendarioTurma);
+			turma.setEventosCalendarioTurma(eventosCalendarioDaTurma);
 			//System.out.println("PRIMEIRO EVENTOT" + turma.getEventosCalendarioTurma().iterator().next());
 			fachada.persiteTurma(turma);
 		}

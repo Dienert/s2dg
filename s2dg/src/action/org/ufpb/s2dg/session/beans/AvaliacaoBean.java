@@ -2,6 +2,8 @@ package org.ufpb.s2dg.session.beans;
 
 
 import java.io.Serializable;
+import java.util.Date;
+import java.util.List;
 
 import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
@@ -12,6 +14,7 @@ import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
 import org.ufpb.s2dg.entity.Avaliacao;
+import org.ufpb.s2dg.entity.EventoCalendario;
 import org.ufpb.s2dg.entity.EventoCalendarioTurma;
 import org.ufpb.s2dg.entity.Turma;
 import org.ufpb.s2dg.session.Fachada;
@@ -140,29 +143,50 @@ public class AvaliacaoBean implements Serializable {
 		fachada.initAvaliacoes();
 	}
 	
+	@Deprecated
 	public void criarAvaliacao() {
 		Turma turmaAtual = fachada.getTurma();
 		if((avaliacao != null)&&(turmaAtual != null)) {			
-			if(fachada.getAvaliacoes().size()<8){
+			if(fachada.getAvaliacoes().size() < 8){
 				if(avaliacao.getDataEvento().getData() == null)
 					avaliacao.setDataEvento(null);
 				else
 					avaliacao.getDataEvento().setEvento("Avaliação: "+avaliacao.getNome());
-				fachada.criaAvaliacao(avaliacao);
 				
-				String log = "Criação com sucesso da avaliação \""+avaliacao.getNome()
-					+"\" para a turma "+turmaAtual.getNumero()
-					+" (id:"+turmaAtual.getId()
-					+") da disciplina "+turmaAtual.getDisciplina().getNome()
-					+"(código:"+turmaAtual.getDisciplina().getCodigo()
-					+")";
+				//Setando a turma da avaliacao
+				avaliacao.setTurma(turmaAtual);
+				Date dataEscolhida = avaliacao.getDataEvento().getData();
+				EventoCalendarioTurma eventoCalendarioTurmaDaAvaliacao = fachada.getEventoCalendarioTurma(dataEscolhida);
 				
-				fachada.fazLog(log);
-				fachada.atualizaAlunoTurmas();
-				avaliacao = new Avaliacao();
-				avaliacao.setDataEvento(new EventoCalendarioTurma());
-				turmaAtual.setCalcularMediaAutomaticamente(true);
-				setAvaliacaoVazia(false);
+				/*** TESTE ***/
+				if(eventoCalendarioTurmaDaAvaliacao == null){
+					List<EventoCalendarioTurma> eventos = turmaAtual.getEventosCalendarioTurma();
+					int size = eventos.size();
+					eventoCalendarioTurmaDaAvaliacao = eventos.get(size - 1);
+				}
+				/*** TESTE ***/
+				
+				if(eventoCalendarioTurmaDaAvaliacao != null){
+					eventoCalendarioTurmaDaAvaliacao.setTipoData(EventoCalendario.TipoData.AVALIACAO);
+					eventoCalendarioTurmaDaAvaliacao.adicionarAvaliacao(avaliacao);
+					avaliacao.setDataEvento(eventoCalendarioTurmaDaAvaliacao);
+					fachada.persisteEventoCalendarioTurma(eventoCalendarioTurmaDaAvaliacao);
+					//fachada.criaAvaliacao(avaliacao);
+					
+					String log = "Criação com sucesso da avaliação \""+avaliacao.getNome()
+						+"\" para a turma "+turmaAtual.getNumero()
+						+" (id:"+turmaAtual.getId()
+						+") da disciplina "+turmaAtual.getDisciplina().getNome()
+						+"(código:"+turmaAtual.getDisciplina().getCodigo()
+						+")";
+					
+					fachada.fazLog(log);
+					fachada.atualizaAlunoTurmas();
+					avaliacao = new Avaliacao();
+					avaliacao.setDataEvento(new EventoCalendarioTurma());
+					turmaAtual.setCalcularMediaAutomaticamente(true);
+					setAvaliacaoVazia(false);
+				}
 			}
 			else{
 				FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_ERROR,"Número máximo de avaliações atingido.",null);
@@ -172,6 +196,24 @@ public class AvaliacaoBean implements Serializable {
 		}
 		fachada.initAvaliacoes();
 		
+	}
+	
+	public boolean criarAvaliacaoNoEventoCalendarioTurma(){
+		Date dataEscolhida = avaliacao.getDataEvento().getData();
+		Turma turmaAtual = fachada.getTurma();
+		
+		if(dataEscolhida == null || !fachada.isDiaDeAulaDaTurma(dataEscolhida))
+			return false;
+		
+		avaliacao.setTurma(turmaAtual);
+		EventoCalendarioTurma eventoCalendarioTurmaDaAvaliacao = fachada.getEventoCalendarioTurma(dataEscolhida);
+		eventoCalendarioTurmaDaAvaliacao.adicionarAvaliacao(avaliacao);
+		avaliacao.setDataEvento(eventoCalendarioTurmaDaAvaliacao);
+		fachada.criaAvaliacao(avaliacao);
+		
+		//Isso aqui ta cagado por causa do pessoal do periodo passado e eu recomendo modelar isso melhor
+		fachada.initAvaliacoes();
+		return true;
 	}
 	
 	public void publicarNotas() {

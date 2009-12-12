@@ -34,13 +34,16 @@ public class AvaliacaoDAO {
 	}
 
 	public void cria(Avaliacao avaliacao, Turma turma) {
+		/*
 		Avaliacao novaAvaliacao = new Avaliacao();
 		novaAvaliacao.setNome(avaliacao.getNome());
 		novaAvaliacao.setPeso(avaliacao.getPeso());
 		novaAvaliacao.setTurma(turma);
 		novaAvaliacao.setDataEvento(avaliacao.getDataEvento());
-		entityManager.persist(novaAvaliacao);
-		entityManager.flush();
+		*/
+		avaliacao.setTurma(turma);
+		entityManager.merge(avaliacao);
+		//entityManager.flush();
 	}
 	
 	public void publicaNotas(Avaliacao avaliacao, Turma turma) {

@@ -16,13 +16,15 @@ import org.ufpb.s2dg.entity.EventoCalendarioTurma;
 import org.ufpb.s2dg.entity.Periodo;
 import org.ufpb.s2dg.entity.Professor;
 import org.ufpb.s2dg.entity.Turma;
+import org.ufpb.s2dg.session.Fachada;
 
 @AutoCreate
 @Name("turmaDAO")
 public class TurmaDAO {
-	
-	private static final long ID_DO_ALUNO_FAKE = 13L;
 
+	@In
+	private Fachada fachada;
+	
 	@In
 	EntityManager entityManager;
 
@@ -46,12 +48,7 @@ public class TurmaDAO {
 		
 		if (listAP == null || listAP.isEmpty()) {
 			for (EventoCalendarioTurma eventoCalTur : eventoTurma) {
-				AlunoPresenca alunoPresenca = new AlunoPresenca();
-				alunoPresenca.setEventocalendarioturma(eventoCalTur);
-				Aluno a = new Aluno();
-				a.setId(ID_DO_ALUNO_FAKE);
-				alunoPresenca.setAluno(a);
-				eventoCalTur.getPresencas().add(alunoPresenca);
+				fachada.fazOperacaoCriticaParaPersistir(eventoCalTur);
 			}
 		}
 		// A gambiarra termina aqui
@@ -68,6 +65,8 @@ public class TurmaDAO {
 			return list.get(0);
 		return null;
 	}
+	
+
 	
 	@SuppressWarnings("unchecked")
 	public List<Turma> getTurmas(Disciplina d, Periodo p) {
