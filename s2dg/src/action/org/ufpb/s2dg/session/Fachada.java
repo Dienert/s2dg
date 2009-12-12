@@ -272,6 +272,10 @@ public class Fachada implements Serializable {
 	public List<AlunoTurma> getAlunoTurmasDoBanco() {
 		return alunoTurmaDAO.getAlunoTurmas(turmaBean.getTurma());
 	}
+	
+	public List<AlunoTurma> getAlunoTurmasDoBanco(Turma turma) {
+		return alunoTurmaDAO.getAlunoTurmas(turma);
+	}
 
 	public void setAlunoTurmaAvaliacoes(List<AlunoTurmaAvaliacao> list) {
 		alunoTurmaAvaliacoesBean.setAlunoTurmaAvaliacoes(list);

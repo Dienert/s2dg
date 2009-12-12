@@ -1,6 +1,7 @@
 package org.ufpb.s2dg.session.beans;
 
 import java.io.Serializable;
+import java.util.Collections;
 import java.util.List;
 
 import org.jboss.seam.ScopeType;
@@ -9,9 +10,12 @@ import org.jboss.seam.annotations.Create;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.DisciplinaTurmas;
 import org.ufpb.s2dg.entity.Turma;
 import org.ufpb.s2dg.session.Fachada;
+import org.ufpb.s2dg.session.util.AlunoTurmaComparator;
+import org.ufpb.s2dg.session.util.MenuAction;
 
 @Name("alterarNotasSemestreAnteriorBean")
 @Scope(ScopeType.SESSION)
@@ -25,6 +29,12 @@ public class AlterarNotasSemestreAnteriorBean implements Serializable{
 	private List<DisciplinaTurmas> turmasPorDisciplina;
 	@In
 	Fachada fachada;
+	@In
+	MenuAction MenuAction;
+	
+	private Turma turma;
+	private AlunoTurma alunoTurma;
+	private List<AlunoTurma> alunoTurmas;
 	
 	@Create
 	public void init() {
@@ -46,6 +56,15 @@ public class AlterarNotasSemestreAnteriorBean implements Serializable{
 		}
 	}
 	
+	public String atualizaMedia(){
+		for(AlunoTurma alunoT : alunoTurmas)
+			fachada.atualizaAlunoTurma(alunoT);
+		
+		MenuAction.setId_MenuProfessor(3);
+		
+		return "/home.seam";
+	}
+	
 	public void setTurmasPorDisciplina(List<DisciplinaTurmas> turmasPorDisciplina) {
 		this.turmasPorDisciplina = turmasPorDisciplina;
 	}
@@ -53,5 +72,38 @@ public class AlterarNotasSemestreAnteriorBean implements Serializable{
 	public List<DisciplinaTurmas> getTurmasPorDisciplina() {
 		return turmasPorDisciplina;
 	}
+
+	public Turma getTurma() {
+		return turma;
+	}
+
+	public void setTurma(Turma turma) {
+		this.turma = turma;
+		MenuAction.setId_Menu(3);;
+	}
+
+	public AlunoTurma getAlunoTurma() {
+		return alunoTurma;
+	}
+
+	public void setAlunoTurma(AlunoTurma alunoTurma) {
+		this.alunoTurma = alunoTurma;
+		System.out.println("SETANDO ALUNO TURMA " + alunoTurma.getMedia());
+	}
+
+	public List<AlunoTurma> getAlunoTurmas() {
+		if(turma != null) {
+			alunoTurmas = fachada.getAlunoTurmasDoBanco(turma);
+			if(alunoTurmas != null) {
+				Collections.sort(alunoTurmas, new AlunoTurmaComparator());
+			}
+		}
+		return alunoTurmas;
+	}
+
+	public void setAlunoTurmas(List<AlunoTurma> alunoTurmas) {
+		this.alunoTurmas = alunoTurmas;
+	}
+	
 	
 }

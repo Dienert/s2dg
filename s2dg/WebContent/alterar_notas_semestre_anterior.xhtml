@@ -9,7 +9,6 @@
 	xmlns:s="http://jboss.com/products/seam/taglib">
 
 	<rich:panel id="trancamneto_total" styleClass="border_zero">
-	<h:form>
 	<rich:panel>
 	<f:facet name="header">Alterar Notas do Semestre Anterior</f:facet>
 	
@@ -30,7 +29,7 @@
 					<h:outputText styleClass="menu_disciplina_nome" value="#{disciplinaTurmas.disciplina.nome}" />
 					<ui:repeat value="#{disciplinaTurmas.turmas}" var="turma">
 						<a4j:commandLink styleClass="menu_disciplina_turma"
-							action="#{turmaBean.setTurma(turma)}"
+							action="#{alterarNotasSemestreAnteriorBean.setTurma(turma)}"
 							value=":: Turma #{turma.numero}"
 							reRender="corpo2" />
 						<br/>
@@ -40,6 +39,5 @@
 			</h:form>
 		</div>
 	</rich:panel>
-	</h:form>
 </rich:panel>
 </ui:composition>

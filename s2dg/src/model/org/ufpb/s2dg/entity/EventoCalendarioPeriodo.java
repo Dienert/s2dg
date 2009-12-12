@@ -7,7 +7,7 @@ import javax.persistence.Entity;
 import javax.persistence.Table;
 
 
-@Entity
+@Entity 
 @Table(name = "eventocalendarioperiodo")
 public class EventoCalendarioPeriodo extends EventoCalendario implements Serializable{
 
