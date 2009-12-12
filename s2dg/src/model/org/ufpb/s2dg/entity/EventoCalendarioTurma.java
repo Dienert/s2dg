@@ -31,9 +31,16 @@ public class EventoCalendarioTurma extends EventoCalendario implements Serializa
 		setTipoData(EventoCalendario.TipoData.DIA_AULA_DISCIPLINA);
 	}
 	
+	@Deprecated
 	public EventoCalendarioTurma(Date date) {
 		super(date, EventoCalendario.TipoData.DIA_AULA_DISCIPLINA.toString());
 		setTipoData(EventoCalendario.TipoData.DIA_AULA_DISCIPLINA);
+	}
+	
+	public EventoCalendarioTurma(Date date, Turma turma) {
+		super(date, EventoCalendario.TipoData.DIA_AULA_DISCIPLINA.toString());
+		setTipoData(EventoCalendario.TipoData.DIA_AULA_DISCIPLINA);
+		this.turma = turma;
 	}
 	
 	@Deprecated
@@ -42,7 +49,7 @@ public class EventoCalendarioTurma extends EventoCalendario implements Serializa
 	}
 	
 	@Column(nullable = true)
-	@OneToMany(mappedBy="dataEvento", fetch = EAGER)
+	@OneToMany(cascade = ALL, mappedBy="dataEvento", fetch = EAGER)
 	public Set<Avaliacao> getAvaliacoes() {
 		return avaliacoes;
 	}
@@ -96,7 +103,6 @@ public class EventoCalendarioTurma extends EventoCalendario implements Serializa
 		this.presencaPublicada = presencaPublicada;
 	}
 	
-	@Column(nullable = true)
 	@OneToMany(cascade = ALL, mappedBy = "eventocalendarioturma")
 	public List<AlunoPresenca> getPresencas() {
 		return presencas;

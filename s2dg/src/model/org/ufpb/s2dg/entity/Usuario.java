@@ -110,6 +110,7 @@ public class Usuario implements Serializable {
 		this.nome = nome;
 	}
 
+	@Column(length = 15)
 	public String getCpf() {
 		return this.cpf;
 	}

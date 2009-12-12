@@ -26,6 +26,7 @@ public class Disciplina implements Serializable {
 	public enum Tipo {OBRIGATORIA, OPTATIVA,COMPLEMENTAR};
 	
 	private static final long serialVersionUID = 1L;
+	private long id;
 	private String codigo;
 	private String nome;
 	private int creditos;
@@ -54,6 +55,14 @@ public class Disciplina implements Serializable {
 		this.tipo = tipo;
 	}
 
+	public long getId() {
+		return this.id;
+	}
+
+	public void setId(long id) {
+		this.id = id;
+	}
+	
 	@Id
 	@Column(name = "codigo", unique = true, nullable = false, length = 7)
 	@NotNull
