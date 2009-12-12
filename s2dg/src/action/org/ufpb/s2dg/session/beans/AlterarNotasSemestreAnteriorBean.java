@@ -28,7 +28,7 @@ public class AlterarNotasSemestreAnteriorBean implements Serializable{
 	
 	@Create
 	public void init() {
-		List<Turma> turmas = fachada.getTurmasDoBanco();
+		List<Turma> turmas = fachada.getTurmasDoBancoPeriodoAnterior();
 		if(turmas != null) {
 			List<DisciplinaTurmas> disciplinaTurmas = DisciplinaTurmas.geraTurmasPorDisciplina(turmas);
 			if(disciplinaTurmas != null) {

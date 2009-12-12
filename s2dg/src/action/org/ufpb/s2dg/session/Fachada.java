@@ -3,7 +3,6 @@ package org.ufpb.s2dg.session;
 import java.io.Serializable;
 import java.sql.Date;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -55,6 +54,7 @@ import org.ufpb.s2dg.session.persistence.EventoCalendarioTurmaDAO;
 import org.ufpb.s2dg.session.persistence.GlobalDAO;
 import org.ufpb.s2dg.session.persistence.LogDAO;
 import org.ufpb.s2dg.session.persistence.OfertaDAO;
+import org.ufpb.s2dg.session.persistence.PeriodoDAO;
 import org.ufpb.s2dg.session.persistence.ProfessorDAO;
 import org.ufpb.s2dg.session.persistence.SalaDAO;
 import org.ufpb.s2dg.session.persistence.TurmaDAO;
@@ -72,6 +72,7 @@ public class Fachada implements Serializable {
 	 */
 	private static final long serialVersionUID = -8622239731631410022L;
 	
+	@SuppressWarnings("unused")
 	@Logger
 	private Log log;
 	
@@ -109,6 +110,8 @@ public class Fachada implements Serializable {
 	private LogDAO logDAO;
 	@In
 	private EventoCalendarioTurmaDAO eventoCalendarioTurmaDAO;
+	@In
+	private PeriodoDAO periodoDAO;
 	
 	@In
 	private UsuarioBean usuarioBean;
@@ -129,9 +132,10 @@ public class Fachada implements Serializable {
 	@In
 	private CalendarioBean calendarioBean;
 	@In
-	private EmailAction emailAction;
-	@In
 	private TurmasMatriculadasBean turmasMatriculadasBean;
+	
+	@In
+	private EmailAction emailAction;
 	
 	@Create
 	public void init() {
@@ -160,6 +164,21 @@ public class Fachada implements Serializable {
 		}
 		return new ArrayList<Turma>();
 	}
+	
+	public List<Turma> getTurmasDoBancoPeriodoAnterior() {
+		Usuario usuario = usuarioBean.getUsuario();
+		if((usuario != null)) {
+			Professor professor = usuario.getProfessor();
+			if(professor == null)
+				professor = professorDAO.getProfessor(usuario);
+			if(professor != null){
+				Centro c = professor.getDepartamento().getCentro();
+				return turmaDAO.getTurmas(professor,getPeriodoAnterior(c));
+			}
+				
+		}
+		return new ArrayList<Turma>();
+	}
 
 	public void cancelarEdicaoDeAvaliacao() {
 		avaliacaoBean.cancelarEdicao();
@@ -176,6 +195,16 @@ public class Fachada implements Serializable {
 	public Periodo getPeriodoAtual(Centro centro) {
 		if(globalBean != null)
 			return globalBean.getPeriodoAtual(centro);
+		else
+			return null;
+	}
+	
+	public Periodo getPeriodoAnterior(Centro centro) {
+		if(globalBean != null){
+			Periodo atual = globalBean.getPeriodoAtual(centro);
+			Periodo anterior = globalBean.AchaPeriodoAnterior(atual);
+			return periodoDAO.getPeriodo(anterior.getSemestre(), anterior.getAno());
+		}
 		else
 			return null;
 	}

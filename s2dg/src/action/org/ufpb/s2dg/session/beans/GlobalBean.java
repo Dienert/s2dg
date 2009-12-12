@@ -151,4 +151,24 @@ public class GlobalBean {
 		this.periodosAtuais = globalDoBanco;
 	}
 
+	public Periodo AchaPeriodoAnterior(Periodo atual) {
+		
+		if(atual == null)
+		return null;
+		else {
+			Integer semestre = Integer.parseInt(new Character(atual.getSemestre()).toString());
+			Integer ano = Integer.parseInt(atual.getAno());
+			if(semestre.equals(1)){
+				ano--;
+				semestre++;
+			}
+			else
+			{
+				semestre--;
+			}
+			atual.setAno(ano.toString());
+			atual.setSemestre(semestre.toString().charAt(0));
+			return atual;
+		}
+	}
 }
