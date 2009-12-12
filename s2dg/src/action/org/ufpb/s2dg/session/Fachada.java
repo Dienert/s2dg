@@ -1,7 +1,7 @@
 package org.ufpb.s2dg.session;
 
 import java.io.Serializable;
-import java.sql.Date;
+import java.util.Date;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -612,5 +612,25 @@ public class Fachada implements Serializable {
 
 	public List<EventoCalendarioTurma> getEventosCalendarioTurma(Turma turma) {
 		return eventoCalendarioTurmaDAO.getEventoCalendarioTurma(turma);
+	}
+	
+	public boolean isDiaDeAulaDaTurma(Date dataEscolhida){
+		return turmaBean.isDiaDeAula(dataEscolhida);
+	}
+	
+	public EventoCalendarioTurma getEventoCalendarioTurma(Date data){
+		return turmaBean.getEventoCalendarioTurma(data);
+	}
+	
+	public void fazOperacaoCriticaParaPersistir(EventoCalendarioTurma eventoCalendarioTurma){
+		eventoCalendarioTurmaDAO.fazOperacaoCriticaParaPersistir(eventoCalendarioTurma);
+	}
+	
+	public List<AlunoTurma> getAlunos(long id){
+		return alunoDAO.getAlunos(id);
+	}
+	
+	public Aluno getAluno(long id) {
+		return alunoDAO.getAluno(id);
 	}
 }
