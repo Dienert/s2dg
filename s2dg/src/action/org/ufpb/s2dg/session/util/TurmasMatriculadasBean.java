@@ -610,13 +610,14 @@ public int geraCreditosIntegralizadosComplementares(List<AlunoTurma> ats){
 		String historico = getEspacos(25) + "H I S T O R I C O"+ getEspacos(3)+"E S C O L A R";//25 espacos
         lista.add(historico);
         lista.add(""); // linha em branco
+
         try{
-	        historico = "ALUNO: "+fachada.getAluno().getMatricula()+"--"+fachada.getUsuario().getNome();
+	        historico = "ALUNO: " + (fachada.getAluno().getMatricula() != null ? fachada.getAluno().getMatricula() : "")  + "--" + (fachada.getUsuario().getNome() != null ? fachada.getUsuario().getNome() : "");
 	        lista.add(historico.toUpperCase());
-			historico = "CURSO: "+fachada.getAluno().getCurriculo().getCurso().getCodigo()+"--"+fachada.getAluno().getCurriculo().getCurso().getNome();
-			historico += " CURRICULO: "+fachada.getAluno().getCurriculo().getNumero();
+			historico = "CURSO: " + (fachada.getAluno().getCurriculo().getCurso().getCodigo() != null ? fachada.getAluno().getCurriculo().getCurso().getCodigo() : "")  + "--" + (fachada.getAluno().getCurriculo().getCurso().getNome() != null ? fachada.getAluno().getCurriculo().getCurso().getNome() : "");
+			historico += " CURRICULO: " + (fachada.getAluno().getCurriculo().getNumero() != null ? fachada.getAluno().getCurriculo().getNumero() : "");
 			lista.add(historico.toUpperCase());
-			historico = "RECONHECIMENTO: "+fachada.getAluno().getCurriculo().getCurso().getCur_ato_criacao()+"  "+"RG: "+ (fachada.getUsuario().getRg() != null ? fachada.getUsuario().getRg() : "");
+			historico = "RECONHECIMENTO: " + (fachada.getAluno().getCurriculo().getCurso().getCur_ato_criacao() != null ? fachada.getAluno().getCurriculo().getCurso().getCur_ato_criacao() : "")  + "  " + "RG: " + (fachada.getUsuario().getRg() != null ? fachada.getUsuario().getRg() : "");
 			lista.add(historico.toUpperCase());
         }catch(Exception ex){
         	lista.add("Banco inconsistente, favor corrigir!");
