@@ -25,7 +25,7 @@
 			<div class="menu_disciplinas_lista">
 			<a4j:keepAlive beanName="MenuAction" />
 			<h:form>
-				<ui:repeat value="#{disciplinasMinistradasBean.turmasPorDisciplina}" var="disciplinaTurmas">
+				<ui:repeat value="#{alterarNotasSemestreAnteriorBean.turmasPorDisciplina}" var="disciplinaTurmas">
 					<h:outputText styleClass="menu_disciplina_nome" value="#{disciplinaTurmas.disciplina.nome}" />
 					<ui:repeat value="#{disciplinaTurmas.turmas}" var="turma">
 						<a4j:commandLink styleClass="menu_disciplina_turma"
