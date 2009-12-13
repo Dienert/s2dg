@@ -10,7 +10,7 @@
 
 	<rich:panel id="trancamneto_total" styleClass="border_zero">
 	<rich:panel>
-	<f:facet name="header">Alterar Média dos Alunos da Turma</f:facet>
+	<f:facet name="header">Alterar Média dos Alunos da Turma </f:facet>
 	
 	<a4j:outputPanel style="margin:0px;padding-left:-10px;" ajaxRendered="true">
 		<h:messages infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal" />
@@ -18,7 +18,8 @@
 	
 	<center>
 	<h:outputText style="font-style: italic;"
-			value="Professor(a), aqui você pode alterar a média final da disciplina ministrada no semestre anterior. " />
+			value="Professor(a), aqui você pode alterar a média final da disciplina ministrada no semestre anterior." />
+			<br/>
 			</center>
 		<br />
 			<div class="menu_disciplinas_lista">
@@ -48,10 +49,10 @@
 					
 				</rich:dataTable>
 				
-				<a4j:commandButton id="botaoSalvar" value="Salvar" />
-				  <rich:componentControl for="panel" attachTo="botaoSalvar"
+				<a4j:commandButton id="botaoSalvar" value="Salvar" action = "#{alterarNotasSemestreAnteriorBean.atualizaMedia()}"/>
+				 <!--  <rich:componentControl for="panel" attachTo="botaoSalvar"
 									operation="show" event="onclick" />
-									
+						-->			
 				<!-- MODAL COMECANCO AQUI -->
 				
 				<rich:modalPanel id="panel" width="350" height="100">

@@ -32,6 +32,7 @@ public class AlunoTurmaBean implements Serializable{
 	 * 
 	 */
 	private static final long serialVersionUID = -8355040116692086316L;
+	public static float MEDIA_MINIMA_PARA_APROVACAO = 5.0F;
 
 	private AlunoTurma alunoTurma;
 	

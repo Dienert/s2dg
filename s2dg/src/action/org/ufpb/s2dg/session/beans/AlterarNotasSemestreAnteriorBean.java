@@ -41,26 +41,15 @@ public class AlterarNotasSemestreAnteriorBean implements Serializable{
 		List<Turma> turmas = fachada.getTurmasDoBancoPeriodoAnterior();
 		if(turmas != null) {
 			List<DisciplinaTurmas> disciplinaTurmas = DisciplinaTurmas.geraTurmasPorDisciplina(turmas);
-			if(disciplinaTurmas != null) {
-				List<Turma> dturmas = disciplinaTurmas.get(0).getTurmas();
-				if(dturmas != null)
-					fachada.setTurma(dturmas.get(0));
-			}
 			turmasPorDisciplina = disciplinaTurmas;
-		}
-		else {
-			fachada.setTurma(null);
-			fachada.setAlunoTurmas(null);
-			fachada.setAvaliacoes(null);
-			fachada.setAlunoTurmaAvaliacoes(null);
 		}
 	}
 	
 	public String atualizaMedia(){
 		for(AlunoTurma alunoT : alunoTurmas)
-			fachada.atualizaAlunoTurma(alunoT);
+			fachada.atualizaAlunoTurma(checaValoresDoAlunoTurma(alunoT));
 		
-		MenuAction.setId_MenuProfessor(3);
+		MenuAction.setId_MenuProfessor(2);
 		
 		return "/home.seam";
 	}
@@ -105,5 +94,28 @@ public class AlterarNotasSemestreAnteriorBean implements Serializable{
 		this.alunoTurmas = alunoTurmas;
 	}
 	
+	public AlunoTurma checaValoresDoAlunoTurma(AlunoTurma alunoTurma){
+		if(alunoTurma.getSituacao() == AlunoTurma.Situacao.REPROVADO_POR_FALTA && 
+				(alunoTurma.getMedia() == null || alunoTurma.getMedia() == 0))
+			return alunoTurma;
+		
+		if(alunoTurma.getMedia() == null)
+			alunoTurma.setMedia(0.0f);
+		
+		if(alunoTurma.getMedia() > 10)
+			alunoTurma.setMedia(10.0f);
+
+		if(alunoTurma.getMedia() < 0)
+			alunoTurma.setMedia(0.0f);
+		
+		alunoTurma.setSituacao(alunoTurma.getMedia() >= AlunoTurmaBean.MEDIA_MINIMA_PARA_APROVACAO ? 
+				AlunoTurma.Situacao.APROVADO : AlunoTurma.Situacao.REPROVADO_POR_MEDIA);
+		
+		alunoTurma.getTurma().setFinalizada(true);
+		return alunoTurma;
+	}
 	
+	public void teste(){
+		System.out.println("TESTE");
+	}
 }

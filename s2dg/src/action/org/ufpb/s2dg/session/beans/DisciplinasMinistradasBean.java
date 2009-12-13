@@ -28,7 +28,7 @@ public class DisciplinasMinistradasBean implements Serializable {
 	
 	@Create
 	public void init() {
-		List<Turma> turmas = fachada.getTurmasDoBanco();
+		List<Turma> turmas = fachada.getTurmasDoBanco(false);
 		if(turmas != null) {
 			List<DisciplinaTurmas> disciplinaTurmas = DisciplinaTurmas.geraTurmasPorDisciplina(turmas);
 			if(disciplinaTurmas != null) {

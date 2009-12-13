@@ -165,6 +165,21 @@ public class Fachada implements Serializable {
 		return new ArrayList<Turma>();
 	}
 	
+	public List<Turma> getTurmasDoBanco(boolean finalizada) {
+		Usuario usuario = usuarioBean.getUsuario();
+		if((usuario != null)) {
+			Professor professor = usuario.getProfessor();
+			if(professor == null)
+				professor = professorDAO.getProfessor(usuario);
+			if(professor != null){
+				Centro c = professor.getDepartamento().getCentro();
+				return turmaDAO.getTurmas(professor,getPeriodoAtual(c), finalizada);
+			}
+				
+		}
+		return new ArrayList<Turma>();
+	}
+	
 	public List<Turma> getTurmasDoBancoPeriodoAnterior() {
 		Usuario usuario = usuarioBean.getUsuario();
 		if((usuario != null)) {
