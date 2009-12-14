@@ -36,6 +36,7 @@ import org.ufpb.s2dg.session.beans.AlunoTurmaBean;
 import org.ufpb.s2dg.session.beans.AlunoTurmasBean;
 import org.ufpb.s2dg.session.beans.AvaliacaoBean;
 import org.ufpb.s2dg.session.beans.AvaliacoesBean;
+import org.ufpb.s2dg.session.beans.CalendarBean;
 import org.ufpb.s2dg.session.beans.CalendarioBean;
 import org.ufpb.s2dg.session.beans.GlobalBean;
 import org.ufpb.s2dg.session.beans.TurmaBean;
@@ -133,6 +134,9 @@ public class Fachada implements Serializable {
 	private CalendarioBean calendarioBean;
 	@In
 	private TurmasMatriculadasBean turmasMatriculadasBean;
+	
+	@In
+	private CalendarBean calendarBean;
 	
 	@In
 	private EmailAction emailAction;
@@ -647,5 +651,9 @@ public class Fachada implements Serializable {
 	
 	public Aluno getAluno(long id) {
 		return alunoDAO.getAluno(id);
+	}
+	
+	public Date getSelectedDate() {
+		return (Date) calendarBean.getSelectedDate();
 	}
 }
