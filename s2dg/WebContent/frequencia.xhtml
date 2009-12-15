@@ -1,0 +1,49 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:rich="http://richfaces.org/rich"
+	xmlns:a4j="http://richfaces.org/a4j"
+	xmlns:s="http://jboss.com/products/seam/taglib">
+
+	<rich:panel id="trancamneto_total" styleClass="border_zero">
+	<rich:panel>
+	<f:facet name="header">Frequência dos Alunos </f:facet>
+	
+	<a4j:outputPanel style="margin:0px;padding-left:-10px;" ajaxRendered="true">
+		<h:messages infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal" />
+	</a4j:outputPanel>
+	
+	<center>
+	<h:outputText style="font-style: italic;"
+			value="Professor(a), aqui você pode visualizar as faltas dos alunos." />
+			<br/>
+			</center>
+		<br />
+			<div class="menu_disciplinas_lista">
+			<a4j:keepAlive beanName="MenuAction" />
+			<h:form>
+			<rich:dataTable var="alunoTurmaSelecionado"
+					value="#{alunoTurmasBean.alunoTurmas}" style="text-align: center;">
+					
+					<rich:column styleClass="matricula"
+						sortBy="#{alunoTurmaSelecionado.aluno.matricula}">
+						<f:facet name="header">Matrícula</f:facet>
+						<h:outputText value="#{alunoTurmaSelecionado.aluno.matricula}" />
+					</rich:column>
+					<rich:column styleClass="aluno" sortOrder="ASCENDING"
+						sortBy="#{alunoTurmaSelecionado.aluno.usuario.nome}">
+						<f:facet name="header">Aluno</f:facet>
+						<h:outputText value="#{alunoTurmaSelecionado.aluno.usuario.nome}" />
+					</rich:column>
+
+					<rich:column styleClass="faltas" sortBy="#{alunoTurmaSelecionado.numeroDeFaltas()}">
+						<f:facet name="header">Faltas</f:facet>
+						<h:outputText value="#{alunoTurmaSelecionado.numeroDeFaltas()}" size="5" />
+				  </rich:column>
+					
+				</rich:dataTable>
+			 </h:form>		</div>
+	</rich:panel>
+</rich:panel>
+</ui:composition>

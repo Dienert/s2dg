@@ -23,10 +23,6 @@
 						<f:facet name="header">Aluno</f:facet>
 						<h:outputText value="#{alunoTurma.aluno.usuario.nome}" />
 					</rich:column>
-					<rich:column styleClass="faltas" sortBy="#{alunoTurma.faltas}">
-						<f:facet name="header">Faltas</f:facet>
-						<h:inputText value="#{alunoTurma.faltas}" size="5" />
-					</rich:column>
 					<rich:columns value="#{avaliacoesBean.avaliacoes}" var="avaliacao" >
 						<f:facet name="header">
 							<h:panelGroup >
