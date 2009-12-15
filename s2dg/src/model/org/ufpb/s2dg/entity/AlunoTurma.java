@@ -1,6 +1,7 @@
 package org.ufpb.s2dg.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -87,10 +88,12 @@ public class AlunoTurma implements Serializable {
 		return this.media;
 	}
 
+	@Deprecated
 	public void setMedia(Float media) {
 		this.media = media;
 	}
 
+	@Deprecated
 	@Column(name = "faltas")
 	public Integer getFaltas() {
 		return this.faltas;
@@ -107,6 +110,30 @@ public class AlunoTurma implements Serializable {
 
 	public void setSituacao(Situacao situacao) {
 		this.situacao = situacao;
+	}
+	
+	public int numeroDeFaltas(){
+		int faltas = 0;
+		List<EventoCalendarioTurma> eventosCalendarioTurma = turma.getEventosCalendarioTurma();
+		
+		//Busca os eventos calendario da turma
+		for(EventoCalendarioTurma eventoCalendarioTurma : eventosCalendarioTurma){
+			//Pega a lista de presencas
+			List<AlunoPresenca> alunosPresenca = eventoCalendarioTurma.getPresencas();
+			
+			//Itera na lista de presencas
+			for(AlunoPresenca alunoPresenca : alunosPresenca)
+				//Encontra o aluno
+				if(alunoPresenca.getAluno().equals(alunoPresenca)){ 
+					//Se o aluno nao estava presente incrementa as faltas e da o break no for de AlunoPresenca
+					if(!alunoPresenca.isPresenca())
+						faltas++;
+					break;
+				}
+						
+		}
+		
+		return faltas;
 	}
 
 }
