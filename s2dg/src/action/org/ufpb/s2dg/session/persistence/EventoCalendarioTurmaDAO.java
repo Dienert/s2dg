@@ -31,6 +31,8 @@ public class EventoCalendarioTurmaDAO {
 	public void atualiza(EventoCalendarioTurma eventoCalendarioTurma){
 		fazOperacaoCriticaParaPersistir(eventoCalendarioTurma);
 		entityManager.merge(eventoCalendarioTurma);
+		entityManager.flush();
+		fazOperacaoCriticaAposPersistir(eventoCalendarioTurma);
 	}
 	
 	@SuppressWarnings("unchecked")
@@ -75,6 +77,17 @@ public class EventoCalendarioTurmaDAO {
 			Aluno aluno = fachada.getAluno(ID_DO_ALUNO_FAKE);
 			alunoPresenca.setAluno(aluno);
 			eventoCalendarioTurma.getPresencas().add(alunoPresenca);
+		}
+	}
+	
+	public void fazOperacaoCriticaAposPersistir(EventoCalendarioTurma eventoCalendarioTurma){
+		if(eventoCalendarioTurma.getPresencas() != null && eventoCalendarioTurma.getPresencas().size() >= 0){
+			AlunoPresenca alunoPresenca = new AlunoPresenca();
+			alunoPresenca.setEventocalendarioturma(eventoCalendarioTurma);
+			//List<AlunoTurma> alunosTurma = fachada.getAlunos(ID_DO_ALUNO_FAKE);
+			Aluno aluno = fachada.getAluno(ID_DO_ALUNO_FAKE);
+			alunoPresenca.setAluno(aluno);
+			eventoCalendarioTurma.getPresencas().remove(alunoPresenca);
 		}
 	}
 	
