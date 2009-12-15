@@ -26,7 +26,7 @@ public class MenuAction implements Serializable {
 							 	"/paginahistorico.xhtml", 
 							 	"/paginahorario.xhtml",
 							 	"/trancamento_total.xhtml",
-							 	"/benvindo.xhtml"};
+							 	"/bem_vindo.xhtml"};
 	//Menu Docente
 	public int Id_Menu2 = 4;
 
@@ -34,7 +34,7 @@ public class MenuAction implements Serializable {
 								"/configuracoes.xhtml",
 								"/alterar_notas_semestre_anterior.xhtml",
 								"/alterar_nota_turma_semestre_anterior.xhtml",
-								"/benvindo.xhtml"};
+								"/bem_vindo.xhtml"};
 	
 	//Menu Discente
 	public String getOption() {
