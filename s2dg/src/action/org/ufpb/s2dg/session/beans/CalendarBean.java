@@ -1,8 +1,10 @@
 package org.ufpb.s2dg.session.beans;
 
 import java.io.Serializable;
+import java.text.DateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.AutoCreate;
@@ -55,6 +57,11 @@ public class CalendarBean implements Serializable {
 	
 	public void atualzaEventoCalendarioTurmaSelecionado(){
 		fachada.persisteEventoCalendarioTurma(eventoCalendarioTurmaSelecionado);
+	}
+	
+	public String dataSelecionada(){
+		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("pt"));
+		return getSelectedDate() != null ? dateFormat.format(getSelectedDate()) : "";
 	}
 	
 }

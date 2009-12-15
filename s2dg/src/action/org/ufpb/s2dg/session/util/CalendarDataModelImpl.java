@@ -22,6 +22,7 @@ import org.ufpb.s2dg.entity.EventoCalendarioTurma;
 import org.ufpb.s2dg.entity.Turma;
 import org.ufpb.s2dg.session.Fachada;
 import org.ufpb.s2dg.session.beans.CalendarBean;
+import org.ufpb.s2dg.session.beans.UsuarioBean;
 import org.ufpb.s2dg.session.util.ItemDeCalendario.TipoData;
 
 
@@ -57,7 +58,8 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 	}
 
 	protected CalendarDataModelItem createDataModelItem(Date date) {
-		Calendario calendario = fachada.getCalendarioAluno();    	    	
+		Calendario calendario = fachada.getAbaAtiva() == UsuarioBean.TipoAbaAtiva.DISCENTE ? 
+				fachada.getCalendarioAluno() : fachada.getCalendarioProfessor();
 		String eventos = "";		
 		TipoData tipoData = null;
 		if(equals(date, calendario.getFimImplantacaoNotas())) {

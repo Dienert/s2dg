@@ -11,7 +11,7 @@
 	<rich:modalPanel id="gerenciamento_aulas" width="640" height="480" onload="#{modeloCalendario.getData}"  resizeable="false">
     	<f:facet name="header">
 			<h:panelGroup>
-        		<h:outputText value="Gerenciar Dia"></h:outputText>
+        		<h:outputText value="Gerenciar Dia - #{calendarBean.dataSelecionada()}"></h:outputText>
         	</h:panelGroup>
         </f:facet>
         <f:facet name="controls">
@@ -67,10 +67,14 @@
 							</rich:column>
 						</rich:dataTable>	
 						<center>
+						<div>
+						<h:form>
 						<br/>
 						<a4j:commandButton type="submit" value="Salvar" ajaxSingle="true" action="#{calendarBean.atualzaEventoCalendarioTurmaSelecionado()}" 
 				                   style="FONT-WEIGHT: bold; width : 85px; height : 29px;" reRender="planoDeCurso">
 						</a4j:commandButton>
+						</h:form>
+						</div>
 						</center>
 						</rich:panel>
 					</h:form>
