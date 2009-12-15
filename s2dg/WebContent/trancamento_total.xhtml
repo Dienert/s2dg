@@ -53,6 +53,7 @@
 		<br />
 		<br />
 		<h:commandButton value="Imprimir" action="#{alunoTurmaBean.gerarPDFTrancamentoTotal()}"/>	
+		<a4j:commandButton id="voltar2" value="Voltar" action="#{MenuAction.setPaginaBenvindo()}" ajaxSingle="true" reRender="corpo" />
 	</rich:panel>
 	
 	<rich:modalPanel id="panel" width="350" height="100" >

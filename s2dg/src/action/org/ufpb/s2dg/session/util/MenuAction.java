@@ -18,7 +18,7 @@ public class MenuAction implements Serializable {
 	private static final long serialVersionUID = -396395780804966001L;
 
 	//Menu Discente
-	public int Id_Menu = 0;
+	public int Id_Menu = 6;
 
 	String[] lista_opcoes = {"/corpo_do_discente.xhtml", 
 								"/configuracoes.xhtml",
@@ -28,7 +28,7 @@ public class MenuAction implements Serializable {
 							 	"/trancamento_total.xhtml",
 							 	"/benvindo.xhtml"};
 	//Menu Docente
-	public int Id_Menu2 = 0;
+	public int Id_Menu2 = 4;
 
 	String[] lista_opcoes2 = {"/corpo_do_docente.xhtml", 
 								"/configuracoes.xhtml",

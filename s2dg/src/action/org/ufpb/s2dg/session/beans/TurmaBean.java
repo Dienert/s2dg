@@ -17,8 +17,10 @@ import javax.faces.context.FacesContext;
 import org.jboss.seam.ScopeType;
 import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.In;
+import org.jboss.seam.annotations.Logger;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
+import org.jboss.seam.log.Log;
 import org.ufpb.s2dg.entity.Aluno;
 import org.ufpb.s2dg.entity.AlunoPresenca;
 import org.ufpb.s2dg.entity.AlunoTurma;
@@ -55,11 +57,14 @@ public class TurmaBean implements Serializable{
 	@In
 	TimestampBean TimestampBean;
 
+	@Logger
+	private Log log;
+	
 	public Turma getTurma() {
 		return turma;
 	}
 
-	public void setTurma(Turma turma) {	
+	public String setTurma(Turma turma) {	
 		MenuAction.setId_Menu(0);
 		this.turma = turma;
 		fachada.cancelarEdicaoDeAvaliacao();
@@ -69,6 +74,7 @@ public class TurmaBean implements Serializable{
 		//atualizaAlunosDaTurma();
 		// Esse metodo eh para consertar uma gambiarra
 		retiraAlunoFake();
+		return "/home.seam";
 	}
 	
 	private void retiraAlunoFake() {

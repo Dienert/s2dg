@@ -70,7 +70,7 @@ public class TurmasMatriculadasBean implements Serializable{
 		List<AlunoTurma> ats = fachada.getAlunoTurmaDoBanco();
 		if(ats != null) {
 			if (ats.size() > 0) {
-				fachada.setAlunoTurma(ats.get(0));
+				//fachada.setAlunoTurma(ats.get(0));
 				this.alunoTurmas = ats;
 				
 				for(AlunoTurma alunoTurma : alunoTurmas) {

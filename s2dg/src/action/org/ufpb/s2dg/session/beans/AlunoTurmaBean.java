@@ -52,8 +52,6 @@ public class AlunoTurmaBean implements Serializable{
 	@In
 	PDFAction pdfAction;
 	
-	boolean benvindo = true;
-	
 	public AlunoTurma getAlunoTurma() {
 		return alunoTurma;
 	}
@@ -69,13 +67,7 @@ public class AlunoTurmaBean implements Serializable{
 			if(d == null)
 				d = fachada.getDisciplinaDoBanco(t);
 			t.setDisciplina(d);
-			log.info("Nome da disciplina - {0}", d.getNome());
 			fachada.setTurma(t);
-			
-			if (benvindo) {
-				MenuAction.setPaginaBenvindo();
-				benvindo = false;
-			}
 		}
 		return "/home.seam";	
 	}

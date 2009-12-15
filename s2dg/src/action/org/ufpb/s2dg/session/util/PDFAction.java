@@ -466,7 +466,7 @@ public class PDFAction implements Serializable{
 	public void geraTabelaTranca(ArrayList<HashMap<String, String>> informacoes, HashMap<String, String> dadosAluno){				
 		
 		Date hoje = new Date();  
-		String formato = "dd/MM/yyyy";  
+		String formato = "HH:mm dd/MM/yyyy";  
 		SimpleDateFormat sdf = new SimpleDateFormat(formato);
 		
 		
@@ -581,7 +581,7 @@ public class PDFAction implements Serializable{
 	public void geraTabelaTrancaTotal(HashMap<String, String> dadosAluno){				
 		
 		Date hoje = new Date();  
-		String formato = "dd/MM/yyyy";  
+		String formato = "HH:mm dd/MM/yyyy";  
 		SimpleDateFormat sdf = new SimpleDateFormat(formato);
 		
 		
