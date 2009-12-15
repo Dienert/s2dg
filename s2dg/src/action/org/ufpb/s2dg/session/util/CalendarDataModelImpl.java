@@ -41,8 +41,7 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 	private Date currentDate;
 	private boolean currentDisabled;   
 	
-	private List<AlunoTurma> alunoTurmas;
-	private EventoCalendarioTurma eventoCalendarioTurma;	
+	private List<AlunoTurma> alunoTurmas;	
 
 	public CalendarDataModelItem[] getData(Date[] dateArray) {
 		if (dateArray == null) {
@@ -265,10 +264,6 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 			}
 		}
 		return new EventoCalendarioTurma();
-	}
-
-	public void setEventoCalendarioTurma(EventoCalendarioTurma eventoCalendarioTurma) {
-		this.eventoCalendarioTurma = eventoCalendarioTurma;
 	}
 	
 	public void confirmarPlanejamentoEventoCalendarioTurma(){
