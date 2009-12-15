@@ -128,7 +128,7 @@ public class EventoCalendarioTurma extends EventoCalendario implements Serializa
 				"Presenca: %s\n" +
 				"Presenca publicada? %s\n" +
 				"Planejamento: %s\n" +
-				"Execucao: %s", 
+				"Execucao: %s\n", 
 				avaliacoes, presencas, presencaPublicada + "", planejamento, execucao);
 	}
 	
