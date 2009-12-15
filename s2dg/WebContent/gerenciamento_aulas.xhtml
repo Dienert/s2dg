@@ -26,54 +26,55 @@
 					<center>
 					Plano de Aula
 					<br />					
-					<rich:editor useSeamText="true" id="editorPlano" value="#{calendarDataModel.eventoCalendarioTurma.planejamento}" 
+					<rich:editor useSeamText="true" id="editorPlano" value="#{calendarBean.eventoCalendarioTurmaSelecionado.planejamento}" 
 						         width="400" height="150" plugins="save,paste" language="pt">
 					</rich:editor>
 					<br />
 					Conteúdo Lecionado									
 					<br />
-					<rich:editor useSeamText="true" id="editorLecionada" value="#{calendarDataModel.eventoCalendarioTurma.execucao}" 
+					<rich:editor useSeamText="true" id="editorLecionada" value="#{calendarBean.eventoCalendarioTurmaSelecionado.execucao}" 
 						         width="400" height="150" plugins="save,paste" language="pt">
 					</rich:editor>					
-					<a4j:commandButton type="submit" value="Confirmar Planejamento" ajaxSingle="true" action="#{calendarDataModel.confirmarPlanejamentoEventoCalendarioTurma()}" 
+					<a4j:commandButton type="submit" value="Confirmar Planejamento" ajaxSingle="true" 
+						action="#{calendarBean.confirmarPlanejamento()}" 
 			                   style="FONT-WEIGHT: bold; width : 140px; height : 29px;" reRender="gerenciamento_aulas">
 					</a4j:commandButton>
-					<a4j:commandButton type="submit" value="Salvar" ajaxSingle="true" action="#{turmaBean.atualizaPlanoDeCurso}" 
+					<a4j:commandButton type="submit" value="Salvar" ajaxSingle="true" action="#{calendarBean.atualzaEventoCalendarioTurmaSelecionado()}" 
 			                   style="FONT-WEIGHT: bold; width : 85px; height : 29px;" reRender="planoDeCurso">
 					</a4j:commandButton>			
 					</center>  				
 				</rich:tab>
 				<rich:tab label="Gerenciamento de Presencas">	
 				<h:form >
-			<rich:panel styleClass="border_zero" id="tabela_avaliacoes">
-				
-				<br/>
-					<rich:dataTable var="alunoTurma"
-					value="#{gerenciaDia.alunoTurmas}" style="text-align: center;">
-						<rich:column styleClass="matricula" sortBy="#{alunoTurma.aluno.matricula}">
-							<f:facet name="header">Matrícula</f:facet>
-							<h:outputText value="#{alunoTurma.aluno.matricula}" />
-						</rich:column>		
-						<rich:column styleClass="aluno" sortOrder="ASCENDING" sortBy="#{alunoTurma.aluno.usuario.nome}">
-							<f:facet name="header">Aluno</f:facet>
-							<h:outputText value="#{alunoTurma.aluno.usuario.nome}" />
-						</rich:column>
-						<rich:column styleClass="faltas_dia">
-						    <f:facet name="header">Presenca</f:facet>
-							<h:selectBooleanCheckbox id="checkboxmedia"
-								                     value="#{turmaBean.turma.calcularMediaAutomaticamente}">								                     			
-							</h:selectBooleanCheckbox>
-						</rich:column>
-					</rich:dataTable>	
-					<center>
+					<rich:panel styleClass="border_zero" id="tabela_avaliacoes">
+					
 					<br/>
-					<a4j:commandButton type="submit" value="Salvar" ajaxSingle="true" action="#{turmaBean.atualizaPlanoDeCurso}" 
-			                   style="FONT-WEIGHT: bold; width : 85px; height : 29px;" reRender="planoDeCurso">
-					</a4j:commandButton>
-					</center>
-					</rich:panel>
-				</h:form>
-				</rich:tab>		
+						<rich:dataTable var="alunoPresenca"
+						value="#{calendarBean.eventoCalendarioTurmaSelecionado.presencas}" style="text-align: center;">
+							<rich:column styleClass="matricula" sortBy="#{alunoPresenca.aluno.matricula}">
+								<f:facet name="header">Matrícula</f:facet>
+								<h:outputText value="#{alunoPresenca.aluno.matricula}" />
+							</rich:column>		
+							<rich:column styleClass="aluno" sortOrder="ASCENDING" sortBy="#{alunoPresenca.aluno.usuario.nome}">
+								<f:facet name="header">Aluno</f:facet>
+								<h:outputText value="#{alunoPresenca.aluno.usuario.nome}" />
+							</rich:column>
+							<rich:column styleClass="faltas_dia">
+							    <f:facet name="header">Presenca</f:facet>
+								<h:selectBooleanCheckbox id="checkboxmedia"
+									                     value="#{alunoPresenca.presenca}">								                     			
+								</h:selectBooleanCheckbox>
+							</rich:column>
+						</rich:dataTable>	
+						<center>
+						<br/>
+						<a4j:commandButton type="submit" value="Salvar" ajaxSingle="true" action="#{calendarBean.atualzaEventoCalendarioTurmaSelecionado()}" 
+				                   style="FONT-WEIGHT: bold; width : 85px; height : 29px;" reRender="planoDeCurso">
+						</a4j:commandButton>
+						</center>
+						</rich:panel>
+					</h:form>
+					</rich:tab>		
 			</rich:tabPanel>		
 		</center>        
     </rich:modalPanel>    
