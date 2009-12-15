@@ -413,9 +413,8 @@ td.action a {
 	color: black;
 }
 
-.ic_dia_aula_disciplina{
-	text-align: center;
+.ic_dia_aula_disciplina{	
 	font-size: 12px;
-	background-color: #CCFF99;
+	background-color: blue;
 	color: black;
 }

@@ -5,8 +5,10 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import javax.faces.event.ValueChangeEvent;
 
@@ -19,6 +21,7 @@ import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.Avaliacao;
 import org.ufpb.s2dg.entity.Calendario;
 import org.ufpb.s2dg.entity.EventoCalendarioTurma;
+import org.ufpb.s2dg.entity.Horario;
 import org.ufpb.s2dg.entity.Turma;
 import org.ufpb.s2dg.session.Fachada;
 import org.ufpb.s2dg.session.beans.CalendarBean;
@@ -32,7 +35,7 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 
 	@In
 	Fachada fachada;
-	
+
 	@In
 	CalendarBean calendarBean;
 
@@ -41,7 +44,7 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 	private String currentShortDescription;
 	private Date currentDate;
 	private boolean currentDisabled;   
-	
+
 	private List<AlunoTurma> alunoTurmas;	
 
 	public CalendarDataModelItem[] getData(Date[] dateArray) {
@@ -62,9 +65,10 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 				fachada.getCalendarioAluno() : fachada.getCalendarioProfessor();
 		String eventos = "";		
 		TipoData tipoData = null;
+		CalendarDataModelItemImpl item = new CalendarDataModelItemImpl();
 		if(equals(date, calendario.getFimImplantacaoNotas())) {
 			eventos += "Fim de Implantação de Notas\n";
-			tipoData = TipoData.EVENTO_PERIODO;
+			tipoData = TipoData.EVENTO_PERIODO;			
 		}
 		if(equals(date, calendario.getFimMatricula())) {
 			eventos += "Fim do Período de Matrícula\n";
@@ -74,11 +78,11 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 			eventos += "Fim do Período\n";
 			tipoData = TipoData.EVENTO_PERIODO;
 		}
-		if(equals(date, calendario.getInicioMatricula())){
+		if(equals(date, calendario.getInicioMatricula())) {
 			eventos += "Início do Período de Matrícula\n";
 			tipoData = TipoData.EVENTO_PERIODO;
 		}
-		if(equals(date, calendario.getInicioPeriodo())){
+		if(equals(date, calendario.getInicioPeriodo())) {
 			eventos += "Início do Período\n";
 			tipoData = TipoData.EVENTO_PERIODO;
 		}
@@ -86,16 +90,15 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 			eventos += "Último Dia de Trancamento\n";
 			tipoData = TipoData.EVENTO_PERIODO;			
 		}
-				
+
 		List<Avaliacao> avaliacoes = fachada.getAvaliacoes();
+		List<EventoCalendarioTurma> eventosTurma = fachada.getTurma().getEventosCalendarioTurma();
 		ArrayList<EventoCalendarioTurma> datasEEventos = new ArrayList<EventoCalendarioTurma>();
-		if(avaliacoes != null) {
-			for(Avaliacao avaliacao : avaliacoes) {
-				EventoCalendarioTurma eventoCalendario = avaliacao.getDataEvento(); 
-				if(eventoCalendario != null)
-					datasEEventos.add(eventoCalendario);
-			}
+		for (int i = 0; i < eventosTurma.size(); i++) {
+			EventoCalendarioTurma evento_dia = eventosTurma.get(i);
+			datasEEventos.add(evento_dia);										
 		}
+		
 		Boolean diaEvento = false;	
 		if(datasEEventos != null) {
 			for (int j = 0; j < datasEEventos.size(); j++) {
@@ -114,11 +117,10 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 				}					
 			}
 		}
-								
+
 		Calendar c = Calendar.getInstance();	
 		c.setTime(date);
-		Map<String, String> conteudoItem = new HashMap<String, String>();
-		CalendarDataModelItemImpl item = new CalendarDataModelItemImpl();
+		Map<String, String> conteudoItem = new HashMap<String, String>();		
 		item.setDay(c.get(Calendar.DAY_OF_MONTH));	
 		if (!(eventos.equals(""))) {			
 			item.setData(eventos);
@@ -127,45 +129,32 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 			item.setEnabled(diaEvento);
 			conteudoItem.put("shortDescription", eventos);
 			conteudoItem.put("description", "");			
+		}		
+		if (tipoData != null) {
+			item.setStyleClass("ic_" + tipoData.toString().toLowerCase());
 		}
-		item.setStyleClass("rel-hol");
 		item.setData(conteudoItem); 
 		return item;
 	} 
 
-	/* (non-Javadoc)
-	 * @see org.richfaces.model.CalendarDataModel#getToolTip(java.util.Date)
-	 */
 	public Object getToolTip(Date date) {
-
-		// TODO Auto-generated method stub
 		return null;
 	}
 
-	/**
-	 * @return items
-	 */
+
 	public CalendarDataModelItem[] getItems() {
 		return items;
 	}
 
-	/**
-	 * @param setter for items
-	 */
+
 	public void setItems(CalendarDataModelItem[] items) {
 		this.items = items;
 	}
 
-	/**
-	 * @param valueChangeEvent handling
-	 */
 	public void valueChanged(ValueChangeEvent event) {		
 		calendarBean.setSelectedDate((Date)event.getNewValue());		
 	}
 
-	/**
-	 * Storing changes action
-	 */
 	public void storeDayDetails() {
 		Calendar calendar = Calendar.getInstance();
 		calendar.setTime(getCurrentDate());
@@ -173,58 +162,34 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 		((HashMap)items[calendar.get(Calendar.DAY_OF_MONTH)-1].getData()).put("description", getCurrentDescription());
 	}
 
-	/**
-	 * @return currentDescription
-	 */
 	public String getCurrentDescription() {
 		return currentDescription;
 	}
 
-	/**
-	 * @param currentDescription
-	 */
 	public void setCurrentDescription(String currentDescription) {
 		this.currentDescription = currentDescription;
 	}
 
-	/**
-	 * @return currentDisabled
-	 */
 	public boolean isCurrentDisabled() {
 		return currentDisabled;
 	}
 
-	/**
-	 * @param currentDisabled
-	 */
 	public void setCurrentDisabled(boolean currentDisabled) {
 		this.currentDisabled = currentDisabled;
 	}
 
-	/**
-	 * @return currentShortDescription
-	 */
 	public String getCurrentShortDescription() {
 		return currentShortDescription;
 	}
 
-	/**
-	 * @param currentShortDescription
-	 */
 	public void setCurrentShortDescription(String currentShortDescription) {
 		this.currentShortDescription = currentShortDescription;
 	}
 
-	/**
-	 * @return currentDate
-	 */
 	public Date getCurrentDate() {
 		return currentDate;
 	}
 
-	/**
-	 * @param currentDate
-	 */
 	public void setCurrentDate(Date currentDate) {
 		this.currentDate = currentDate;
 	}
@@ -233,7 +198,7 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 		long dif = d1.getTime() - d2.getTime();
 		return dif >= 0 && dif < 24*60*60*1000;
 	}
-	
+
 	public List<AlunoTurma> getAlunoTurmas() {
 		Turma turmaAtual = fachada.getTurma();
 		if(turmaAtual != null) {
@@ -251,28 +216,28 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 	public void setAlunoTurmas(List<AlunoTurma> alunoTurmas) {
 		this.alunoTurmas = alunoTurmas;
 	}	
-	
+
 	public EventoCalendarioTurma getEventoCalendarioTurma() {	
-		  		
+
 		List<EventoCalendarioTurma> list = fachada.getEventosCalendarioTurma(fachada.getTurma());
 		for (int i = 0; i< list.size(); i++) {
 			EventoCalendarioTurma evento_dia = list.get(i);				       
 			java.util.Date selectedDate = getCurrentDate();
 			if (evento_dia != null && selectedDate != null) {
 				if (selectedDate.compareTo(evento_dia.getData()) == 0) {
-					
+
 				}
 				return list.get(i);
 			}
 		}
 		return new EventoCalendarioTurma();
 	}
-	
+
 	public void confirmarPlanejamentoEventoCalendarioTurma(){
 		Date dataEventoCalendarioTurma = getEventoCalendarioTurma().getData();
 		fachada.confirmarPlanejamentoEventoCalendarioTurma(dataEventoCalendarioTurma);
 	}		
-	
+
 	public TipoData getTipoEvento(Date date, Calendario calendario, String eventos) {
 		TipoData tipoData = null;
 		if(equals(date, calendario.getFimImplantacaoNotas())) {
