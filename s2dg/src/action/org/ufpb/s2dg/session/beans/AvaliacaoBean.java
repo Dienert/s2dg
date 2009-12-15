@@ -216,7 +216,7 @@ public class AvaliacaoBean implements Serializable {
 		return true;
 	}
 	
-	public void publicarNotas() {
+	public String publicarNotas() {
 		Avaliacao avaliacao = avaliacaoParaPublicacao;
 		Turma turmaAtual = fachada.getTurma();
 		if((avaliacao != null)&&(turmaAtual != null)) {		
@@ -233,6 +233,8 @@ public class AvaliacaoBean implements Serializable {
 		
 		
 		fachada.initAvaliacoes();
+		
+		return "/home.seam";
 	}
 	
 }
