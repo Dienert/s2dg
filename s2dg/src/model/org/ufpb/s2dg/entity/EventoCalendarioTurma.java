@@ -49,7 +49,7 @@ public class EventoCalendarioTurma extends EventoCalendario implements Serializa
 	}
 	
 	@Column(nullable = true)
-	@OneToMany(cascade = ALL, mappedBy="dataEvento", fetch = EAGER)
+	@OneToMany(mappedBy="dataEvento", fetch = EAGER) //TODO CLODOALDO verificar se a remoção foi bem sucedida "cascade = ALL, "
 	public Set<Avaliacao> getAvaliacoes() {
 		return avaliacoes;
 	}

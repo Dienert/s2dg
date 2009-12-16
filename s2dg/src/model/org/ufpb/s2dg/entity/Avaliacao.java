@@ -114,7 +114,7 @@ public class Avaliacao implements Serializable {
         return nome;
     }
 
-	@ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
+	@ManyToOne(fetch = FetchType.EAGER) //TODO CLODOALDO verificar se a remoção foi bem sucedida "cascade = CascadeType.ALL," 
 	@JoinColumn(name="id_dataevento", nullable=true, updatable=true, insertable=true)
 	public EventoCalendarioTurma getDataEvento() {
 		return dataEvento;

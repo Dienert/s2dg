@@ -57,7 +57,7 @@ public class AvaliacaoDAO {
 	public void atualiza(Avaliacao avaliacao) {
 		if(avaliacao != null) {
 			entityManager.merge(avaliacao);
-			entityManager.flush();
+//			entityManager.flush();
 		}
 	}
 

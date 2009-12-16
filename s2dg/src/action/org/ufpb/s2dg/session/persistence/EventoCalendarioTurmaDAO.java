@@ -1,6 +1,7 @@
 package org.ufpb.s2dg.session.persistence;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javax.persistence.EntityManager;
@@ -31,7 +32,7 @@ public class EventoCalendarioTurmaDAO {
 	public void atualiza(EventoCalendarioTurma eventoCalendarioTurma){
 		fazOperacaoCriticaParaPersistir(eventoCalendarioTurma);
 		entityManager.merge(eventoCalendarioTurma);
-		entityManager.flush();
+//		entityManager.flush();
 		fazOperacaoCriticaAposPersistir(eventoCalendarioTurma);
 	}
 	
@@ -70,7 +71,7 @@ public class EventoCalendarioTurmaDAO {
 	}
 
 	public void fazOperacaoCriticaParaPersistir(EventoCalendarioTurma eventoCalendarioTurma){
-		if(eventoCalendarioTurma.getPresencas() == null || eventoCalendarioTurma.getPresencas().size() == 0){
+		if(noList(eventoCalendarioTurma)){
 			AlunoPresenca alunoPresenca = new AlunoPresenca();
 			alunoPresenca.setEventocalendarioturma(eventoCalendarioTurma);
 			//List<AlunoTurma> alunosTurma = fachada.getAlunos(ID_DO_ALUNO_FAKE);
@@ -80,8 +81,16 @@ public class EventoCalendarioTurmaDAO {
 		}
 	}
 	
+	private boolean noList(EventoCalendarioTurma eventoCalendarioTurma){
+		if (eventoCalendarioTurma == null) {
+			eventoCalendarioTurma.setPresencas(Collections.EMPTY_LIST);
+			return true;
+		} else 
+			return eventoCalendarioTurma.getPresencas().isEmpty();
+	}
+	
 	public void fazOperacaoCriticaAposPersistir(EventoCalendarioTurma eventoCalendarioTurma){
-		if(eventoCalendarioTurma.getPresencas() != null && eventoCalendarioTurma.getPresencas().size() >= 0){
+		if(noList(eventoCalendarioTurma)){
 			AlunoPresenca alunoPresenca = new AlunoPresenca();
 			alunoPresenca.setEventocalendarioturma(eventoCalendarioTurma);
 			//List<AlunoTurma> alunosTurma = fachada.getAlunos(ID_DO_ALUNO_FAKE);

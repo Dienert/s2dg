@@ -656,4 +656,9 @@ public class Fachada implements Serializable {
 	public Date getSelectedDate() {
 		return (Date) calendarBean.getSelectedDate();
 	}
+
+	public void persisteAvaliacao(Avaliacao avaliacao) {
+		avaliacaoDAO.atualiza(avaliacao);
+		
+	}
 }
