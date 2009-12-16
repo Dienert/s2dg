@@ -124,7 +124,7 @@ public class AvaliacaoBean implements Serializable {
 		avaliacao.setDataEvento(new EventoCalendarioTurma());
 	}
 	
-	public void excluiAvaliacao() {
+	public String excluiAvaliacao() {
 		if(avaliacaoParaExclusao != null) {
 			avaliacaoParaExclusao.setTurma(fachada.getTurma());
 			fachada.excluiAvaliacao(avaliacaoParaExclusao);
@@ -141,6 +141,7 @@ public class AvaliacaoBean implements Serializable {
 			}
 		}
 		fachada.initAvaliacoes();
+		return "/home.seam";
 	}
 	
 	@Deprecated
