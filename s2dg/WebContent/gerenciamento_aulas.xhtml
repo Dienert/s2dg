@@ -21,6 +21,7 @@
             </h:panelGroup>	
         </f:facet>
         <center>
+        <h:form>
         	<rich:tabPanel switchType="client">
 				<rich:tab label="Gerenciamento de Aulas">	
 					<center>
@@ -28,33 +29,26 @@
 					<br />					
 					<h:inputTextarea id="editorPlano" value="#{calendarBean.eventoCalendarioTurmaSelecionado.planejamento}" 
 									style="width:80%; height:100px"/>	
-					<br/>
-					<br/>
-					<br/>
-					Conteúdo Lecionado
-					<br />	
+					<br/><br/><br/>
+					Conteúdo Lecionado <br />	
 					<h:inputTextarea value="#{calendarBean.eventoCalendarioTurmaSelecionado.execucao}"
-									style="width:80%; height:100px"/>		
-					<br/>					
+									style="width:80%; height:100px"/><br/>					
 					<a4j:commandButton type="submit" value="Confirmar Planejamento" ajaxSingle="true" 
-						action="#{calendarBean.confirmarPlanejamento()}" 
-			                   style="FONT-WEIGHT: bold; width : 140px; height : 29px;" reRender="gerenciamento_aulas">
+						               action="#{calendarBean.confirmarPlanejamento()}" 
+			                           style="FONT-WEIGHT: bold; width : 140px; height : 29px;" reRender="gerenciamento_aulas">
 					</a4j:commandButton>
 					<a4j:commandButton type="submit" value="Salvar" ajaxSingle="true" action="#{calendarBean.atualzaEventoCalendarioTurmaSelecionado()}" 
-			                   style="FONT-WEIGHT: bold; width : 85px; height : 29px;" reRender="planoDeCurso">
+			                           style="FONT-WEIGHT: bold; width : 85px; height : 29px;" reRender="planoDeCurso">
 					</a4j:commandButton>			
 					</center>  				
 				</rich:tab>
-				<rich:tab label="Gerenciamento de Presencas">	
-				<h:form >
-					<rich:panel styleClass="border_zero" id="tabela_avaliacoes">
-					
-					<br/>
+				<rich:tab label="Gerenciamento de Presencas">					
+					<rich:panel styleClass="border_zero" id="tabela_avaliacoes"><br/>
 						<rich:dataTable var="alunoPresenca"
-						value="#{calendarBean.eventoCalendarioTurmaSelecionado.presencas}" style="text-align: center;">
+										value="#{calendarBean.eventoCalendarioTurmaSelecionado.presencas}" style="text-align: center;">
 							<rich:column styleClass="matricula" sortBy="#{alunoPresenca.aluno.matricula}">
 								<f:facet name="header">Matrícula</f:facet>
-								<h:outputText value="#{alunoPresenca.aluno.matricula}" />
+									<h:outputText value="#{alunoPresenca.aluno.matricula}" />
 							</rich:column>		
 							<rich:column styleClass="aluno" sortOrder="ASCENDING" sortBy="#{alunoPresenca.aluno.usuario.nome}">
 								<f:facet name="header">Aluno</f:facet>
@@ -68,19 +62,17 @@
 							</rich:column>
 						</rich:dataTable>	
 						<center>
-						<div>
-						<h:form>
+						<div>	
 						<br/>
 						<a4j:commandButton type="submit" value="Salvar" ajaxSingle="true" action="#{calendarBean.atualzaEventoCalendarioTurmaSelecionado()}" 
-				                   style="FONT-WEIGHT: bold; width : 85px; height : 29px;" reRender="planoDeCurso">
+				                  		   style="FONT-WEIGHT: bold; width : 85px; height : 29px;" reRender="planoDeCurso">
 						</a4j:commandButton>
-						</h:form>
 						</div>
 						</center>
 						</rich:panel>
-					</h:form>
 					</rich:tab>		
 			</rich:tabPanel>		
+		</h:form>
 		</center>        
-    </rich:modalPanel>    
+   </rich:modalPanel>    
 </ui:composition>
