@@ -26,15 +26,16 @@
 					<center>
 					Plano de Aula
 					<br />					
-					<rich:editor useSeamText="true" id="editorPlano" value="#{calendarBean.eventoCalendarioTurmaSelecionado.planejamento}" 
-						         width="400" height="150" plugins="save,paste" language="pt">
-					</rich:editor>
-					<br />
-					Conteúdo Lecionado									
-					<br />
-					<rich:editor useSeamText="true" id="editorLecionada" value="#{calendarBean.eventoCalendarioTurmaSelecionado.execucao}" 
-						         width="400" height="150" plugins="save,paste" language="pt">
-					</rich:editor>					
+					<h:inputTextarea id="editorPlano" value="#{calendarBean.eventoCalendarioTurmaSelecionado.planejamento}" 
+									style="width:80%; height:100px"/>	
+					<br/>
+					<br/>
+					<br/>
+					Conteúdo Lecionado
+					<br />	
+					<h:inputTextarea value="#{calendarBean.eventoCalendarioTurmaSelecionado.execucao}"
+									style="width:80%; height:100px"/>		
+					<br/>					
 					<a4j:commandButton type="submit" value="Confirmar Planejamento" ajaxSingle="true" 
 						action="#{calendarBean.confirmarPlanejamento()}" 
 			                   style="FONT-WEIGHT: bold; width : 140px; height : 29px;" reRender="gerenciamento_aulas">
