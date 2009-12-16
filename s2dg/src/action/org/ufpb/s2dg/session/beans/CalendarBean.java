@@ -25,6 +25,8 @@ public class CalendarBean implements Serializable {
 	private Fachada fachada;
 	private Date selectedDate;
 	private EventoCalendarioTurma eventoCalendarioTurmaSelecionado;
+	private Date prDateRangeBegin;
+	private Date prDateRangeEnd;
 	
 	public void init() {
 		Calendar c = Calendar.getInstance();
@@ -63,5 +65,28 @@ public class CalendarBean implements Serializable {
 		DateFormat dateFormat = DateFormat.getDateInstance(DateFormat.SHORT, new Locale("pt"));
 		return getSelectedDate() != null ? dateFormat.format(getSelectedDate()) : "";
 	}
+	
+	public Date getPrDateRangeBegin() {
+		Calendar c = Calendar.getInstance();	
+		Date date = new Date();
+		date = c.getTime();		
+		return new Date(date.getYear()-1, date.getMonth(), date.getDate());
+	}
+
+	public void setPrDateRangeBegin(Date prDateRangeBegin) {
+		this.prDateRangeBegin = prDateRangeBegin;
+	}
+
+	public Date getPrDateRangeEnd() {
+		Calendar c = Calendar.getInstance();	
+		Date date = new Date();
+		date = c.getTime();		
+		return new Date(date.getYear()+1, date.getMonth(), date.getDate());
+	}
+
+	public void setPrDateRangeEnd(Date prDateRangeEnd) {
+		this.prDateRangeEnd = prDateRangeEnd;
+	}
+
 	
 }

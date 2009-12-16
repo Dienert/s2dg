@@ -5,10 +5,9 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
+import java.util.StringTokenizer;
 
 import javax.faces.event.ValueChangeEvent;
 
@@ -21,7 +20,6 @@ import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.Avaliacao;
 import org.ufpb.s2dg.entity.Calendario;
 import org.ufpb.s2dg.entity.EventoCalendarioTurma;
-import org.ufpb.s2dg.entity.Horario;
 import org.ufpb.s2dg.entity.Turma;
 import org.ufpb.s2dg.session.Fachada;
 import org.ufpb.s2dg.session.beans.CalendarBean;
@@ -266,5 +264,5 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 		}
 		return tipoData;		
 	}
-
+	
 }

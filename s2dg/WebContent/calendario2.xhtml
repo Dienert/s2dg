@@ -24,7 +24,9 @@
             cellWidth="100px" cellHeight="100px" 
             boundaryDatesMode="none" showWeeksBar="false" 
             dataModel="#{calendarDataModel}" onchanged="if (event.rich.date) {ajaxSubmit();}" oncurrentdateselect="return true" id="organizer" showFooter="false"
-            immediate="true" ajaxSingle="true">            
+            immediate="true" ajaxSingle="true"
+            preloadDateRangeBegin="#{calendarBean.prDateRangeBegin}"
+            preloadDateRangeEnd="#{calendarBean.prDateRangeEnd}" >           
             <a4j:outputPanel layout="block" id="cell" onclick="#{rich:component('organizer')}.resetSelectedDate()" style="height: 100%;">
                 <h:panelGrid columns="1">
                     <h:outputText value="{day}" style="align:center"/>
