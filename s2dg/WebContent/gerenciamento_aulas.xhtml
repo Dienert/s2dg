@@ -8,7 +8,7 @@
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:s="http://jboss.com/products/seam/taglib">
 
-	<rich:modalPanel id="gerenciamento_aulas" width="640" height="480" onload="#{modeloCalendario.getData}"  resizeable="false">
+	<rich:modalPanel id="gerenciamento_aulas" width="640" height="480" onload="#{calendarDataModel.getData}"  resizeable="false">
     	<f:facet name="header">
 			<h:panelGroup>
         		<h:outputText value="Gerenciar Dia - #{calendarBean.dataSelecionada()}"></h:outputText>
