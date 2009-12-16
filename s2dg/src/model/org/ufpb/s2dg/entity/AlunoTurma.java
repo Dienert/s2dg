@@ -72,7 +72,7 @@ public class AlunoTurma implements Serializable {
 		this.turma = turma;
 	}
 
-	@ManyToOne(fetch = FetchType.LAZY)
+	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "id_aluno", nullable = false)
 	@NotNull
 	public Aluno getAluno() {

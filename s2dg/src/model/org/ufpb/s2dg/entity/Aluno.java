@@ -385,7 +385,8 @@ public class Aluno implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result + (int) (id ^ (id >>> 32));
+		result = prime * result
+				+ ((matricula == null) ? 0 : matricula.hashCode());
 		return result;
 	}
 
@@ -398,10 +399,15 @@ public class Aluno implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Aluno other = (Aluno) obj;
-		if (id != other.id)
+		if (matricula == null) {
+			if (other.matricula != null)
+				return false;
+		} else if (!matricula.equals(other.matricula))
 			return false;
 		return true;
 	}
+
+
 	
 	
 }

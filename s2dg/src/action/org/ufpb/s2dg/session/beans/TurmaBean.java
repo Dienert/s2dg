@@ -71,7 +71,7 @@ public class TurmaBean implements Serializable{
 		fachada.initAvaliacoes();
 		fachada.initAlunoTurmas();
 		carregaEventosCalendarioTurma();
-		//atualizaAlunosDaTurma();
+		atualizaAlunosDaTurma();
 		// Esse metodo eh para consertar uma gambiarra
 		retiraAlunoFake();
 		return "/home.seam";
@@ -354,11 +354,12 @@ public class TurmaBean implements Serializable{
 		
 		for(AlunoTurma alunoTurma : alunosDaTurma){
 			//Se nao contem o aluno, entao ele foi adicionado depois de ter sido criado os eventos e deve ser adicionado
-			if(!primeiroEventoCalendarioTurma.getPresencas().contains(alunosDaTurma)){
-				iteratorEventosCalendarioTurma = eventosCalendarioTurma.iterator();
-				
-				while(iteratorEventosCalendarioTurma.hasNext())
-					iteratorEventosCalendarioTurma.next().atribuirPresenca(alunoTurma.getAluno(), true);
+			AlunoPresenca alunoPresenca = new AlunoPresenca();
+			alunoPresenca.setAluno(alunoTurma.getAluno());
+			
+			if(!primeiroEventoCalendarioTurma.getPresencas().contains(alunoPresenca)){
+				for(EventoCalendarioTurma eventoCalendarioTurma : eventosCalendarioTurma)
+					eventoCalendarioTurma.atribuirPresenca(alunoTurma.getAluno(), true);
 			}
 		}
 		
