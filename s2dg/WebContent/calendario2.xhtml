@@ -18,7 +18,7 @@
 	<center>
     <h:form id="form_calendario_docente">
         <rich:messages/>
-        <a4j:jsFunction name="ajaxSubmit" oncomplete="#{rich:component('gerenciamento_aulas')}.show()" reRender="gerenciamento_aulas, corpo2:calendar, corpo:calendar, organizer" />
+        <a4j:jsFunction name="ajaxSubmit" oncomplete="#{rich:component('gerenciamento_aulas')}.show()" reRender="gerenciamento_aulas" />
         <rich:calendar value="#{calendarBean.selectedDate}"
             popup="false" showApplyButton="false" 
             cellWidth="100px" cellHeight="100px" 
