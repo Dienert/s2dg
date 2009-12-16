@@ -168,9 +168,11 @@ public class AvaliacaoBean implements Serializable {
 				
 				if(eventoCalendarioTurmaDaAvaliacao != null){
 					eventoCalendarioTurmaDaAvaliacao.setTipoData(EventoCalendario.TipoData.AVALIACAO);
-					eventoCalendarioTurmaDaAvaliacao.adicionarAvaliacao(avaliacao);
+//					eventoCalendarioTurmaDaAvaliacao.adicionarAvaliacao(avaliacao);
 					avaliacao.setDataEvento(eventoCalendarioTurmaDaAvaliacao);
 					fachada.persisteEventoCalendarioTurma(eventoCalendarioTurmaDaAvaliacao);
+					fachada.persisteAvaliacao(avaliacao);
+					
 					//fachada.criaAvaliacao(avaliacao);
 					
 					String log = "Criação com sucesso da avaliação \""+avaliacao.getNome()
