@@ -16,7 +16,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 
-@Entity 
+@Entity
 public class EventoCalendarioTurma extends EventoCalendario implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private Set<Avaliacao> avaliacoes;
