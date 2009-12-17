@@ -51,32 +51,34 @@
 					<rich:panel styleClass="border_zero" id="tabela_avaliacoes">
 						<br />
 						<a4j:region>
-							<rich:dataTable var="alunoPresenca"
-								value="#{calendarBean.eventoCalendarioTurmaSelecionado.presencas}"
-								style="text-align: center;">
-								<rich:column styleClass="matricula"
-									sortBy="#{alunoPresenca.aluno.matricula}">
-									<f:facet name="header">Matrícula</f:facet>
-									<h:outputText value="#{alunoPresenca.aluno.matricula}" />
-								</rich:column>
-								<rich:column styleClass="aluno" sortOrder="ASCENDING"
-									sortBy="#{alunoPresenca.aluno.usuario.nome}">
-									<f:facet name="header">Aluno</f:facet>
-									<h:outputText value="#{alunoPresenca.aluno.usuario.nome}" />
-								</rich:column>
-								<rich:column styleClass="faltas_dia">
-									<f:facet name="header">Presenca</f:facet>
-									<h:selectBooleanCheckbox id="checkboxmedia"
-										value="#{alunoPresenca.presenca}">
-									</h:selectBooleanCheckbox>
-								</rich:column>
-							</rich:dataTable>
+						<center>
+							<rich:scrollableDataTable height="300px" width="390px" columnClasses="col" id="tabelaPresenca" var="alunoPresenca" sortMode="single"
+						value="#{calendarBean.eventoCalendarioTurmaSelecionado.presencas}" style="text-align: center;" sortBy="#{alunoPresenca.aluno.usuario.nome}" >
+							<rich:column width="130px" styleClass="matricula" sortable="false">
+								<f:facet name="header">Matrícula</f:facet>
+								<h:outputText value="#{alunoPresenca.aluno.matricula}" />
+							</rich:column>		
+							<rich:column width="130px" styleClass="aluno" sortable="true" sortOrder="ASCENDING" sortBy="#{alunoPresenca.aluno.usuario.nome}">
+								<f:facet name="header">Aluno</f:facet>
+								<h:outputText value="#{alunoPresenca.aluno.usuario.nome}" />
+							</rich:column>
+							<rich:column width="130px" styleClass="faltas_dia" sortable="false">
+							    <f:facet name="header">Presenca</f:facet>
+								<h:selectBooleanCheckbox id="checkboxmedia"
+									                     value="#{alunoPresenca.presenca}">								                     			
+								</h:selectBooleanCheckbox>
+							</rich:column>
+							 
+						</rich:scrollableDataTable>
+						</center>	
+						<br/>
 							Presença Publicada
 							<h:selectBooleanCheckbox id="checkboxmedia"
 										
 										value="#{calendarBean.eventoCalendarioTurmaSelecionado.presencaPublicada}">
 									</h:selectBooleanCheckbox>
-							<center><a4j:commandButton type="submit" value="Salvar"
+							<center>
+							<a4j:commandButton type="submit" value="Salvar"
 								ajaxSingle="true"
 								action="#{calendarBean.atualzaEventoCalendarioTurmaSelecionado()}"
 								style="FONT-WEIGHT: bold; width : 85px; height : 29px;"
