@@ -1,4 +1,4 @@
-#Wed Dec 16 16:09:10 GMT-03:00 2009
+#Thu Dec 17 00:18:11 GMT-03:00 2009
 eclipse.preferences.version=1
 encoding//WebContent/alterar_nota_turma_semestre_anterior.xhtml=UTF-8
 encoding//WebContent/alterar_notas_semestre_anterior.xhtml=UTF-8
@@ -6,7 +6,9 @@ encoding//WebContent/avaliacoes_discente.xhtml=UTF-8
 encoding//WebContent/avaliacoes_docente.xhtml=UTF-8
 encoding//WebContent/calendario.xhtml=UTF-8
 encoding//WebContent/calendario2.xhtml=UTF-8
+encoding//WebContent/calendario_discente.xhtml=UTF-8
 encoding//WebContent/configuracoes.xhtml=UTF-8
+encoding//WebContent/corpo_do_discente.xhtml=UTF-8
 encoding//WebContent/criar_editar_avaliacao.xhtml=UTF-8
 encoding//WebContent/dica_avaliacoes.xhtml=UTF-8
 encoding//WebContent/gerenciamento_aulas.xhtml=UTF-8
