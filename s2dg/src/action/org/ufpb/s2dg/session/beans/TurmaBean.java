@@ -144,8 +144,8 @@ public class TurmaBean implements Serializable{
 	}
 	
 	public boolean podeFinalizarTurma() {
-		return true;
-	/*	Calendario calendario = fachada.getCalendarioDoBanco();
+		Centro centro = fachada.getUsuario().getProfessor().getDepartamento().getCentro();
+		Calendario calendario = fachada.getCalendarioDoBanco(fachada.getPeriodoAtual(centro), centro);
 		if(calendario != null) {
 			Date inicioImplantacao = calendario.getFimPeriodo();
 			inicioImplantacao.setDate(inicioImplantacao.getDate()+1);
@@ -157,7 +157,6 @@ public class TurmaBean implements Serializable{
 				return false;
 		}
     	return false;
-    	*/
 	}
 	
 	public EventoCalendarioTurma getEventoCalendarioTurma(long idEventoCalendarioTurma){

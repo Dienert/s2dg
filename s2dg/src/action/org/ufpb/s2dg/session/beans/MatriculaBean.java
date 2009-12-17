@@ -408,24 +408,23 @@ public class MatriculaBean implements Serializable{
 	}
 
 	public boolean podeFazerMatricula() {
-		return true;
-//		if(fachada.getAluno().getSituacaoAcademica() != SituacaoAcademica.REGULAR)
-//			return false;
-//		Calendario calendario = fachada.getCalendario();
-//		if(calendario != null) {
-//			Date inicioMatricula = calendario.getInicioMatricula();
-//			Date fimMatricula = calendario.getFimMatricula();
-//			Date hoje = getDataAtual();
-//			if((hoje.compareTo(inicioMatricula) >= 0)&&(hoje.compareTo(fimMatricula) <= 0))
-//				return true;
-//			else
-//				return false;
-//		}
-//		return false;
+		if(fachada.getAluno().getSituacaoAcademica() != SituacaoAcademica.REGULAR)
+			return false;
+		Calendario calendario = fachada.getCalendarioAluno();
+		if(calendario != null) {
+			Date inicioMatricula = calendario.getInicioMatricula();
+			Date fimMatricula = calendario.getFimMatricula();
+			Date hoje = getDataAtual();
+			if((hoje.compareTo(inicioMatricula) >= 0)&&(hoje.compareTo(fimMatricula) <= 0))
+				return true;
+			else
+				return false;
+		}
+		return false;
 	}
 	
 	public boolean podeFazerTrancamentoParcial(){
-		/*if(fachada.getAluno().getSituacaoAcademica() != SituacaoAcademica.REGULAR)
+		if(fachada.getAluno().getSituacaoAcademica() != SituacaoAcademica.REGULAR)
 			return false;
 		Calendario calendario = fachada.getCalendarioAluno();
 		if(calendario != null) {
@@ -437,20 +436,18 @@ public class MatriculaBean implements Serializable{
 			else
 				return false;
 		}
-		return false;*/
-		return true;
+		return false;
 	}
 	
 	
 	public boolean podeFazerTrancamentoTotal(){
-		/*
 		List<AlunoTurma> turmas = turmasMatriculadasBean.getAlunoTurmasEmCurso();
 		
 		if(fachada.getAluno().getSituacaoAcademica() != SituacaoAcademica.REGULAR)
 			return false;
 		Calendario calendario = fachada.getCalendarioAluno();
 		if(calendario != null && turmas != null) {
-			if (turmas.isEmpty()) {
+			if (!turmas.isEmpty()) {
 				Date fimMatricula = calendario.getFimMatricula();
 				Date fimPeriodoTrancamento = calendario.getUltimoDiaTrancamento();
 				Date hoje = getDataAtual();
@@ -462,8 +459,7 @@ public class MatriculaBean implements Serializable{
 			}
 			return false;
 		}
-		return false; */
-		return true;
+		return false;
 		
 	}
 	

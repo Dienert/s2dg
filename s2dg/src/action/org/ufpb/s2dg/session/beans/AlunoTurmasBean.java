@@ -98,7 +98,7 @@ public class AlunoTurmasBean implements Serializable {
 				AlunoTurma alunoTurma = alunosDaTurma_list.get(i);
 				List<AlunoTurmaAvaliacao> avaliacoes = fachada.getAvaliacoesPorAluno(alunoTurma);
 				Integer maxFaltas = Math.round(((fachada.getTurma().getDisciplina().getCreditos())*10/8)+new Float(0.4));
-				if (alunoTurma.getFaltas() > maxFaltas){
+				if (alunoTurma.numeroDeFaltas() > maxFaltas){
 					alunoTurma.setMedia(new Float(0));
 					alunoTurma.setSituacao(Situacao.REPROVADO_POR_FALTA);
 				} else {
