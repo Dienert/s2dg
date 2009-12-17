@@ -7,7 +7,6 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.StringTokenizer;
 
 import javax.faces.event.ValueChangeEvent;
 
@@ -59,8 +58,7 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 	}
 
 	protected CalendarDataModelItem createDataModelItem(Date date) {
-		Calendario calendario = fachada.getAbaAtiva() == UsuarioBean.TipoAbaAtiva.DISCENTE ? 
-				fachada.getCalendarioAluno() : fachada.getCalendarioProfessor();
+		Calendario calendario = fachada.getCalendarioProfessor();
 		String eventos = "";		
 		TipoData tipoData = null;
 		CalendarDataModelItemImpl item = new CalendarDataModelItemImpl();
@@ -89,7 +87,6 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 			tipoData = TipoData.EVENTO_PERIODO;			
 		}
 
-		List<Avaliacao> avaliacoes = fachada.getAvaliacoes();
 		List<EventoCalendarioTurma> eventosTurma = fachada.getTurma().getEventosCalendarioTurma();
 		ArrayList<EventoCalendarioTurma> datasEEventos = new ArrayList<EventoCalendarioTurma>();
 		for (int i = 0; i < eventosTurma.size(); i++) {
@@ -100,18 +97,23 @@ public class CalendarDataModelImpl implements CalendarDataModel {
 		Boolean diaEvento = false;	
 		if(datasEEventos != null) {
 			for (int j = 0; j < datasEEventos.size(); j++) {
-				if (equals(date, datasEEventos.get(j).getData())) {
-					tipoData = TipoData.AVALIACAO;
-					eventos += datasEEventos.get(j).getEvento() + "\n";											
-					diaEvento = true;	
-					datasEEventos.remove(j);
-				} else {
-					if (equals(date, datasEEventos.get(j).getData())) {
+				EventoCalendarioTurma evento = datasEEventos.get(j);
+				if (equals(date, evento.getData())) {
+					if (evento.getTipoData() == org.ufpb.s2dg.entity.EventoCalendario.TipoData.AVALIACAO) {
+						tipoData = TipoData.AVALIACAO;
+						if (!eventos.contains(datasEEventos.get(j).getEvento())) {
+							eventos += datasEEventos.get(j).getEvento() + "\n";	
+						}																
+						diaEvento = true;	
+						datasEEventos.remove(j);
+					} else {
 						tipoData = TipoData.DIA_AULA_DISCIPLINA;
-						eventos += datasEEventos.get(j).getEvento() + "\n";						
+						if (!eventos.contains(datasEEventos.get(j).getEvento())) {
+							eventos += datasEEventos.get(j).getEvento() + "\n";	
+						}					
 						diaEvento = true;
 						datasEEventos.remove(j);
-					}					
+					}
 				}					
 			}
 		}
