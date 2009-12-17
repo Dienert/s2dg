@@ -159,14 +159,6 @@ public class AvaliacaoBean implements Serializable {
 				Date dataEscolhida = avaliacao.getDataEvento().getData();
 				EventoCalendarioTurma eventoCalendarioTurmaDaAvaliacao = fachada.getEventoCalendarioTurma(dataEscolhida);
 				
-				/*** TESTE ***/
-				if(eventoCalendarioTurmaDaAvaliacao == null){
-					List<EventoCalendarioTurma> eventos = turmaAtual.getEventosCalendarioTurma();
-					int size = eventos.size();
-					eventoCalendarioTurmaDaAvaliacao = eventos.get(size - 1);
-				}
-				/*** TESTE ***/
-				
 				if(eventoCalendarioTurmaDaAvaliacao != null){
 					eventoCalendarioTurmaDaAvaliacao.setTipoData(EventoCalendario.TipoData.AVALIACAO);
 //					eventoCalendarioTurmaDaAvaliacao.adicionarAvaliacao(avaliacao);
