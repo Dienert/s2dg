@@ -8,25 +8,26 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:a4j="http://richfaces.org/a4j">
 	
-		<ui:include src="/titulo_turma_docente.xhtml" />
+	<ui:include src="/titulo_turma_docente.xhtml" />
 				<br />
 				<br />
-			<div>
-			<rich:tabPanel switchType="client">
-				<rich:tab label="Cronograma de Aulas">
-					<ui:include src="/calendario2.xhtml" />
-				</rich:tab>
-				<rich:tab label="Avaliacoes">
-					<ui:include src="/avaliacoes_docente.xhtml" />	
-				</rich:tab>
-				<rich:tab label="Plano de Curso">
-					<ui:include src="/plano_de_curso.xhtml" />
-				</rich:tab>
-				<rich:tab label="Frequência">
+	<div>
+		<rich:tabPanel switchType="client">
+			<rich:tab label="Cronograma de Aulas">
+				<ui:include src="/calendario2.xhtml" />
+			</rich:tab>
+			<rich:tab label="Avaliacoes">
+				<ui:include src="/avaliacoes_docente.xhtml" />	
+			</rich:tab>
+			<rich:tab label="Plano de Curso">
+				<ui:include src="/plano_de_curso.xhtml" />
+			</rich:tab>
+			<rich:tab label="Frequência">
 				<ui:include src="/frequencia.xhtml" />
-				</rich:tab>
-			</rich:tabPanel></div>
-			<br />
+			</rich:tab>
+		</rich:tabPanel>
+	</div>
+		<br/>
 			<ui:include src="/msg_remover_avaliacao.xhtml" />
 			<ui:include src="/msg_publicar_avaliacao.xhtml" />
 </ui:composition>

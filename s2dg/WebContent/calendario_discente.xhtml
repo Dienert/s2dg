@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core"
+      xmlns:a4j="http://richfaces.org/a4j"
+      xmlns:rich="http://richfaces.org/rich"
+      xmlns:s="http://jboss.com/products/seam/taglib">
+  <style>
+        .header{
+            font-weight:bold;
+        }
+        .rich-calendar-header{
+            text-align:center;
+        }
+    </style>
+	<center>
+    <h:form id="form_calendario_discente">
+        <rich:messages/>
+        <a4j:jsFunction name="ajaxSubmit1" oncomplete="#{rich:component('panel')}.show()" reRender="panel" />
+        <rich:calendar value="#{calendarAlunoBean.selectedDate}"
+            popup="false" showApplyButton="false" 
+            cellWidth="100px" cellHeight="100px" 
+            boundaryDatesMode="none" showWeeksBar="false" 
+            dataModel="#{calendarAlunoDataModel}" onchanged="if (event.rich.date) {ajaxSubmit1();}" oncurrentdateselect="return true" id="organizer_discente" showFooter="false"
+            immediate="true" ajaxSingle="true"
+            preloadDateRangeBegin="#{calendarAlunoBean.prDateRangeBegin}"
+            preloadDateRangeEnd="#{calendarAlunoBean.prDateRangeEnd}" >           
+            <a4j:outputPanel layout="block" id="cell" onclick="#{rich:component('organizer_discente')}.resetSelectedDate()" style="height: 100%;">
+                <h:panelGrid columns="1">
+                    <h:outputText value="{day}" style="align:center"/>
+                    <h:outputText value="{data.shortDescription.escapeHTML()}"/>
+                    <h:outputText value="{data.description.escapeHTML()}"/>
+                </h:panelGrid>
+            </a4j:outputPanel>
+        </rich:calendar>
+    </h:form>    
+    </center>  
+            
+	<rich:modalPanel id="panel" width="640" height="480" onload="#{calendarAlunoDataModel.getData}" resizeable="false">
+        <f:facet name="header">
+			<h:panelGroup>
+        		<h:outputText value="Gerenciar Dia - #{calendarBean.dataSelecionada()}"></h:outputText>
+        	</h:panelGroup>
+        </f:facet>
+        <f:facet name="controls">
+			<h:panelGroup>
+				<h:graphicImage value="/img/del.png" styleClass="hidelink" id="hidelink"/>
+				<rich:componentControl for="panel" attachTo="hidelink" operation="hide" event="onclick"/>
+            </h:panelGroup>	
+        </f:facet>
+        <h:form>
+        	<rich:tabPanel switchType="client">
+				<rich:tab label="Gerenciamento de Aulas">	
+				<center>
+					Plano de Aula
+					<br />					
+					<h:outputText id="editorPlano" value="#{calendarAlunoBean.eventoCalendarioTurmaSelecionado.planejamento}" 
+								  style="width:80%; height:100px"/>
+					<br/><br/><br/>
+					Conteúdo Lecionado <br />	
+					<h:outputText value="#{calendarAlunoBean.eventoCalendarioTurmaSelecionado.execucao}"
+									style="width:80%; height:100px"/><br/>		
+            	</center>  				
+				</rich:tab>
+				<rich:tab label="Gerenciamento de Presencas">	
+					<rich:dataTable var="alunoTurmaSelecionado"
+									value="#{alunoTurmaBean.alunoTurma}" style="text-align: center;">
+					
+					<rich:column styleClass="matricula" >
+						<f:facet name="header">Matricula</f:facet>
+						<h:outputText value="#{alunoTurmaSelecionado.aluno.matricula}" />
+					</rich:column>
+					<rich:column styleClass="aluno" >
+						<f:facet name="header">Aluno</f:facet>
+						<h:outputText value="#{alunoTurmaSelecionado.aluno.usuario.nome}" />
+					</rich:column>
+					<rich:column styleClass="Presenca" >
+						<f:facet name="header">Presenca</f:facet>
+						<h:outputText value="#{calendarAlunoBean.alunoIsPresente()}"/>
+				  </rich:column>
+
+						
+				</rich:dataTable>
+				</rich:tab>
+			</rich:tabPanel>				
+        </h:form>
+    </rich:modalPanel>    
+</ui:composition>
