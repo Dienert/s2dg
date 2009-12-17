@@ -71,12 +71,25 @@
 									</h:selectBooleanCheckbox>
 								</rich:column>
 							</rich:dataTable>
+							Presença Publicada
+							<h:selectBooleanCheckbox id="checkboxmedia"
+										
+										value="#{calendarBean.eventoCalendarioTurmaSelecionado.presencaPublicada}">
+									</h:selectBooleanCheckbox>
 							<center><a4j:commandButton type="submit" value="Salvar"
 								ajaxSingle="true"
 								action="#{calendarBean.atualzaEventoCalendarioTurmaSelecionado()}"
 								style="FONT-WEIGHT: bold; width : 85px; height : 29px;"
 								reRender="corpo2">
-							</a4j:commandButton></center>
+							</a4j:commandButton>
+							
+							<!--  <a4j:commandButton type="submit" value="Publicar"
+								ajaxSingle="true"
+								action="#{calendarBean.eventoCalendarioTurmaSelecionado.setPresencaPublicada(true)}"
+								style="FONT-WEIGHT: bold; width : 85px; height : 29px;"
+								reRender="gerenciamento_aulas" rendered="#{not calendarBean.eventoCalendarioTurmaSelecionado.isPresencaPublicada()}">
+							</a4j:commandButton>-->
+							</center>
 
 						</a4j:region>
 						
