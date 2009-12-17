@@ -8,27 +8,28 @@
 	xmlns="http://www.w3.org/1999/xhtml"
 	xmlns:a4j="http://richfaces.org/a4j">
 	
-	<ui:include src="/titulo_turma_discente.xhtml" />
+	<ui:include src="/titulo_turma_docente.xhtml" />
 				<br />
 				<br />
-			<div id="corpo_do_discente_div"><rich:tabPanel switchType="client">
-				<rich:tab label="Cronograma de Aulas">
-					<ui:include src="/calendario2.xhtml"/>
-				</rich:tab>
-				<rich:tab label="Avaliacoes">
-					<ui:include src="/avaliacoes_discente.xhtml" />
-				</rich:tab>
-				<rich:tab label="Plano de Curso">
-					<a4j:outputPanel id="planoDeCurso">
-						<s:formattedText value="#{alunoTurmaBean.alunoTurma.turma.planoDeCurso}"/>
-					</a4j:outputPanel>
-				</rich:tab>
-				<rich:tab label="Trancar Disciplina" rendered="#{matriculaBean.podeFazerTrancamentoParcial()}">
-					<ui:include src="/trancamento_disciplina.xhtml" />
-				</rich:tab>
-				<rich:tab label="Frequência">
+	<div>
+		<rich:tabPanel switchType="client">
+			<rich:tab label="Cronograma de Aulas">
+				<ui:include src="/calendario_discente.xhtml"/>
+			</rich:tab>
+			<rich:tab label="Avaliacoes">
+				<ui:include src="/avaliacoes_discente.xhtml" />
+			</rich:tab>
+			<rich:tab label="Plano de Curso">
+				<a4j:outputPanel id="planoDeCurso">
+					<s:formattedText value="#{alunoTurmaBean.alunoTurma.turma.planoDeCurso}"/>
+				</a4j:outputPanel>
+			</rich:tab>
+			<rich:tab label="Trancar Disciplina" rendered="#{matriculaBean.podeFazerTrancamentoParcial()}>
+				<ui:include src="/trancamento_disciplina.xhtml" />
+			</rich:tab>
+			<rich:tab label="Frequência">
 				<ui:include src="/frequencia_discente.xhtml" />
-				</rich:tab>
-			</rich:tabPanel></div>
-
+			</rich:tab>
+		</rich:tabPanel>
+	</div>
 </ui:composition>
