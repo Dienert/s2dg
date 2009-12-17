@@ -27,7 +27,7 @@ public class CalendarBean implements Serializable {
 	private EventoCalendarioTurma eventoCalendarioTurmaSelecionado;
 	private Date prDateRangeBegin;
 	private Date prDateRangeEnd;
-	
+
 	public void init() {
 		Calendar c = Calendar.getInstance();
 		selectedDate = c.getTime();
@@ -54,7 +54,7 @@ public class CalendarBean implements Serializable {
 	}
 
 	public void confirmarPlanejamento(){
-		eventoCalendarioTurmaSelecionado.setPlanejamento(eventoCalendarioTurmaSelecionado.getPlanejamento());
+		eventoCalendarioTurmaSelecionado.setExecucao(eventoCalendarioTurmaSelecionado.getPlanejamento());
 	}
 	
 	public void atualzaEventoCalendarioTurmaSelecionado(){
