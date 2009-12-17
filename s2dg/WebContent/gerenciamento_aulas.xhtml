@@ -7,7 +7,8 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:s="http://jboss.com/products/seam/taglib">
-
+	
+<a4j:keepAlive beanName="calendarBean" />
 	<rich:modalPanel id="gerenciamento_aulas" width="640" height="500"
 		onload="#{calendarDataModel.getData}" resizeable="false">
 		<f:facet name="header">
@@ -42,7 +43,7 @@
 						style="FONT-WEIGHT: bold; width : 140px; height : 29px;"
 						reRender="gerenciamento_aulas">
 					</a4j:commandButton> <a4j:commandButton type="submit" value="Salvar" ajaxSingle="true"
-						action="#{calendarBean.atualzaEventoCalendarioTurmaSelecionado()}"
+						action="#{calendarBean.atualizaEventoCalendarioTurmaSelecionado()}"
 						style="FONT-WEIGHT: bold; width : 85px; height : 29px;"
 						reRender="planoDeCurso">
 					</a4j:commandButton></center>
@@ -84,7 +85,7 @@
 									</h:selectBooleanCheckbox>
 							<center><a4j:commandButton type="submit" value="Salvar"
 								ajaxSingle="true"
-								action="#{calendarBean.atualzaEventoCalendarioTurmaSelecionado()}"
+								action="#{calendarBean.atualizaEventoCalendarioTurmaSelecionado()}"
 								style="FONT-WEIGHT: bold; width : 85px; height : 29px;"
 								reRender="corpo2">
 							</a4j:commandButton>

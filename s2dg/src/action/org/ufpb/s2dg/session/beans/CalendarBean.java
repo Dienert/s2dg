@@ -55,9 +55,10 @@ public class CalendarBean implements Serializable {
 
 	public void confirmarPlanejamento(){
 		eventoCalendarioTurmaSelecionado.setExecucao(eventoCalendarioTurmaSelecionado.getPlanejamento());
+		atualizaEventoCalendarioTurmaSelecionado();
 	}
 	
-	public void atualzaEventoCalendarioTurmaSelecionado(){
+	public void atualizaEventoCalendarioTurmaSelecionado(){
 		fachada.persisteEventoCalendarioTurma(eventoCalendarioTurmaSelecionado);
 	}
 	
