@@ -1,0 +1,11 @@
+#summary Página relativa à segunda Iteração do projeto
+
+= Iteração 3 - Elaboração 2 =
+==== Período: 1/06/2009 a 14/06/2009 ====
+
+[Artefatos]
+
+== Artefatos Produzidos ==
+
+|| Artefato             || Descrição                    ||             Link ||
+|| Plano de Iteração 3  || || [http://s2dg.googlecode.com/files/Iteration_Plan_3.doc plano.doc] ||

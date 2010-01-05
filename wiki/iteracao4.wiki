@@ -1,0 +1,11 @@
+#summary Página relativa à Construção 1
+
+= Iteração Construção 1 =
+==== Período: 16/06/2009 a 08/07/2009 ====
+
+[Artefatos]
+
+== Artefatos Produzidos ==
+
+|| Artefato             || Descrição                    ||             Link ||
+|| Plano de Iteração - Construção 1  || || [http://s2dg.googlecode.com/files/PlanoDeIteracao_Construcao1.doc plano.doc] ||

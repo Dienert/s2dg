@@ -1,0 +1,110 @@
+||_Menu_||
+||<wiki:toc max_depth="2" />||
+
+
+= Introdução =
+
+
+Aqui são publicadas informações relacionadas as atividades dos analistas. 
+Responsáveis: Alexandre e Anderson
+
+= Requisitos Primeira Iteração =
+
+==Docente==
+
+ * Primários
+  * Logar no sistema utilizando o CPF
+  * Possibilidade de mudar a senha
+  * *Aparecer disciplinas e turmas quando o professor se logar*
+  * *Ao clicar na turma deverá aparecer a lista de alunos que estão matriculados na disciplina contendo: matricula, nome, frequência, media final e situação na disciplina*
+  * *Preencher e editar a tabela. (frequência e media final) _[Atenção focar na usabilidade]_*
+
+ * Secundários
+  * Imprimir dados _(escolher colunas a serem impressas)_
+  * Exportar dados _(Excel, CSV)_
+  * Publicar ou ocultar informações _(mostara ou não a nota para os alunos)_
+
+==Discente==
+
+ * Primários
+  * Visualizar o horário com as disciplinas em que esta matriculado (esqueci de comentar na reunião)
+  * Visualizar informações que os professores publicaram
+  * Fazer Matricula _*Atualizado*_
+
+
+
+===Não funcionais===
+  * Pessoal da interface: Foco na usabilidade e simplicidade da interface, reduzir a quantidade de cliques e telas para realizar atividades.
+
+= Casos de uso Terceira Iteração =
+
+_Obs.: detalhamento está no documento de casos de uso em *Artefatos*_
+
+===Aluno Online===
+http://s2dg.googlecode.com/svn/analistas/casosDeUso/S2dg/AlunoOnline.png
+
+===CadernetaEletronica===
+http://s2dg.googlecode.com/svn/analistas/casosDeUso/S2dg/CadernetaEletronica.png
+
+===Controle de Acesso===
+http://s2dg.googlecode.com/svn/analistas/casosDeUso/S2dg/ControleDeAcesso.png
+
+=Outras informações coletadas em reuniões=
+
+==Servidor==
+  * Sistema: Linux
+  * Memória 500 mb de RAM (cada máquina virtual)
+  * Processamento 4 Athlon Dual Core
+  * Tomcat (colocar JBoss)
+  * Obs.: esta máquina emula outras 15
+
+==Diversas==
+  * Atualmente 3% dos docentes utilizam o sistema
+  * Foco na usabilidade e simplicidade da interface
+  * Realizar testes de acesso Tomcat e JBoss
+
+==Matrícula==
+Estamos adiantando os requisitos de matrícula.
+Lembrando que matrícula ficou, a priore, para a Construção 2.
+Quem precisar já têm uma visão da matrícula, o pessoal de teste já podem criar alguns testes.
+_Obs.: uma turma é de uma disciplina, conforme o contexto utilizei turma ou disciplina_
+
+  # O aluno deve estar com matricula regular
+  # Estar em época de matrícula (calendário com as datas ou flag)
+  # As disciplinas devem constar na grade curricular
+  # As turmas devem ser ofertada pelo departamento
+  # Os pré-requisitos das disciplinas (outras disciplinas) devem ser atendidos, ou seja, o aluno já deve ter cursado os pré-requisitos
+  # Os co-requisitos da disciplinas devem se atendidos. 
+   # Co-requisito é quando uma disciplina só pode ser cursada em conjunto com outra disciplina. Exemplo: na grade antiga circuitos lógicos só poderia ser cursada junto com laboratório de circuitos lógicos
+  # Deve haver ao menos 1 vaga para cada turma que foi solicitada a matricula.
+   # Lembrar que as vagas são divididas por curso. Exemplo: uma turma de Calculo III pode ter 10 vagas para computação e 20 para mecânica
+  # Não pode acontecer choque de horário com outras turmas já matriculadas ou entre as que estão sendo solicitadas matricula
+  # Verificar se os limites mínimo ou máximo de créditos não foram excedidos
+
+_Diagrama de atividades do CUAO_04 : Fazer Matricula_
+
+http://s2dg.googlecode.com/svn/analistas/casosDeUso/S2dg/Matricula.gif
+
+=Artefatos=
+
+  [http://s2dg.googlecode.com/svn/analistas/documentos/Vis%C3%A3o.doc Documento de Visão]
+  
+  [http://s2dg.googlecode.com/files/Gloss%C3%A1rio.doc Glossário]
+
+  [http://s2dg.googlecode.com/svn/analistas/casosDeUso/detalhamentos/acessarVisaoGeralTurma.docx Detalhamento do Caso de Uso: Acessar Visão Geral da Turma]
+
+  [http://s2dg.googlecode.com/svn/analistas/casosDeUso/detalhamentos/consultarHorarioIndividual.docx Detalhamento do Caso de Uso: Consultar Horario Individual]
+
+  [http://s2dg.googlecode.com/svn/analistas/casosDeUso/detalhamentos/inserir_media_final.docx Detalhamento do Caso de Uso: Inserir Media Final]
+
+  [http://s2dg.googlecode.com/svn/analistas/casosDeUso/elabora%C3%A7%C3%A3o/casosUsoAlunoOnline.doc Casos de Uso Aluno Online]
+
+  [http://s2dg.googlecode.com/svn/analistas/casosDeUso/elabora%C3%A7%C3%A3o/casosUsoCadernetaEletronica.doc Casos de Uso Caderneta Eletrônica]
+
+  [http://s2dg.googlecode.com/svn/analistas/casosDeUso/elabora%C3%A7%C3%A3o/casosUsoControleDeAcesso.doc Casos de Uso Controle de Acesso]
+
+  [http://s2dg.googlecode.com/svn/analistas/casosDeUso/S2dg/Matricula.png Diagrama de atividades do CUAO_04 : Fazer Matricula]
+
+  [http://s2dg.googlecode.com/svn/analistas/casosDeUso/detalhamentos/fazerMatricula.docx Deta Detalhamento do Caso de Uso: Fazer Matricula]
+
+_Obs.: os detalhamentos podem sofrer alterações._

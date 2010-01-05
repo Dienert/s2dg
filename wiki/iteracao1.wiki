@@ -1,0 +1,15 @@
+#summary Página relativa à primeira Iteração do projeto
+
+= Iteração 1 - Concepção =
+==== Período: 12/05/2009 a 17/05/2009 ====
+
+[Artefatos]
+
+== Artefatos Produzidos ==
+
+|| Artefato             || Descrição                    ||             Link ||
+|| Plano de Iteração 1  || || [http://s2dg.googlecode.com/files/Iteration%2BPlan%2B1.doc plano.doc] ||
+|| Visão   || visão do sistema realizada na primeira iteração || [http://s2dg.googlecode.com/files/Vis%C3%A3o-v1.1.doc visao.doc] ||
+|| Lista de Riscos || Riscos existentes na iteração || [http://s2dg.googlecode.com/files/Risk%2BList%2B1.xls riscos.xls] ||
+|| Plano de Testes 1 || Plano de testes para a perspectiva de discentes || [http://s2dg.googlecode.com/files/Casos%20de%20Testes-Discente.doc test_dic.doc] ||
+|| Plano de Testes 2 || Plano de testes para a perspectiva de docentes || [http://s2dg.googlecode.com/files/Casos%20de%20Testes-Docente.doc test_doc.doc] ||

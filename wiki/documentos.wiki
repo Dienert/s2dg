@@ -1,0 +1,9 @@
+Esta seção contém todos os documentos que podem ajudar à equipe de desenvolvimento com relação à visão do projeto, ao desenvolvimento e qualquer tipo de necessidade. No entanto, nenhum artefato deve ser colocado aqui. Mas na própria seção de artefatos:
+
+[Artefatos]
+
+|| Título          || Descrição || Link ||
+|| Guia do Docente || manual do sistema atual para a perspectiva do docente || [http://s2dg.googlecode.com/files/Guia_do_Docente_v3.R11.pdf guia_doc.doc] ||
+|| Guia do Discente || manual do sistema atual para a perspectiva do discente || [http://s2dg.googlecode.com/files/Guia_do_Discente.pdf guia_dic.doc] ||
+|| Modelo do Banco de Dados || modelagem do banco de dados do sistema atual || [http://s2dg.googlecode.com/files/MER_SCA_Ago08.pdf modelo.pdf] ||
+|| Turma Virtual do SIGAA || Artigo enviado pelo Prof. Sérgio para dar idéias || [http://s2dg.googlecode.com/files/19695.pdf artigo.pdf] ||

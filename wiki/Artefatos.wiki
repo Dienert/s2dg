@@ -1,0 +1,26 @@
+Esta página contém todos os artefatos produzidos pela equipe durante todas as iterações.
+
+== Artefatos gerais ==
+
+|| Artefato             || Descrição                    ||             Link ||
+|| Plano de Projeto     || || [http://s2dg.googlecode.com/files/Plano%20de%20Projeto.doc plano.doc] ||
+|| Caderno Arquitetural || documento contendo a arquitetura proposta || [http://s2dg.googlecode.com/files/caderno.doc caderno.doc]  ||
+|| Glossário || principais termos utilizados || [http://s2dg.googlecode.com/files/Gloss%C3%A1rio.doc glossario.doc]||
+|| Lista de Itens de Trabalho || Listagem contendo as atividades atribuídas no decorrer do projeto || [http://s2dg.googlecode.com/files/work_items_list.xls lista.xls] ||
+|| Documento de Visão ||  || [http://s2dg.googlecode.com/svn/analistas/documentos/Vis%C3%A3o.doc Visão.doc] ||
+
+[documentos Documentos de Auxílio]
+
+[riscos Riscos Atuais]
+
+== Iterações ==
+
+|| Iteração || Período       || Fase         || Página                 ||
+||    1     || 12/05 - 17/05 || Concepção    || [iteracao1 Iteração 1] ||
+||    2     || 18/05 - 31/05 || Elaboração 1 || [iteracao2 Iteração 2] ||
+||    3     || 01/06 - 14/06 || Elaboração 2 || [iteracao3 Iteração 3] ||
+||    4     || 15/06 - 05/07 || Construção 1 || [iteracao4 Iteração 4] ||
+||    5     || 06/07 - 19/07 || Construção 2 || [iteracao5 Iteração 5] ||
+||    6     || 20/07 - 02/08 || Construção 3 || [iteracao5 Iteração 6] ||
+||    7     || 03/08 - 17/08 || Transição    || [iteracao5 Iteração 7] ||
+||    X     ||      18/08    || FIM DO PROJETO || ||

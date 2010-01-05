@@ -1,0 +1,27 @@
+#summary Desenvolvimento de GUIs.
+
+= IHC da S2 Solutions =
+
+Insira aqui a sua sugestão de interface grafica!
+<br/>
+
+==Versão 1 - Deusany==
+<br/>
+===Tela de login===
+<img src="http://s2dg.googlecode.com/files/login_v1.jpg"/>
+<br/>
+===Aba Home Docente===
+<br/>
+<img src="http://s2dg.googlecode.com/files/docente_aba_home_v1.jpg"/>
+<br/>
+===Aba Aluno Docente===
+<br/>
+<img src="http://s2dg.googlecode.com/files/docente_aba_aluno_v1.jpg"/>
+<br/>
+<br/><br/><br/><br/><br/><br/>
+==Versão 0 - Júlio==
+<br/>
+<img src="http://s2dg.googlecode.com/files/Tela1.jpg"/>
+<br/>
+<img src="http://s2dg.googlecode.com/files/Tela2.jpg"/>
+<br/>

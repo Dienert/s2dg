@@ -1,0 +1,17 @@
+Página que contém as especificações da arquitetura do sistema
+
+== Diagrama de Camadas ==
+
+http://s2dg.googlecode.com/files/layers-small.png
+
+== Diagram de Classes Iniciais ==
+
+http://s2dg.googlecode.com/files/Model.png
+
+== Visão Lógica ==
+
+http://s2dg.googlecode.com/files/visao.png 
+
+== Refactoring Arquitetural ==
+
+[http://s2dg.googlecode.com/files/Arquitetura.pptx Arquitetura.pptx]
