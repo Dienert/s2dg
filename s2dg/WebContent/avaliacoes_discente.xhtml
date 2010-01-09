@@ -11,6 +11,12 @@
 	<rich:panel styleClass="border_zero" id="discente_mutavel">
 		<rich:dataTable value="#{alunoTurmaBean.alunoTurmaAsList}"
 			var="alunoTurma" style="text-align: center;">
+			<rich:column>
+				<f:facet name="header">
+								Número de Faltas
+							</f:facet>
+				<h:outputText value="#{alunoTurma.faltas}" />
+			</rich:column>
 			<rich:columns value="#{avaliacoesBean.avaliacoes}" var="avaliacao">
 				<f:facet name="header">
 					<h:panelGroup>
