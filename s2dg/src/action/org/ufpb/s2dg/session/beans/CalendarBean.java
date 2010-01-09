@@ -11,9 +11,6 @@ import org.jboss.seam.annotations.AutoCreate;
 import org.jboss.seam.annotations.In;
 import org.jboss.seam.annotations.Name;
 import org.jboss.seam.annotations.Scope;
-import org.ufpb.s2dg.entity.Aluno;
-import org.ufpb.s2dg.entity.AlunoPresenca;
-import org.ufpb.s2dg.entity.Calendario;
 import org.ufpb.s2dg.entity.EventoCalendarioTurma;
 import org.ufpb.s2dg.session.Fachada;
 import org.ufpb.s2dg.session.beans.UsuarioBean.TipoAbaAtiva;
@@ -27,6 +24,7 @@ public class CalendarBean implements Serializable {
 	
 	@In
 	private Fachada fachada;
+	
 	private Date selectedDate;
 	private EventoCalendarioTurma eventoCalendarioTurmaSelecionado;
 	private Date prDateRangeBegin;

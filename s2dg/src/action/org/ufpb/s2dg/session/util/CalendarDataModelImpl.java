@@ -16,13 +16,11 @@ import org.jboss.seam.annotations.Name;
 import org.richfaces.model.CalendarDataModel;
 import org.richfaces.model.CalendarDataModelItem;
 import org.ufpb.s2dg.entity.AlunoTurma;
-import org.ufpb.s2dg.entity.Avaliacao;
 import org.ufpb.s2dg.entity.Calendario;
 import org.ufpb.s2dg.entity.EventoCalendarioTurma;
 import org.ufpb.s2dg.entity.Turma;
 import org.ufpb.s2dg.session.Fachada;
 import org.ufpb.s2dg.session.beans.CalendarBean;
-import org.ufpb.s2dg.session.beans.UsuarioBean;
 import org.ufpb.s2dg.session.util.ItemDeCalendario.TipoData;
 
 
