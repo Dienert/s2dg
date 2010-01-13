@@ -10,7 +10,7 @@
 	template="/layout/menu.xhtml">
 
 	<ui:define name="menu">
-		<div class="menu_disciplinas">
+		<div class="menu_disciplinas" >
 		<center><h:outputText styleClass="menu_disciplinas_titulo"
 			value="Disciplinas Ministradas" /></center>
 		<div class="menu_disciplinas_lista"><a4j:keepAlive
@@ -22,7 +22,7 @@
 				<ui:repeat value="#{disciplinaTurmas.turmas}" var="turma">
 					<a4j:commandLink styleClass="menu_disciplina_turma"
 						action="#{turmaBean.setTurma(turma)}"
-						value=":: Turma #{turma.numero}" reRender="corpo2" />
+						value=":: Turma #{turma.numero}" reRender="corpo2"  />
 					<br />
 				</ui:repeat>
 				<br />

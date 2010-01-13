@@ -9,25 +9,26 @@
 	xmlns:s="http://jboss.com/products/seam/taglib">
 
 	<rich:panel id="trancamneto_total" styleClass="border_zero">
-	<rich:panel>
-	<f:facet name="header">Alterar Média dos Alunos da Turma </f:facet>
-	
-	<a4j:outputPanel style="margin:0px;padding-left:-10px;" ajaxRendered="true">
-		<h:messages infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal" />
-	</a4j:outputPanel>
-	
-	<center>
-	<h:outputText style="font-style: italic;"
-			value="Professor(a), aqui você pode alterar a média final da disciplina ministrada no semestre anterior." />
-			<br/>
+		<rich:panel>
+			<f:facet name="header">Alterar Média dos Alunos da Turma </f:facet>
+
+			<a4j:outputPanel style="margin:0px;padding-left:-10px;"
+				ajaxRendered="true">
+				<h:messages infoClass="info" warnClass="warn" errorClass="error"
+					fatalClass="fatal" />
+			</a4j:outputPanel>
+
+			<center><h:outputText style="font-style: italic;"
+				value="Professor(a), aqui você pode alterar a média final da disciplina ministrada no semestre anterior." />
+			<br />
 			</center>
-		<br />
-			<div class="menu_disciplinas_lista">
-			<a4j:keepAlive beanName="MenuAction" />
-			<h:form>
-			<rich:dataTable var="alunoTurmaSelecionado"
-					value="#{alterarNotasSemestreAnteriorBean.alunoTurmas}" style="text-align: center;">
-					
+			<br />
+			<div class="menu_disciplinas_lista"><a4j:keepAlive
+				beanName="MenuAction" /> <h:form>
+				<rich:dataTable var="alunoTurmaSelecionado"
+					value="#{alterarNotasSemestreAnteriorBean.alunoTurmas}"
+					style="text-align: center;">
+
 					<rich:column styleClass="matricula"
 						sortBy="#{alunoTurmaSelecionado.aluno.matricula}">
 						<f:facet name="header">Matrícula</f:facet>
@@ -45,52 +46,53 @@
 						<h:inputText value="#{alunoTurmaSelecionado.media}"
 							converter="#{notaConverter}" size="5">
 						</h:inputText>
-				  </rich:column>
-					
+					</rich:column>
+
 				</rich:dataTable>
-				
-				<a4j:commandButton id="botaoSalvar" value="Salvar" action = "#{alterarNotasSemestreAnteriorBean.atualizaMedia()}"/>
-				 <!--  <rich:componentControl for="panel" attachTo="botaoSalvar"
-									operation="show" event="onclick" />
-						-->			
-				<!-- MODAL COMECANCO AQUI -->
-				
-				<rich:modalPanel id="panel" width="350" height="100">
-				<f:facet name="header">
-					<h:panelGroup>
-						<h:outputText value="Confirmação"></h:outputText>
-					</h:panelGroup>
-				</f:facet>
-				<f:facet name="controls">
-					<h:panelGroup>
-						<h:graphicImage value="/img/del.png" styleClass="hidelink"
-							id="hidelink" />
-						<rich:componentControl for="panel" attachTo="hidelink"
-							operation="hide" event="onclick" />
-					</h:panelGroup>
-				</f:facet>
 
-				<h:outputText
-					value="Tem certeza que deseja alterar a média do Aluno?"></h:outputText>
-				<br />
-				<div class="actionButtons"><a4j:commandButton id="botaoaltera"
-					value="Alterar" type="submit"
+				<a4j:commandButton id="botaoSalvar" value="Salvar"
 					action="#{alterarNotasSemestreAnteriorBean.atualizaMedia()}"
-					operation="hide" event="onclick" ajaxSingle="true"
-					reRender="corpo2">
-					<rich:componentControl for="panel" attachTo="botaoaltera"
-						operation="hide" event="onclick" ajaxSingle="true"
-						reRender="corpo2" />
-				</a4j:commandButton> <a4j:commandButton id="voltar" value="Voltar">
-					<rich:componentControl for="panel" attachTo="voltar"
-						operation="hide" event="onclick" />
-				</a4j:commandButton></div>
+					reRender="trancamneto_total" />
+				<!--  <rich:componentControl for="panel" attachTo="botaoSalvar"
+									operation="show" event="onclick" />
+						-->
+				<!-- MODAL COMECANCO AQUI -->
 
-			</rich:modalPanel>
+				<rich:modalPanel id="panel" width="350" height="100">
+					<f:facet name="header">
+						<h:panelGroup>
+							<h:outputText value="Confirmação"></h:outputText>
+						</h:panelGroup>
+					</f:facet>
+					<f:facet name="controls">
+						<h:panelGroup>
+							<h:graphicImage value="/img/del.png" styleClass="hidelink"
+								id="hidelink" />
+							<rich:componentControl for="panel" attachTo="hidelink"
+								operation="hide" event="onclick" />
+						</h:panelGroup>
+					</f:facet>
+
+					<h:outputText
+						value="Tem certeza que deseja alterar a média do Aluno?"></h:outputText>
+					<br />
+					<div class="actionButtons"><a4j:commandButton
+						id="botaoaltera" value="Alterar" type="submit"
+						action="#{alterarNotasSemestreAnteriorBean.atualizaMedia()}"
+						operation="hide" event="onclick" ajaxSingle="true"
+						reRender="corpo2">
+						<rich:componentControl for="panel" attachTo="botaoaltera"
+							operation="hide" event="onclick" ajaxSingle="true"
+							reRender="corpo2" />
+					</a4j:commandButton> <a4j:commandButton id="voltar" value="Voltar">
+						<rich:componentControl for="panel" attachTo="voltar"
+							operation="hide" event="onclick" />
+					</a4j:commandButton></div>
+
+				</rich:modalPanel>
 
 				<!-- MODAL TERMINANDO AQUI -->
-			</h:form>
-		</div>
+			</h:form></div>
+		</rich:panel>
 	</rich:panel>
-</rich:panel>
 </ui:composition>

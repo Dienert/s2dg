@@ -45,13 +45,13 @@ public class AlterarNotasSemestreAnteriorBean implements Serializable{
 		}
 	}
 	
-	public String atualizaMedia(){
+	public void atualizaMedia(){
 		for(AlunoTurma alunoT : alunoTurmas)
 			fachada.atualizaAlunoTurma(checaValoresDoAlunoTurma(alunoT));
 		
 		MenuAction.setId_MenuProfessor(2);
 		
-		return "/home.seam";
+		//return "/home.seam";
 	}
 	
 	public void setTurmasPorDisciplina(List<DisciplinaTurmas> turmasPorDisciplina) {
