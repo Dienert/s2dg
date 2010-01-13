@@ -36,8 +36,8 @@
 						<rich:inputNumberSpinner minValue="1" cycled="false" value="#{avaliacaoBean.avaliacao.peso}" />
 					</td>
 					<td>
-						<a4j:commandButton type="submit" rendered="#{not avaliacaoBean.criarOuEditar}"
-							reRender="criar_avaliacao, tabela_avaliacoes, organizerxxxxx" value="Atualizar"
+						<h:commandButton type="submit" rendered="#{not avaliacaoBean.criarOuEditar}"
+							reRender="criar_avaliacao, tabela_avaliacoes, organizer" value="Atualizar"
 							action="#{avaliacaoBean.atualizarAvaliacao}" />
 					</td>
 				</tr>
