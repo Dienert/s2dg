@@ -21,6 +21,7 @@ import org.ufpb.s2dg.entity.AlunoTurma.Situacao;
 import org.ufpb.s2dg.session.Fachada;
 import org.ufpb.s2dg.session.util.MenuAction;
 import org.ufpb.s2dg.session.util.PDFAction;
+import org.ufpb.s2dg.session.util.TrancamentoBean;
 import org.ufpb.s2dg.session.beans.MatriculaBean;
 
 @Name("alunoTurmaBean")
@@ -48,6 +49,9 @@ public class AlunoTurmaBean implements Serializable{
 	//TODO Clodoaldo: isso pode ser perigoso, caso der pau, checar!
 	@In
 	MatriculaBean matriculaBean;
+	
+	@In
+	TrancamentoBean trancamentoBean;
 	
 	@In
 	PDFAction pdfAction;
@@ -85,7 +89,8 @@ public class AlunoTurmaBean implements Serializable{
 	public String trancamentoParcial(){
 		alunoTurma.setSituacao(Situacao.TRANCADO);
 		fachada.trancamentoParcial(alunoTurma);
-		gerarPDFTrancamentoParcial();
+		MenuAction.setId_MenuAluno(7);
+		trancamentoBean.setRequiredBoxParcial(false);
 		return "/home.seam";
 	}
 	

@@ -26,7 +26,8 @@ public class MenuAction implements Serializable {
 							 	"/paginahistorico.xhtml", 
 							 	"/paginahorario.xhtml",
 							 	"/trancamento_total.xhtml",
-							 	"/bem_vindo.xhtml"};
+							 	"/bem_vindo.xhtml",
+							 	"/confirma_trancamento_parcial.xhtml"};
 	//Menu Docente
 	public int Id_Menu2 = 4;
 
@@ -54,6 +55,10 @@ public class MenuAction implements Serializable {
 			this.Id_Menu = idMenu;
 			this.Id_Menu2 = 0;
 		}
+	}
+	
+	public void setId_MenuAluno(int idMenu){
+		this.Id_Menu = idMenu;
 	}
 	
 	public void setId_MenuProfessor(int idMenu){
