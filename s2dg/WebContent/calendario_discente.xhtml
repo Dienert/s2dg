@@ -41,7 +41,7 @@
 	<rich:modalPanel id="panel" width="640" height="480" onload="#{calendarAlunoDataModel.getData}" resizeable="false">
         <f:facet name="header">
 			<h:panelGroup>
-        		<h:outputText value="Gerenciar Dia - #{calendarBean.dataSelecionada()}"></h:outputText>
+        		<h:outputText value="Gerenciar Dia - #{calendarAlunoBean.dataSelecionada()}"></h:outputText>
         	</h:panelGroup>
         </f:facet>
         <f:facet name="controls">
@@ -54,14 +54,12 @@
         	<rich:tabPanel switchType="client">
 				<rich:tab label="Gerenciamento de Aulas">	
 				<center>
-					Plano de Aula
-					<br />					
-					<h:outputText id="editorPlano" value="#{calendarAlunoBean.eventoCalendarioTurmaSelecionado.planejamento}" 
-								  style="width:80%; height:100px"/>
-					<br/><br/><br/>
+					Plano de Aula<br />		
+					<h:inputTextarea id="editorPlano" value="#{calendarAlunoBean.eventoCalendarioTurmaSelecionado.planejamento}" 
+									 style="width:80%; height:100px" readonly="true"/><br/><br/><br/>	
 					Conteúdo Lecionado <br />	
-					<h:outputText value="#{calendarAlunoBean.eventoCalendarioTurmaSelecionado.execucao}"
-									style="width:80%; height:100px"/><br/>		
+					<h:inputTextarea value="#{calendarAlunoBean.eventoCalendarioTurmaSelecionado.execucao}"
+  									 style="width:80%; height:100px" readonly="true"/><br/>										 
             	</center>  				
 				</rich:tab>
 				<rich:tab label="Gerenciamento de Presencas">	
