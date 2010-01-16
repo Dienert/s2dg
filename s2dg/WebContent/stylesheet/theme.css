@@ -196,9 +196,13 @@ a img {
 	border: none;
 }
 
-a:ACTIVE,a:HOVER,a:VISITED,a:LINK {
+a:ACTIVE,a:VISITED,a:LINK {
 	color: black;
 	text-decoration: none;
+}
+
+a:HOVER{
+	color: blue;
 }
 
 h1 {
