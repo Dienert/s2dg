@@ -227,7 +227,19 @@ public class TurmaBean implements Serializable{
 		return planejamentos;
 	}
 	
-	public void importartPlanejamentoAulas(List<String> planejamentos){
+	public void importarPlanejamento() {
+		//TODO Concluir método!!
+		ArrayList<String> planejamentos = new ArrayList<String>();
+		//Criar método na fachada para pegar do periodo anterior
+		List<EventoCalendarioTurma> eventosCalendarioTurma = turma.getEventosCalendarioTurma();
+		setPlanejamentos(planejamentos);	
+		
+		String time = TimestampBean.getHour();
+		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO,time+" - Planejamento importado com sucesso.",null);
+		facesContext.addMessage("corpo2",facesMessage);
+	}
+	
+	public void setPlanejamentos(List<String> planejamentos){
 		Iterator<EventoCalendarioTurma> eventosCalendarioTurma = turma.getEventosCalendarioTurma().iterator();
 		
 		for(int i = 0; i < planejamentos.size() && eventosCalendarioTurma.hasNext(); i++)
