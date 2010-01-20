@@ -18,7 +18,7 @@
 	<center>
     <h:form id="form_calendario_discente">
         <rich:messages/>
-        <a4j:jsFunction name="ajaxSubmit1" oncomplete="#{rich:component('panel')}.show()" reRender="panel" />
+        <a4j:jsFunction name="ajaxSubmit1" oncomplete="#{rich:component('panel')}.show()" reRender="panel,organizer_discente" />
         <rich:calendar value="#{calendarAlunoBean.selectedDate}"
             popup="false" showApplyButton="false" 
             cellWidth="100px" cellHeight="100px" 
