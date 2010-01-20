@@ -218,32 +218,40 @@ public class TurmaBean implements Serializable{
 	}
 	
 	public List<String> exportarPlanejamentoAulas(){
-		ArrayList<String> planejamentos = new ArrayList<String>();
-		List<EventoCalendarioTurma> eventosCalendarioTurma = turma.getEventosCalendarioTurma();
-		
-		for(EventoCalendarioTurma eventoCalendarioTurma : eventosCalendarioTurma)
-			planejamentos.add(eventoCalendarioTurma.getPlanejamento());
-		
-		return planejamentos;
+		return turma.exportarPlanejamentoAulas();
 	}
 	
 	public void importarPlanejamento() {
-		//TODO Concluir método!!
-		ArrayList<String> planejamentos = new ArrayList<String>();
-		//Criar método na fachada para pegar do periodo anterior
-		List<EventoCalendarioTurma> eventosCalendarioTurma = turma.getEventosCalendarioTurma();
-		setPlanejamentos(planejamentos);	
+		/*
+		 * 1) Pegar mesma turma selecionada mas do periodo anterior
+		 * 2) ExportarPlanejamento da turma pega do banco
+		 * 3) SetarPlanejamento exportado da turma do periodo anterior na turma atual
+		 */
+		
+		Turma turmaPeriodoAnterior = getTurmaPeriodoAnterior();
+		
+		if(turmaPeriodoAnterior == null){
+			String time = TimestampBean.getHour();
+			FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO,time+" - Não existe essa turma no período anterior.",null);
+			facesContext.addMessage("corpo2",facesMessage);
+			return;
+		}
+		
+		List<String> planejamentos = turmaPeriodoAnterior.exportarPlanejamentoAulas();
+		turma.setPlanejamentos(planejamentos);
 		
 		String time = TimestampBean.getHour();
 		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO,time+" - Planejamento importado com sucesso.",null);
 		facesContext.addMessage("corpo2",facesMessage);
 	}
 	
+	private Turma getTurmaPeriodoAnterior() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	public void setPlanejamentos(List<String> planejamentos){
-		Iterator<EventoCalendarioTurma> eventosCalendarioTurma = turma.getEventosCalendarioTurma().iterator();
-		
-		for(int i = 0; i < planejamentos.size() && eventosCalendarioTurma.hasNext(); i++)
-			eventosCalendarioTurma.next().setPlanejamento(planejamentos.get(i));
+		turma.setPlanejamentos(planejamentos);
 	}
 	
 	public void atribuirPresencaAlunoEventoCalendarioTurma(long idEventoCalendarioTurma, Aluno aluno, boolean presenca){

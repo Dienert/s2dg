@@ -1,6 +1,8 @@
 package org.ufpb.s2dg.entity;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -203,6 +205,23 @@ public class Turma implements java.io.Serializable {
 	public void setEventosCalendarioTurma(
 			List<EventoCalendarioTurma> eventoCalendarioTurma) {		
 		this.eventosCalendarioTurma = eventoCalendarioTurma;
+	}
+	
+	public List<String> exportarPlanejamentoAulas(){
+		ArrayList<String> planejamentos = new ArrayList<String>();
+		List<EventoCalendarioTurma> eventosCalendarioTurma = getEventosCalendarioTurma();
+		
+		for(EventoCalendarioTurma eventoCalendarioTurma : eventosCalendarioTurma)
+			planejamentos.add(eventoCalendarioTurma.getPlanejamento());
+		
+		return planejamentos;
+	}
+	
+	public void setPlanejamentos(List<String> planejamentos){
+		Iterator<EventoCalendarioTurma> eventosCalendarioTurma = getEventosCalendarioTurma().iterator();
+		
+		for(int i = 0; i < planejamentos.size() && eventosCalendarioTurma.hasNext(); i++)
+			eventosCalendarioTurma.next().setPlanejamento(planejamentos.get(i));
 	}
 	
 }

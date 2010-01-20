@@ -6,48 +6,48 @@
 	xmlns:rich="http://richfaces.org/rich"
 	xmlns:a4j="http://richfaces.org/a4j"
 	xmlns:s="http://jboss.com/products/seam/taglib">
-<a4j:outputPanel id="importarPlanejamentoPanel" ajaxRendered="true">	
-	<h:form id="form_importar_planejamento">
-		<h:message for="corpo2" infoClass="info" warnClass="warn" errorClass="error" fatalClass="fatal" />
-		<center>
-			<h:outputText style="font-style: italic;" value="Professor(a), você pode importar o planejamento de aulas do semestre anterior.
+	<a4j:outputPanel id="importarPlanejamentoPanel" >
+		<h:form id="form_importar_planejamento">
+			<h:message for="corpo2" infoClass="info" warnClass="warn"
+				errorClass="error" fatalClass="fatal" />
+			<center><h:outputText style="font-style: italic;"
+				value="Professor(a), você pode importar o planejamento de aulas do semestre anterior.
 							   						         Clicando em 'Importar Planejamento', o planejamento de cada aula do semestre anterior será transferido para o período atual.">
-			</h:outputText>
+			</h:outputText> <br />
+			<h:outputText style="font-style: italic;"
+				value="Atenção! O Processo irreversível.">
+			</h:outputText> <br />
 			<br />
-			<h:outputText style="font-style: italic;" value="Atenção! O Processo irreversível.">
-			</h:outputText>
-			<br/>
-			<br/>
-			<a4j:commandButton id="botao_importar" value="Importar Planejamento" 							  
-							   style="FONT-WEIGHT: bold; width : 200px; height : 29px;"
-							   reRender="planoDeCurso">
-				<rich:componentControl for="importarPlanejamentoModalPanel" attachTo="botao_importar" operation="show" event="onclick"/>
-		    </a4j:commandButton>						
-		</center>		
-	</h:form>
-	
-	<rich:modalPanel id="importarPlanejamentoModalPanel" width="250" height="120" zindex="2000" moveable="false">
-		<f:facet name="header">
-			<h:panelGroup>
-				<h:outputText value="Atenção!" />
-			</h:panelGroup>
-		</f:facet>
-		<center>
-			<s:div id="divImportarPlanejamento">
-				<h:outputText value="Tem certeza que deseja Importar o planejamento do semestre anterior?" />				
-			</s:div>
-			<br />
+			<a4j:commandButton id="botao_importar" value="Importar Planejamento"
+				style="FONT-WEIGHT: bold; width : 200px; height : 29px;">
+				<rich:componentControl for="importarPlanejamentoModalPanel"
+					attachTo="botao_importar" operation="show" event="onclick" />
+			</a4j:commandButton></center>
+		</h:form>
+
+		<rich:modalPanel id="importarPlanejamentoModalPanel" width="250"
+			height="120" zindex="2000" moveable="false">
+			<f:facet name="header">
+				<h:panelGroup>
+					<h:outputText value="Atenção!" />
+				</h:panelGroup>
+			</f:facet>
+			<center><s:div id="divImportarPlanejamento">
+				<h:outputText
+					value="Tem certeza que deseja Importar o planejamento do semestre anterior?" />
+			</s:div> <br />
 			<h:form>
 				<a4j:commandButton id="sim_planejamento"
-								   action="#{turmaBean.importarPlanejamento()}" limitToList="true"
-								   value="Sim" reRender="form_importar_planejamento">
-					<rich:componentControl for="importarPlanejamentoModalPanel" attachTo="sim_planejamento" operation="hide" event="onclick" />
+					action="#{turmaBean.importarPlanejamento()}" limitToList="true"
+					value="Sim" reRender="form_importar_planejamento">
+					<rich:componentControl for="importarPlanejamentoModalPanel"
+						attachTo="sim_planejamento" operation="hide" event="onclick" />
 				</a4j:commandButton>
 				<a4j:commandButton id="nao_planejamento" value="Não">
-					<rich:componentControl for="importarPlanejamentoModalPanel" attachTo="nao_planejamento" operation="hide" event="onclick" />
+					<rich:componentControl for="importarPlanejamentoModalPanel"
+						attachTo="nao_planejamento" operation="hide" event="onclick" />
 				</a4j:commandButton>
-			</h:form>			
-		</center>
-	</rich:modalPanel>
-</a4j:outputPanel>	
-</ui:composition>	
+			</h:form></center>
+		</rich:modalPanel>
+	</a4j:outputPanel>
+</ui:composition>
