@@ -661,4 +661,8 @@ public class Fachada implements Serializable {
 		avaliacaoDAO.atualiza(avaliacao);
 		
 	}
+	
+	public Turma getTurmaPeriodoAnterior(Disciplina disciplina, Periodo periodo, String numero) {
+		return turmaDAO.getTurmaPeriodoAnterior(disciplina, periodo, numero);
+	}
 }

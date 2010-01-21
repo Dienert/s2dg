@@ -89,4 +89,16 @@ public class TurmaDAO {
 			return list;
 		return null;
 	}
+	
+	@SuppressWarnings("unchecked")
+	public Turma getTurmaPeriodoAnterior(Disciplina d, Periodo p, String n) {
+		Query q = entityManager.createQuery("select t from Turma as t where t.disciplina = :disciplina and t.periodo = :periodo and t.numero = :numero")
+		.setParameter("disciplina", d)
+		.setParameter("periodo",p)
+		.setParameter("numero",n);
+		List<Turma> list = q.getResultList();
+		if(list.size() > 0)
+			return list.get(0);
+		return null;
+	}
 }

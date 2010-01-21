@@ -26,8 +26,10 @@ import org.ufpb.s2dg.entity.AlunoPresenca;
 import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.Calendario;
 import org.ufpb.s2dg.entity.Centro;
+import org.ufpb.s2dg.entity.Disciplina;
 import org.ufpb.s2dg.entity.EventoCalendarioTurma;
 import org.ufpb.s2dg.entity.Horario;
+import org.ufpb.s2dg.entity.Periodo;
 import org.ufpb.s2dg.entity.Professor;
 import org.ufpb.s2dg.entity.Turma;
 import org.ufpb.s2dg.session.Fachada;
@@ -243,10 +245,16 @@ public class TurmaBean implements Serializable{
 		String time = TimestampBean.getHour();
 		FacesMessage facesMessage = new FacesMessage(FacesMessage.SEVERITY_INFO,time+" - Planejamento importado com sucesso.",null);
 		facesContext.addMessage("corpo2",facesMessage);
+		fachada.persiteTurma(turma);
 	}
 	
 	private Turma getTurmaPeriodoAnterior() {
-		return null;
+		Disciplina disciplina = turma.getDisciplina();
+		Centro centro = fachada.getUsuario().getProfessor().getDepartamento().getCentro();
+		Periodo periodo = fachada.getPeriodoAnterior(centro);
+		String numero = turma.getNumero();
+	
+		return fachada.getTurmaPeriodoAnterior(disciplina, periodo, numero);
 	}
 
 	public void setPlanejamentos(List<String> planejamentos){
