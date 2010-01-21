@@ -94,8 +94,8 @@ public class Curriculo implements Serializable {
 	public void setAlunos(Set<Aluno> alunos) {
 		this.alunos = alunos;
 	}
-	
-	@ManyToOne(fetch = FetchType.EAGER, cascade= {CascadeType.ALL})
+
+	@ManyToOne(fetch = FetchType.LAZY, cascade= {CascadeType.ALL})
 	@JoinColumn(name = "id_curso")
 	public Curso getCurso() {
 		return curso;

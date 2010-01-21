@@ -17,7 +17,6 @@ import org.ufpb.s2dg.entity.AlunoTurma;
 import org.ufpb.s2dg.entity.Disciplina;
 import org.ufpb.s2dg.entity.Horario;
 import org.ufpb.s2dg.entity.Turma;
-import org.ufpb.s2dg.entity.Usuario;
 import org.ufpb.s2dg.entity.AlunoTurma.Situacao;
 import org.ufpb.s2dg.session.Fachada;
 import org.ufpb.s2dg.session.util.MenuAction;
@@ -148,11 +147,10 @@ public class AlunoTurmaBean implements Serializable{
 		mapas.add(mapa);
 		
 		HashMap<String, String> dadosAluno = new HashMap<String, String>();
-		Usuario usuario = fachada.getUsuario();
-		dadosAluno.put("NomeAluno", usuario.getNome());
-		dadosAluno.put("MatriculaAluno", usuario.getAluno().getMatricula());
-		dadosAluno.put("CursoAluno", "" + usuario.getAluno().getCurriculo().getCurso().getNome());
-		dadosAluno.put("CurriculoAluno", "" + usuario.getAluno().getCurriculo().getNumero());
+		dadosAluno.put("NomeAluno", fachada.getUsuario().getNome());
+		dadosAluno.put("MatriculaAluno", fachada.getUsuario().getAluno().getMatricula());
+		dadosAluno.put("CursoAluno", "" + fachada.getUsuario().getAluno().getCurriculo().getCurso().getNome());
+		dadosAluno.put("CurriculoAluno", "" + fachada.getUsuario().getAluno().getCurriculo().getNumero());
 		
 		pdfAction.geraPdfTranca("Comprovante_Trancamento", mapas, dadosAluno);
 	}
