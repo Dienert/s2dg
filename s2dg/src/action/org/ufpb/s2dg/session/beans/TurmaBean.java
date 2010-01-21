@@ -246,7 +246,6 @@ public class TurmaBean implements Serializable{
 	}
 	
 	private Turma getTurmaPeriodoAnterior() {
-		// TODO Auto-generated method stub
 		return null;
 	}
 
