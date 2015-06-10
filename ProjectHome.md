@@ -1,0 +1,1 @@
+Projeto da Disciplina Engenharia de Software da Graduação em Ciências da Computação da Universidade Federal da Paraíba - Iniciado no Período 2009.1 e continuado agora no Período 2009.2, corresponde a um novo Sistema de Controle Acadêmico para a UFPB, envolvendo matrículas e afins dos discentes e acompanhamento de disciplinas pelos docentes.
